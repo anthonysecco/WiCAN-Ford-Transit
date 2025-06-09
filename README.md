@@ -303,3 +303,23 @@ Subnmit an issue if you have a request.  Provide the PID (Hex).
 | 22024B    | Aux Switch 2 State     | `binary_sensor` | As above |
 | 22024C    | Aux Switch 3 State     | `binary_sensor` | As above |
 | 22024D    | Aux Switch 4 State     | `binary_sensor` | As above |
+
+
+### Telematrics Control Unit
+
+| PID (Hex) | Description                         | Type             | Home Assistant Use                                |
+|-----------|-------------------------------------|------------------|---------------------------------------------------|
+| 7540101   | TCU Authorization State             | `sensor` (enum)  | Track FordPass / modem activation status          |
+| 7540102   | TCU Firmware Version                | `sensor` (string)| Diagnostic or update automation                   |
+| 7540103   | Vehicle Location GPS Status         | `binary_sensor`  | Trigger GPS-based logic or alerts                 |
+| 7540104   | Cellular Signal Strength            | `sensor` (dBm)   | Alert on low signal / connectivity loss           |
+| 7540105   | Network Provider Name               | `sensor` (string)| Show active cellular carrier                      |
+| 7540106   | SIM Card Status                     | `binary_sensor`  | Determine whether modem is online                 |
+| 7540107   | Remote Start Commanded              | `binary_sensor`  | Trigger vehicle climate automations               |
+| 7540108   | TCU Connection Active               | `binary_sensor`  | Detect if vehicle is online for remote control    |
+| 7540109   | Emergency Call Enabled              | `binary_sensor`  | Surface emergency system readiness                |
+| 754010A   | Over-the-Air Update Status          | `sensor` (enum)  | Notify if an update is downloading or pending     |
+| 754010B   | Vehicle Wake via Remote             | `binary_sensor`  | Trigger “wake-up” automations (lighting, heating) |
+| 754010C   | Privacy Mode Status                 | `binary_sensor`  | Display if vehicle location sharing is blocked    |
+| 754010D   | Last Known Vehicle Location (Lat)   | `sensor` (float) | Surface location info (if exposed)                |
+| 754010E   | Last Known Vehicle Location (Long)  | `sensor` (float) | Same for longitude                                |
