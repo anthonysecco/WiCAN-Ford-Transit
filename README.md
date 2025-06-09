@@ -11,4 +11,4 @@ This project relies on the [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) to 
 ## Available Sensors
 Ford does not overtly publish the available PIDs on their vehicle.  That said, through forums and through sniffing traffic from OBDII scanners, we can ascertain the PIDs and their formulas.
 
-I am collecting actively collecting potential sensors are putting them in [PIDs](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs).  These are untested and may not be applicable.
+I am collecting actively collecting potential sensors are putting them in [PIDs](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).  These are untested and may not be applicable.
