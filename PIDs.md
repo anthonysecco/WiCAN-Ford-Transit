@@ -1,12 +1,30 @@
 > This repo is under development and is constantly changing.  I do not guarantee the accuracy of the information below.
 
-# WiCAN on the Ford Transit
+# Parameter IDs
 
-I'll add some documentation at some point.  Take a look at the YAML for Home Assistant and the json to load into your WiCAN vehicle profile
+OBD-II PIDs (Parameter IDs) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the On-Board Diagnostics (OBD) port. They’re used by diagnostic tools, scan gauges, and systems like Home Assistant (via CAN integration) to read real-time sensor data.
 
+There's two "Modes" of interest
 
+### Modes
+
+**Mode 1** shows "standard" PIDs as specified by SAE.  This includes common things like speed, RPM etc.
+
+**Mode 22** shows manufacture specific data.  This is where we can get some detailed information about the vehicle.  Manufactures usually standardize around set of code across vehicles.  This means we can take things found on the F-150 or Explorer and apply it to the Transit given simialries in powertrain and modules.
+
+### CAN Bus
+
+The Ford Transit (especially 2020 and newer models) typically includes three main CAN buses, each serving different types of modules based on speed and priority. These buses are part of the vehicle’s network architecture that allows electronic modules to communicate.
+
+| Bus Name    | Type         | Speed    | Purpose / Modules on Bus                                              |
+| ----------- | ------------ | -------- | --------------------------------------------------------------------- |
+| **HS-CAN1** | High-Speed   | 500 kbps | **Powertrain & chassis**: PCM, TCM, ABS, PSCM, RCM                    |
+| **HS-CAN2** | High-Speed   | 500 kbps | **Body & lighting**: BCM, IPC, SJB, HVAC, TPMS, doors                 |
+| **MS-CAN**  | Medium-Speed | 125 kbps | **Convenience & infotainment**: APIM, ACM, FCIM, audio, some lighting |
 
 ## List of Modules
+
+Modules track sensor data and communication on the bus.  The WiCAN Pro module is needed to communicate beyond just HS-CAN1.
 
 | Bus       | Abbreviation | CAN ID (Hex) | Module Name                  | Description                               |
 |-----------|--------------|--------------|------------------------------|-------------------------------------------|
