@@ -4,6 +4,31 @@
 
 I'll add some documentation at some point.  Take a look at the YAML for Home Assistant and the json to load into your WiCAN vehicle profile
 
+
+
+## List of Modules
+
+| Module Name                     | Abbreviation | CAN ID (Hex) | Description |
+|--------------------------------|--------------|--------------|-------------|
+| Powertrain Control Module      | PCM          | 7E0          | Engine control, fuel, emissions |
+| Transmission Control Module    | TCM          | 7E1          | Transmission shifting and temp |
+| Body Control Module            | BCM          | 726          | Doors, lighting, TPMS, HVAC |
+| Instrument Panel Cluster       | IPC          | 720          | Gauges, trip data, warnings |
+| Anti-lock Brake System         | ABS          | 760          | Wheel speeds, brake pressure |
+| Power Steering Control Module  | PSCM         | 730          | Electric power steering data |
+| Restraint Control Module       | RCM          | 737          | Airbags, crash sensors |
+| Accessory Protocol Interface   | APIM         | 7D0          | SYNC 3/4 infotainment system |
+| Audio Control Module           | ACM          | 7D1          | Audio system control (if separate from APIM) |
+| All-Wheel Drive Module         | AWDM         | 7E2 (varies) | Torque split, clutch duty, AWD lock |
+| Battery Monitoring System      | BMS          | 726 or 7E2   | Battery state, current, voltage |
+| Heating, Ventilation, A/C      | HVAC         | 726          | Fan speed, A/C request, cabin temp |
+| Trailer Brake Control Module   | TBCM         | 745          | Electric trailer brake interface |
+| Door Control Modules (LF/RF)   | DDM / PDM    | 742 / 743    | Mirror and window controls |
+| Telematics Control Unit        | TCU          | 7C0          | Remote start, modem, OTA updates |
+| Generic Electronic Module      | GEM          | 726          | Older naming for parts of BCM |
+| Smart Junction Box             | SJB          | 726          | Relay control, fuses, lighting |
+| Tire Pressure Monitoring Sys.  | TPMS         | 726 (Mode 22) or 0x3B3+ | Tire data, often broadcast |
+
 ## PIDs of Interest
 
 The following is not exhaustive, but an indication of PIDs that may be interesting to log in WiCAN.  This little will be consolidated.  
