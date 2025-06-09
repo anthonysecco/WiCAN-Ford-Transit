@@ -24,10 +24,38 @@ Subnmit an issue if you have a request.  Provide the PID (Hex).
 | 7E0    | 22110E    | Barometric Pressure | Estimate elevation |
 | 7E1    | 220407    | Gear Position (PRND) | Trigger cabinet locks and "moving state" |
 
+| PID (Hex) | Description | Type | Home Assistant Use |
+|-----------|-------------|------|---------------------|
+| 220407    | Gear Position (PRND) | `sensor` (enum) | Trigger "driving mode" automations |
+| 22134C    | Transmission Fluid Temperature | `sensor` (°C/°F) | Alert for overheating or trip logging |
+| 220408    | Reverse Gear Status | `binary_sensor` | Auto-switch to rear camera or lights |
+| 220409    | Transmission Overheat Warning | `binary_sensor` | Trigger warnings or disable towing |
+| 22040A    | TCC (Torque Converter Clutch) Lock Status | `binary_sensor` | Detect slippage or active locking |
+| 22040B    | TCM Learning Mode Active | `binary_sensor` | Log transmission relearn events |
+
+#### All-Wheel Drive Module
+
+| PID (Hex) | Description | Type | Home Assistant Use |
+|-----------|-------------|------|---------------------|
+| 221501    | AWD Mode Status | `sensor` (enum: Auto, Lock, Disabled) | Display drive mode in UI |
+| 221502    | Clutch Duty Cycle | `sensor` (%) | Monitor AWD system load or engagement |
+| 221503    | Front Torque Output | `sensor` (Nm) | Estimate front wheel torque |
+| 221504    | Rear Torque Output | `sensor` (Nm) | Rear wheel load balance, road condition detection |
+| 221505    | AWD Overheat Status | `binary_sensor` | Alert on AWD system stress (e.g., trail driving) |
+| 221506    | AWD Fault Status | `binary_sensor` | Warn of system failure or disengagement |
+| 221507    | Wheel Slip Detection | `binary_sensor` | Trigger traction-based alerts or lighting |
+| 221508    | AWD Lock Active | `binary_sensor` | Display "locked" mode or trigger alerts |
+
 ### Body Control Module
 
 | PID (Hex) | Description | Sensor Type | Home Assistant Idea |
 |-----------|-------------|----------------|----------------------|
+| PID (Hex) | Description                 | Type     | Notes                        |
+|-----------|-----------------------------|----------|------------------------------|
+| 22149C    | Tire Pressure FL (Front Left)  | `sensor` | Usually in psi or kPa (x0.25) |
+| 22149D    | Tire Pressure FR (Front Right) | `sensor` |                              |
+| 22149E    | Tire Pressure RL (Rear Left)   | `sensor` |                              |
+| 22149F    | Tire Pressure RR (Rear Right)  | `sensor` |                              |
 | 220203    | Ignition State | `binary_sensor` | Drive start/stop-based automations |
 | 22020F    | Parking Brake Applied | `binary_sensor` | Alert when vehicle is parked |
 | 220204    | Key In Ignition | `binary_sensor` | Alert if key left in ignition while parked |
@@ -50,6 +78,19 @@ Subnmit an issue if you have a request.  Provide the PID (Hex).
 | 220428    | HVAC Mode Control | `sensor` | Airflow direction: panel/floor/defrost etc. |
 | 220429    | HVAC Temperature Setpoint | `sensor` | Target temp for HVAC in °C or °F |
 | 22042A    | HVAC Compressor Status | `binary_sensor` | Whether A/C compressor is active |
+
+| PID (Hex) | Description | Type | Home Assistant Use |
+|-----------|-------------|------|---------------------|
+| 220701    | ABS Active Status | `binary_sensor` | Detect active braking interventions (e.g., icy roads) |
+| 220702    | Traction Control Active | `binary_sensor` | Alert when slipping/skidding occurs |
+| 220703    | Brake Pressure Applied | `sensor` (bar/psi) | Estimate braking force, trigger alerts or logging |
+| 220704    | Wheel Speed FL | `sensor` (km/h or mph) | Per-wheel speed monitoring (front left) |
+| 220705    | Wheel Speed FR | `sensor` | For traction/skid detection |
+| 220706    | Wheel Speed RL | `sensor` | Rear left speed |
+| 220707    | Wheel Speed RR | `sensor` | Rear right speed |
+| 220708    | Yaw Rate | `sensor` (°/s) | Detect swerving or sudden lane changes |
+| 220709    | ABS Fault Light Status | `binary_sensor` | Alert on critical braking system faults |
+| 22070A    | Stability Control Disabled (Manual) | `binary_sensor` | Track if user disabled ESC system |
 
 #### Instrument Panel Cluster
 
@@ -93,24 +134,3 @@ Some of these are redundant and may be removed.
 | 220104    | Source Selection | `sensor` (enum) | Detect if USB, Bluetooth, Radio, etc. is active |
 | 22010F    | Bluetooth Connected Device | `sensor` (string) | Display connected device name |
 | 220106    | Reverse Camera Active                | `binary_sensor`      | Trigger rear camera display |
-
-#### All-Wheel Drive Module
-
-| PID (Hex) | Description | Type | Home Assistant Use |
-|-----------|-------------|------|---------------------|
-| 221501    | AWD Mode Status | `sensor` (enum: Auto, Lock, Disabled) | Display drive mode in UI |
-| 221502    | Clutch Duty Cycle | `sensor` (%) | Monitor AWD system load or engagement |
-| 221503    | Front Torque Output | `sensor` (Nm) | Estimate front wheel torque |
-| 221504    | Rear Torque Output | `sensor` (Nm) | Rear wheel load balance, road condition detection |
-| 221505    | AWD Overheat Status | `binary_sensor` | Alert on AWD system stress (e.g., trail driving) |
-| 221506    | AWD Fault Status | `binary_sensor` | Warn of system failure or disengagement |
-| 221507    | Wheel Slip Detection | `binary_sensor` | Trigger traction-based alerts or lighting |
-| 221508    | AWD Lock Active | `binary_sensor` | Display "locked" mode or trigger alerts |
-
-
-| 760    | 220701    | ABS Active Status | Detect road conditions or unsafe braking events |
-| 760    | 220702    | Traction Control Active | Alert if slippery conditions are detected |
-
-| 730    | 220801    | Steering Wheel Angle | Adjust display orientation or detect tight turns |
-| 730    | 220901    | Yaw Rate Sensor | Alert on sudden swerving (security or rollover prevention) |
-
