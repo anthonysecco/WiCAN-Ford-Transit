@@ -342,3 +342,6 @@ Subnmit an issue if you have a request.  Provide the PID (Hex).
 | 754010C   | Privacy Mode Status                 | `binary_sensor`  | Display if vehicle location sharing is blocked    |
 | 754010D   | Last Known Vehicle Location (Lat)   | `sensor` (float) | Surface location info (if exposed)                |
 | 754010E   | Last Known Vehicle Location (Long)  | `sensor` (float) | Same for longitude                                |
+
+
+# Future Ideas
