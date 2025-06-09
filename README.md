@@ -60,16 +60,24 @@ Subnmit an issue if you have a request.  Provide the PID (Hex).
 
 #### All-Wheel Drive Module
 
-| PID (Hex) | Description | Type | Home Assistant Use |
-|-----------|-------------|------|---------------------|
-| 221501    | AWD Mode Status | `sensor` (enum: Auto, Lock, Disabled) | Display drive mode in UI |
-| 221502    | Clutch Duty Cycle | `sensor` (%) | Monitor AWD system load or engagement |
-| 221503    | Front Torque Output | `sensor` (Nm) | Estimate front wheel torque |
-| 221504    | Rear Torque Output | `sensor` (Nm) | Rear wheel load balance, road condition detection |
-| 221505    | AWD Overheat Status | `binary_sensor` | Alert on AWD system stress (e.g., trail driving) |
-| 221506    | AWD Fault Status | `binary_sensor` | Warn of system failure or disengagement |
-| 221507    | Wheel Slip Detection | `binary_sensor` | Trigger traction-based alerts or lighting |
-| 221508    | AWD Lock Active | `binary_sensor` | Display "locked" mode or trigger alerts |
+| PID (Hex) | Description                          | Type             | Home Assistant Use |
+|-----------|--------------------------------------|------------------|---------------------|
+| 221501    | AWD Mode Status (Auto/Lock/Dis)      | `sensor` (enum)  | Display AWD mode and log changes |
+| 221502    | AWD Clutch Duty Cycle (%)            | `sensor`         | Estimate torque engagement |
+| 221503    | Front Torque Output (Nm)             | `sensor`         | Monitor power distribution to front wheels |
+| 221504    | Rear Torque Output (Nm)              | `sensor`         | Monitor torque to rear wheels |
+| 221505    | AWD Overheat Status                  | `binary_sensor`  | Alert if AWD system overheats |
+| 221506    | AWD Fault Status                     | `binary_sensor`  | Trigger service or diagnostics alerts |
+| 221507    | Wheel Slip Detection                 | `binary_sensor`  | Automate safety features on slip |
+| 221508    | AWD Lock Active                      | `binary_sensor`  | Detect when AWD lock is engaged |
+| 221509    | AWD Off-Road Mode Active             | `binary_sensor`  | Use for off-road automation or logging |
+| 22150A    | AWD Torque Request (Driver Input)    | `sensor`         | For advanced logging / driver behavior |
+| 22150B    | AWD System Temperature               | `sensor` (°C)    | Monitor thermal state for safety |
+| 22150C    | AWD Shaft Speed Front                | `sensor` (RPM)   | Detect traction or wheel sync issues |
+| 22150D    | AWD Shaft Speed Rear                 | `sensor` (RPM)   | Cross-check drive ratios |
+| 22150E    | AWD Clutch Temperature               | `sensor` (°C)    | Thermal monitoring of clutch pack |
+| 22150F    | AWD Torque Gradient Rate             | `sensor`         | Observe torque transition behavior |
+| 221510    | Drive Mode Requested (Surface,Tow)  | `sensor` (enum)  | Automate mode-specific settings |
 
 ### Body Control Module
 
@@ -116,6 +124,18 @@ Subnmit an issue if you have a request.  Provide the PID (Hex).
 | 220708    | Yaw Rate | `sensor` (°/s) | Detect swerving or sudden lane changes |
 | 220709    | ABS Fault Light Status | `binary_sensor` | Alert on critical braking system faults |
 | 22070A    | Stability Control Disabled (Manual) | `binary_sensor` | Track if user disabled ESC system |
+
+#### Audio Control Module
+
+| PID (Hex) | Description                              | Type             | Home Assistant Use |
+|-----------|------------------------------------------|------------------|---------------------|
+| 220101    | Volume Level                              | `sensor` (0–100) | Display and log volume |
+| 220102    | Mute Status                               | `binary_sensor`  | Detect mute state |
+| 220103    | Audio Source                              | `sensor` (enum)  | Identify BT/FM/USB etc. |
+| 220104    | Playback Status                           | `sensor` (enum)  | Playing, Paused, Stopped |
+| 220105    | Track Title                               | `sensor` (string)| Surface current track |
+| 220106    | Artist Name                               | `sensor` (string)| Display artist info |
+| 220107    | Radio Frequency                           | `sensor`         | Show current AM/FM station |
 
 #### Instrument Panel Cluster
 
