@@ -1,52 +1,80 @@
-> This repo is under heavy development.
+> 🚧 **This repo is under heavy development.**
 
 # WiCAN Ford Transit
-This project is intended to expose sensors from OBDII into Home Assistant.  This can be used to create custom dashboard on a tablet while driving or trigger automations.  Initially this project will be **read-only**.  Future versions may provide methods to send commands to the vehicle via OBDII.
 
-> Testing was performed on 2021 Ford Transit AWD 3.5L Ecoboost for North America.
+WiCAN for Ford Transit exposes select OBDII sensor data to Home Assistant. This enables custom dashboards (e.g. on a tablet) and automations while driving. The project is **read-only** for now, with future plans to support sending commands via OBDII.
 
-## How it works
-This project relies on the [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) to interface and translate messages to MQTT.  From there, MQTT YAML configurations makes sensors available to Home Assistant
+> ✅ Tested on a 2021 Ford Transit AWD 3.5L EcoBoost (North America)
 
-## Available Sensors
-There are many data points within the vehicle.  Many are useful for diagnostic purposes for troubleshooting issues.  My intent with WiCAN is not to recreate a diagnostic tool.  Instead I'm only interested in sensors that are useful while driving to trigger actions or provide _high level_ diagnostic that's not _already_ on the gauge cluster.  More data isn't always better.
+---
 
-The major challenge in this project is that Ford does not overtly publish the available PIDs on their vehicle.  Through scraping forums and sniffing the serial interface from OBDII scanner, and a little help with ChatGPT we can ascertain a number of PIDs and their formulas.
+## How It Works
 
-My approach
+This project uses the [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device to read CAN data and publish it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
 
+> This should also work on a WiCAN non-pro as well.
 
+### Quick Start
 
-### Actionable Sensors
-| Module | PID   | Description               | Type           | Home Assistant Use     | Status |
-|--------|-------|---------------------------|----------------|-------------------------|--------|
-| PCM    | TBD   | Gear Selection    | `sensor` (enum)   | Understand vehicle motion | ✅ Working |
-| OBD    | TBD   | Speedometer    | `sensor` (kmph)   | Understand vehicle rate of motion | ✅ Working |
-| PCM    | TBD   | Engine Speed      | `sensor` (rpm)   | Determine engine state on/off | ✅ Working |
-| OBD    | TBD   | Fuel Gauge    | `sensor` (kmph)   | Trigger custom alerts | ✅ Working |
+1. Plug in the WiCAN device
+2. Configure network + MQTT
+3. Add PIDs (standard + Ford Transit profile JSON)
+4. Load MQTT YAML config into Home Assistant
+5. Build your dashboard and automations
 
-### Monitoring Sensors
-| Module | PID   | Description               | Type           | Home Assistant Use     | Status |
-|--------|-------|---------------------------|----------------|-------------------------|--------|
-| PCM    | TBD   | Learned Octane Ratio      | `sensor` (%)   | Understand Fuel Quality | ✅ Working |
-| PCM    | TBD   | Coolant Temp              | `sensor` (°C)  | Monitor overheating     | ✅ Working |
-| PCM    | TBD   | Transmission Fluid Temp   | `sensor` (°C)  | Monitor overheating     | ✅ Working |
-| PCM    | TBD   | Engine Oil Temp           | `sensor` (°C)  | Monitor overheating     | ✅ Working |
-| PCM    | TBD   | Boost Gauge               | `sensor` (kPa) | Turbo performance       | ✅ Working |
-| PCM    | TBD   | Wastegate Open            | `sensor` (%)   | Turbo performance       | ✅ Working |
-| PCM    | TBD   | Oil Life                  | `sensor` (%)   | Gauge & Graph           | ✅ Working |
-| PCM    | TBD   | Torque Reference      | `sensor` (nm)   | Torque Formula          | ✅ Working |
-| PCM    | TBD   | Torque Percent        | `sensor` (%)   | Gauge & Graph           | ✅ Working |
-| PCM    | TBD   | Throttle position     | `sensor` (%)   | Gauge & Graph           | ✅ Working |
+---
 
-| PCM    | TBD   | AFR Command      | `sensor` (nm)   | Understand combustion        | ✅ Working |
-| PCM    | TBD   | AFR Bank 1        | `sensor` (%)   | Understand combustion         | ✅ Working |
-| PCM    | TBD   | AFR Bank 2     | `sensor` (%)   | Understand combustion           | ✅ Working |
+## Available PIDs
 
-## Wishlist Sensors
+WiCAN focuses on **real-time**, **actionable** data useful while driving—not on deep diagnostics already available on the gauge cluster.
 
-- Parking Brake - Found in ABS module, hard to access
+Since Ford does not openly publish proprietary PIDs, this list is based on forum research, serial sniffing of OBDII tools, and some help from ChatGPT.
 
-## Extended List
+The standard SAE PIDs provide a strong base—enough to track engine state and motion. Adding the vehicle profile JSON expands access to gear selection, turbo behavior, and more.
 
-I am collecting actively collecting potential sensors are putting them in [PIDs](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).  These are untested and may be completely made up by ChatGPT so take everything in there with a grain of salt.
+---
+
+### 🎬 Actionable PIDs
+
+| Module | PID | Description    | Type            | Home Assistant Use       | Status    |
+| ------ | --- | -------------- | --------------- | ------------------------ | --------- |
+| OBD    | TBD | Speedometer    | `sensor` (km/h) | Vehicle motion detection | ✅ Working |
+| OBD    | TBD | Engine Speed   | `sensor` (RPM)  | Detect engine state      | ✅ Working |
+| OBD    | TBD | Fuel Gauge     | `sensor` (%)    | Trigger low-fuel alerts  | ✅ Working |
+| OBD    | TBD | Odometer       | `sensor` (km)   | Maintenance alerts       | ✅ Working |
+| PCM    | TBD | Gear Selection | `sensor` (enum) | Driving state awareness  | ✅ Working |
+
+---
+
+### 🔍 Monitoring PIDs
+
+| Module | PID | Description          | Type             | Home Assistant Use       | Status    |
+| ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
+| PCM    | TBD | Learned Octane Ratio | `sensor` (%)     | Fuel quality tracking    | ✅ Working |
+| PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring   | ✅ Working |
+| PCM    | TBD | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring  | ✅ Working |
+| PCM    | TBD | Engine Oil Temp      | `sensor` (°C)    | Oil temp monitoring      | ✅ Working |
+| PCM    | TBD | Boost Gauge          | `sensor` (kPa)   | Turbo performance        | ✅ Working |
+| PCM    | TBD | Wastegate Open       | `sensor` (%)     | Turbo control monitoring | ✅ Working |
+| PCM    | TBD | Oil Life             | `sensor` (%)     | Remaining oil health     | ✅ Working |
+| PCM    | TBD | Torque Reference     | `sensor` (Nm)    | Engine torque value      | ✅ Working |
+| PCM    | TBD | Torque Percent       | `sensor` (%)     | Relative torque load     | ✅ Working |
+| PCM    | TBD | Throttle Position    | `sensor` (%)     | Driver input load        | ✅ Working |
+| PCM    | TBD | AFR Command          | `sensor` (ratio) | Air-Fuel target ratio    | ✅ Working |
+| PCM    | TBD | AFR Bank 1           | `sensor` (ratio) | Actual AFR (bank 1)      | ✅ Working |
+| PCM    | TBD | AFR Bank 2           | `sensor` (ratio) | Actual AFR (bank 2)      | ✅ Working |
+
+---
+
+## 💪 Wishlist PIDs
+
+* **Parking Brake** – `binary_sensor` (ABS module, hard to access)
+* **Open/Closed Loop** – `binary_sensor` (AFR feedback mode)
+
+---
+
+## 📁 Extended PID List
+
+See [`PIDs.md`](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) for experimental and unverified PIDs. These are community-contributed or AI-suggested—**use at your own discretion**.
+
+---
