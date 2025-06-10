@@ -1,4 +1,4 @@
-> 🚧 **This repo is under heavy development.**
+> 🚧 **This repo is under heavy development and is incomplete.**
 
 # WiCAN Ford Transit
 
