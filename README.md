@@ -72,33 +72,45 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 
 | Module | PID | Description    | Type            | Home Assistant Use       | Status    |
 | ------ | --- | -------------- | --------------- | ------------------------ | --------- |
-| OBD    | TBD | Speedometer    | `sensor` (km/h) | Vehicle motion detection | ✅ Working |
-| OBD    | TBD | Engine Speed   | `sensor` (RPM)  | Detect engine state      | ✅ Working |
-| OBD    | TBD | Fuel Gauge     | `sensor` (%)    | Trigger low-fuel alerts  | ✅ Working |
-| OBD    | TBD | Odometer       | `sensor` (km)   | Maintenance alerts       | ✅ Working |
+| OBD    | 010D | Speedometer    | `sensor` (km/h) | Vehicle motion detection | ✅ Working |
+| OBD    | 010C | Engine Speed   | `sensor` (RPM)  | Detect engine state      | ✅ Working |
+| OBD    | 012F | Fuel Gauge     | `sensor` (%)    | Trigger low-fuel alerts  | ✅ Working |
+| OBD    | 01A6 | Odometer       | `sensor` (km)   | Maintenance alerts       | ✅ Working |
 | PCM    | 221E12 | Gear Selection | `sensor` (enum) | Driving state awareness  | ✅ Working |
 
 ---
 
 ### 🔍 Monitoring PIDs
 
+
+#### Engine Performance
 | Module | PID | Description          | Type             | Home Assistant Use       | Status    |
 | ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
-| PCM    | 2203E8| Learned Octane Ratio | `sensor` (%)     | Fuel quality tracking    | ✅ Working |
 | PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring   | 🚧 In Progress |
-| PCM    | 221E1C | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring  | 🚧 In Progress |
 | PCM    | TBD | Engine Oil Temp      | `sensor` (°C)    | Oil temp monitoring      | 🚧 In Progress |
-| PCM    | TBD | Boost Gauge          | `sensor` (kPa)   | Turbo performance        | ✅ Working |
+| PCM    | 221E1C | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring  | ✅ Working |
+| PCM    | 010B | Intake Manifold Abs Pressure | `sensor` (kPa)   | Turbo performance  | ✅ Working |
 | PCM    | 220462 | Wastegate Open       | `sensor` (%)     | Turbo control monitoring | ✅ Working |
 | PCM    | 22054B | Oil Life             | `sensor` (%)     | Remaining oil health     | ✅ Working |
-| PCM    | TBD | Torque Reference     | `sensor` (Nm)    | Engine torque value      | ✅ Working |
-| PCM    | TBD | Torque Percent       | `sensor` (%)     | Relative torque load     | ✅ Working |
-| PCM    | TBD | Throttle Position    | `sensor` (%)     | Driver input load        | ✅ Working |
-| PCM    | TBD | AFR Command          | `sensor` (ratio) | Air-Fuel target ratio    | ✅ Working |
-| PCM    | TBD | AFR Bank 1           | `sensor` (ratio) | Actual AFR (bank 1)      | ✅ Working |
-| PCM    | TBD | AFR Bank 2           | `sensor` (ratio) | Actual AFR (bank 2)      | ✅ Working |
-| PCM    | 22F49D | Fuel Rate          | `sensor` (g/s) | Fuel Economy     | ✅ Working |
-| PCM    | TBD | Driving Mode         | `sensor` (enum) | Gauge & Graph      | 🚧 In Progress |
+| PCM    | 0163 | Torque Reference     | `sensor` (Nm)    | Engine torque value      | ✅ Working |
+| PCM    | 0162 | Torque Percent       | `sensor` (%)     | Relative torque load     | ✅ Working |
+| PCM    | 0111 | Throttle Position    | `sensor` (%)     | Driver input load        | ✅ Working |
+| PCM    | 0144 | AFR Command          | `sensor` (ratio) | Air-Fuel target ratio    | ✅ Working |
+| PCM    | 0134 | AFR Bank 1           | `sensor` (ratio) | Actual AFR (bank 1)      | ✅ Working |
+| PCM    | 0138 | AFR Bank 2           | `sensor` (ratio) | Actual AFR (bank 2)      | ✅ Working |
+
+#### Fuel Economy
+| Module | PID | Description          | Type             | Home Assistant Use       | Status    |
+| ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
+| PCM    | 0104 | Engine load    | `sensor` (%)    | Fuel Advisor     | ✅ Working |
+| PCM    | 22F49D | Fuel Rate          | `sensor` (g/s) | Fuel Advisor    | ✅ Working |
+| PCM    | 2203E8| Learned Octane Ratio | `sensor` (%)     | Fuel Advisor     | ✅ Working |
+| PCM    | TBD | Driving Mode         | `sensor` (enum) | Fuel Advisor      | 🚧 In Progress |
+| PCM    | TBD | Brake On/Off        | `binary_sensor` (On/Off) | Fuel Advisor      | 🚧 In Progress |
+| IPC   | TBD | Distance to E       | `sensor` (km) | Fuel Advisor      | 🚧 In Progress  |
+| IPC   | TBD | Trailing Fuel Economy      | `sensor` (L/100KM) | Fuel Advisor      | 🚧 In Progress  |
+
+There are other standard SAE PIDs, but the ones above I find useful.
 
 ---
 
