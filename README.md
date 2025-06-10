@@ -104,7 +104,7 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 | PCM    | 0104 | Engine load    | `sensor` (%)    | Fuel Advisor     | ✅ Working |
 | PCM    | 22F49D | Fuel Rate          | `sensor` (g/s) | Fuel Advisor    | ✅ Working |
 | PCM    | 2203E8| Learned Octane Ratio | `sensor` (%)     | Fuel Advisor     | ✅ Working |
-| PCM    | TBD | Driving Mode         | `sensor` (enum) | Fuel Advisor      | 🚧 In Progress |
+| PCM    | TBD | Driving Mode         | `sensor` (enum) | Fuel / Off-road Advisor      | 🚧 In Progress |
 | PCM    | TBD | Brake On/Off        | `binary_sensor` (On/Off) | Fuel Advisor      | 🚧 In Progress |
 | IPC   | TBD | Distance to E       | `sensor` (km) | Fuel Advisor      | 🚧 In Progress  |
 | IPC   | TBD | Trailing Fuel Economy      | `sensor` (L/100KM) | Fuel Advisor      | 🚧 In Progress  |
@@ -118,10 +118,13 @@ I haven't found a PID available to WiCAN for these:
 
 * **Parking Brake** – `binary_sensor` (ABS module, hard to access)
 * **Open/Closed Loop** – `binary_sensor` (AFR feedback mode)
+* **Regen Braking** – `binary_sensor` (Smart alternator charging, put on Fuel advisor)
 * **Auxilary Switch States** - `binary_sensor` (Track states of rocker switches for automations)
+* **Battery State of Charge** - `binary_sensor` (display how dead/alive the vehicle battery is in %)
 * **A/C Compressor On/Off States** - `binary_sensor` (Display on fuel advisor)
+* **Turn Signals or blind spot monitors** - `binary_sensor` (trigger vehicle camera to display on corresponding side of the vehicle for lane change)
 
-###Off-Road Useful Sensors
+### 🛻 Off-Road Wishlist
 * **AWD Clutch Duty Cycle** - 'sensor' (Display calculated torque split)
 * **AWD Clutch temperature** - 'sensor' (monitor for overheating)
 * **Tire Pressure** - 'sensor' (Display all tires for off-road advisor)
