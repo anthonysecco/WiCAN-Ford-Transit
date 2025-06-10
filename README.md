@@ -94,9 +94,9 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 | PCM    | 0163 | Torque Reference     | `sensor` (Nm)    | Engine torque value      | ✅ Working |
 | PCM    | 0162 | Torque Percent       | `sensor` (%)     | Relative torque load     | ✅ Working |
 | PCM    | 0111 | Throttle Position    | `sensor` (%)     | Driver input load        | ✅ Working |
-| PCM    | 0144 | AFR Command          | `sensor` (ratio) | Air-Fuel target ratio    | ✅ Working |
-| PCM    | 0134 | AFR Bank 1           | `sensor` (ratio) | Actual AFR (bank 1)      | ✅ Working |
-| PCM    | 0138 | AFR Bank 2           | `sensor` (ratio) | Actual AFR (bank 2)      | ✅ Working |
+| PCM    | 0144 | AFR Command          | `sensor` (%) | Air-Fuel target ratio    | ✅ Working |
+| PCM    | 0134 | AFR Bank 1           | `sensor` (%) | Actual AFR (bank 1)      | ✅ Working |
+| PCM    | 0138 | AFR Bank 2           | `sensor` (%) | Actual AFR (bank 2)      | ✅ Working |
 
 #### Fuel Economy
 | Module | PID | Description          | Type             | Home Assistant Use       | Status    |
@@ -120,7 +120,18 @@ I haven't found a PID available to WiCAN for these:
 * **Open/Closed Loop** – `binary_sensor` (AFR feedback mode)
 * **Auxilary Switch States** - `binary_sensor` (Track states of rocker switches for automations)
 * **A/C Compressor On/Off States** - `binary_sensor` (Display on fuel advisor)
-* **Oil Temperature ** 🛑 Not available, no sensor in vehicle.
+
+###Off-Road Useful Sensors
+* **AWD Clutch Duty Cycle** - 'sensor' (Display calculated torque split)
+* **AWD Clutch temperature** - 'sensor' (monitor for overheating)
+* **Tire Pressure** - 'sensor' (Display all tires for off-road advisor)
+* **Wheel Spin** - 'sensor' (Display wheel spin for all tires)
+* **Traction Contrl Intervention** - 'sensor' (% how much TSC is engaged)
+
+## 🚫 Unavailable
+These are simply not possible using factory hardware
+
+* **Oil Temperature ** - No sensor in vehicle.
 
 ---
 
