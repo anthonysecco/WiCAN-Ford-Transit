@@ -32,17 +32,19 @@ A number of state-related information is availble outside of the OBDII on the Fo
 - Door Ajar (Driver, Passenger, Side, Cargo)
 - Lock / Unlock Commands
 
-I decided not to track door ajar states in WiCAN since these signals are available while the vehicle is off on these signal wires.  For more information visit my repo [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
+Since door states are available on the high-spec connector and available while the vehicle is off, they're **excluded** from this project.
+
+For more information visit my repo [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
 
 ---
 
 ## How It Works
 
-This project uses the [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device to read CAN data and publish it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
+The [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device readsCAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
 
 > This should also work on a WiCAN non-pro as well.
 
-### Quick Start
+### Quick Overview
 
 1. Plug in the WiCAN device
 2. Configure network + MQTT
