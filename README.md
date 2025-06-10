@@ -86,8 +86,8 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 #### Engine Performance
 | Module | PID | Description          | Type             | Home Assistant Use       | Status    |
 | ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
-| PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring   | 🚧 In Progress |
-| PCM    | 221E1C | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring  | ✅ Working |
+| PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring (offroad?)   | 🚧 In Progress |
+| PCM    | 221E1C | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring (offroad?)  | ✅ Working |
 | PCM    | 010B | Intake Manifold Abs Pressure | `sensor` (kPa)   | Turbo performance  | ✅ Working |
 | PCM    | 220462 | Wastegate Open       | `sensor` (%)     | Turbo control monitoring | ✅ Working |
 | PCM    | 22054B | Oil Life             | `sensor` (%)     | Remaining oil health     | ✅ Working |
