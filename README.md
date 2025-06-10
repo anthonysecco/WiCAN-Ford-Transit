@@ -87,7 +87,6 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 | Module | PID | Description          | Type             | Home Assistant Use       | Status    |
 | ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
 | PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring   | 🚧 In Progress |
-| PCM    | TBD | Engine Oil Temp      | `sensor` (°C)    | Oil temp monitoring      | 🚧 In Progress |
 | PCM    | 221E1C | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring  | ✅ Working |
 | PCM    | 010B | Intake Manifold Abs Pressure | `sensor` (kPa)   | Turbo performance  | ✅ Working |
 | PCM    | 220462 | Wastegate Open       | `sensor` (%)     | Turbo control monitoring | ✅ Working |
@@ -120,6 +119,8 @@ I haven't found a PID available to WiCAN for these:
 * **Parking Brake** – `binary_sensor` (ABS module, hard to access)
 * **Open/Closed Loop** – `binary_sensor` (AFR feedback mode)
 * **Auxilary Switch States** - `binary_sensor` (Track states of rocker switches for automations)
+* **A/C Compressor On/Off States** - `binary_sensor` (Display on fuel advisor)
+* **Oil Temperature ** 🛑 Not available, no sensor in vehicle.
 
 ---
 
