@@ -25,7 +25,7 @@ A number of state-related information is availble outside of the OBDII on the Fo
 - Igition On/Off
 - Vehicle Speed Sensor
 
-**High Spec Connector** - This is optional connector located behind the glovebox
+**High Spec Connector** - Optional connector located behind the glovebox
 - Engine On/Off
 - Igition On/Off
 - Vehicle Speed Sensor
