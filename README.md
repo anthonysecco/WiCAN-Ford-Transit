@@ -6,6 +6,34 @@ WiCAN for Ford Transit exposes select OBDII sensor data to Home Assistant. This 
 
 > ✅ Tested on a 2021 Ford Transit AWD 3.5L EcoBoost (North America)
 
+## Project Scope
+While there's plenty of data available via the OBDII port, this project focuses on read-only, real-time, and actionable data that's relevant in an RV.  I do not intend to replace OBDII diagnostic devices available on the market.
+
+The primary reason for this scope is:
+
+1) The WiCAN is only online when the vehicle igition is in the **ON** position.  This limits the number of available use cases.
+2) Much of the information is already available on the vehicle's instrument panel
+3) Ford does not publish their proprietary PIDs, this list is based on forum research, serial sniffing of OBDII tools, and some help from ChatGPT.
+
+Therefore, I've prioritized data that **adds** to what's available on the instrument panel and/or triggers automations within Home Assitant **while the vehicle is on**.
+
+### Non-CAN Signals
+A number of state-related information is availble outside of the OBDII on the Ford Transit.  These have the advantage of being available while the vehicle is off.  
+
+**Auxilary Harness** - Under the driver seat
+- Engine On/Off
+- Igition On/Off
+- Vehicle Speed Sensor
+
+**High Spec Connector** - This is optional connector located behind the glovebox
+- Engine On/Off
+- Igition On/Off
+- Vehicle Speed Sensor
+- Door Ajar (Driver, Passenger, Side, Cargo)
+- Lock / Unlock Commands
+
+I decided not to track door ajar states in WiCAN since these signals are available while the vehicle is off on these signal wires.  For more information visit my repo [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
+
 ---
 
 ## How It Works
@@ -24,18 +52,17 @@ This project uses the [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device t
 
 ---
 
-## Available PIDs
+## PID Background
 
-This project focuses on a subset of available data on the OBDII port.  The criteria for PIDs of interest:
-* Read-only
-* Real-time
-* Actionable
+### Standard PIDs
 
-The WiCAN is only online when the vehicle igition is in the **ON** position.  This limits the number of available use cases.  I've decided not to focus on deep diagnostics or what is already available on the gauge cluster so as not to reinvent the wheel.
-
-Since Ford does not openly publish proprietary PIDs, this list is based on forum research, serial sniffing of OBDII tools, and some help from ChatGPT.
+Standard SAE PIDs (Parameter IDs) are a set of standardized diagnostic codes defined by the SAE J1979 protocol, which allow external diagnostic tools (like OBD-II scanners) to request data from a vehicle’s ECU (Engine Control Unit). These PIDs are used to retrieve real-time sensor data, diagnostic trouble codes (DTCs), and other vehicle information.  J1979 is the standard for OBD-II communication, used widely in North America and supported globally.
 
 The standard SAE PIDs provide a strong base which is enough to track engine state and motion. Adding the vehicle profile JSON expands access to gear selection, turbo behavior, and more.
+
+### Ford-specific PIDs
+
+Every manufacture will have additional PIDs that have detailed vehicle-specific information for each module.  You will see some of these below.
 
 ---
 
@@ -73,11 +100,12 @@ The standard SAE PIDs provide a strong base which is enough to track engine stat
 
 ---
 
-## 💪 Wishlist PIDs
+## 💪 Wishlist
 I haven't found a PID available to WiCAN for these:
 
 * **Parking Brake** – `binary_sensor` (ABS module, hard to access)
 * **Open/Closed Loop** – `binary_sensor` (AFR feedback mode)
+* **Auxilary Switch States** - `binary_sensor` (Track states of rocker switches for automations)
 
 ---
 
