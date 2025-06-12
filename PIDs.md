@@ -67,6 +67,10 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 
 ## All-Wheel Drive Module (AWDM)
 
+On the 2021 Transit AWD the “FAD” prefix refers to the Front Axle Disconnect system (sometimes also called the Front‐Axle Drive clutch). It’s the electro-hydraulic clutch pack that connects or disconnects the front driveshaft when called by the AWDM.
+
+Relevant sensors for monitoring are:
+
 | PID Codename         | Description                                           | Value                        | Units  |
 |----------------------|-------------------------------------------------------|------------------------------|--------|
 | FAD_ACT_STATUS       | Front Axle Disconnect Actuator Status                 | FAD in 4WD - CONNECTED       |        |
@@ -77,44 +81,41 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | TC_TRQ_REQ           | Torque Converter Torque Requested                     | 0                            | lb·ft  |
 | TC_TRQCAP_INF        | 	Torque Converter Torque Capacity (Inferred)          | 0                            | lb·ft  |
 
-On the 2021 Transit AWD the “FAD” prefix refers to the Front Axle Disconnect system (sometimes also called the Front‐Axle Drive clutch). It’s the electro-hydraulic clutch pack that actually connects or disconnects the front driveshaft when the PCM calls for AWD.
-
-### Front-Axle Disconnect Actuator Status  
+#### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
 - **“FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front wheels.  
 - **“FAD in 2WD – DISCONNECTED”** would indicate the front axle is released and you’re in rear-wheel drive only.
 
-### Front-Axle Disconnect Clutch Command  
+#### Front-Axle Disconnect Clutch Command  
 The low-level command sent to the FAD clutch solenoid or motor.  
 - **Command Connect** instructs the module to build hydraulic pressure and engage the clutch pack for AWD.  
 - **Command Disconnect** tells the module to relieve pressure and open the clutch plates, dropping back to 2WD.
 
-### Front-Axle Disconnect Strategy Command  
+#### Front-Axle Disconnect Strategy Command  
 The high-level strategy request from the PCM governing AWD mode.  
 - **Connect Request** signals “go AWD”—the system wants front-axle engagement.  
 - **Disconnect Request** signals “back to RWD”—the system wants the front axle released.  
 - **Modulate** (if supported) requests smooth, partial engagement to meter torque split.
 
-### Front Axle Disconnect Input Duty Cycle  
+#### Front Axle Disconnect Input Duty Cycle  
 The PWM duty-cycle (0–100 %) applied to the disconnect control valve.  
 - **0 %** means no disengage signal (clutch remains engaged).  
 - Higher values ramp open the clutch pack proportionally, allowing controlled slip or full disconnect.
 
-### Torque Converter Clutch Duty-Cycle  
+#### Torque Converter Clutch Duty-Cycle  
 The PWM duty-cycle (0–100 %) applied to the torque-converter clutch solenoid to control lock-up pressure.  
 - **Low duty-cycle** = minimal lock-up (more fluid coupling).  
 - **High duty-cycle** = stronger lock-up (more mechanical coupling, better efficiency).
 
-### Torque Converter Torque Requested  
+#### Torque Converter Torque Requested  
 The engine-to-transmission torque (in lb·ft) that the control logic is asking the torque-converter clutch to carry.  
 - **0 lb·ft** means “no lock-up requested” (the converter is free-spinning).  
 - A nonzero value indicates torque lock-up is commanded for efficiency or traction.
 
-### Torque Converter Torque Capacity (Inferred)  
+#### Torque Converter Torque Capacity (Inferred)  
 The inferred maximum torque capacity (in lb·ft) the current converter pressure can transmit without slipping.  
 - **0 lb·ft** suggests no pressure (no capacity).  
 - As pressure builds, this value rises, indicating how much torque the clutch can hold locked.  
-
 
 ## Body Control Module (BCM)
 
