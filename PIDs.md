@@ -20,6 +20,7 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 |-----------|--------------|--------------|------------------------------|
 | HS-CAN1   | PCM          | 7E0          | Powertrain Control Module    |
 | HS-CAN1   | AWDM         | TBD          | All-Wheel Drive Module  |
+| HS-CAN1   | BCM        | TBD          | Body Control Module  |
 
 # Target PIDs
 
