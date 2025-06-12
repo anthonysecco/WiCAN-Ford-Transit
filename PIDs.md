@@ -83,8 +83,51 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 
 ## Body Control Module (BCM)
 
+| PID                  | Description                                     | Value         | Units |
+|----------------------|-------------------------------------------------|---------------|-------|
+| DOOR_SW_DRVR_BCM     | Driver’s Door Ajar Switch Status                | Closed        |       |
+| DOOR_SW_PSGR_BCM     | Passenger Door Ajar Switch Status               | Closed        |       |
+| HOOD_SW_BCM          | Hood Ajar Switch                                | Closed        |       |
+| DOOR_SW_LR_BCM       | Left Rear Door Ajar Switch                      | Closed        |       |
+| DOOR_SW_RR_BCM       | Right Rear Door Ajar Switch                     | Closed        |       |
+| DOOR_SW_LUGG_BCM     | Luggage Compartment Lid Ajar Switch             | Closed        |       |
+| TPM_WRN_LMP_BCM      | Tire Pressure Monitoring System Indicator       | OFF           |       |
+| TPMS_STATUS_BCM      | Tire Pressure Monitoring System Status          | System Active |       |
+| TPM_MOTION_STAT_BCM  | TPMS Vehicle Motion Status                      | Parked        |       |
+| PLCRD_TP_FRT_BCM     | Front Tire Placard Pressure                     | 116.06        | inHg  |
+| TPM_PRES_LF_BCM      | Left Front Tire Pressure                        | 117.18        | inHg  |
+| TPM_PRES_RF_BCM      | Right Front Tire Pressure                       | 113.11        | inHg  |
+| PLCRD_TP_BCK_BCM     | Rear Tire Placard Pressure                      | 152.71        | inHg  |
+| TPM_PRES_LRO_BCM     | Left Rear Outer Tire Pressure                   | 156.88        | inHg  |
+| TPM_PRES_RRO_BCM     | Right Rear Outer Tire Pressure                  | 151.79        | inHg  |
+| TPM_PRES_LRI_BCM     | Left Rear Inner Tire Pressure                   | 305.42        | inHg  |
+| TPM_PRES_RRI_BCM     | Right Rear Inner Tire Pressure                  | 305.42        | inHg  |
+| BAT_ST_CHRG_BCM      | Vehicle Battery – State of Charge               | 66            | %     |
+| BAT_CURRENT_BCM      | Vehicle Battery – Current                       | 14            | A     |
+| BATTERY_AGE_BCM      | Vehicle Battery – Days in Service               | 1373          |       |
+| LOW_BEAM_LT_BCM      | Left Headlamp Low Beam                          | Inactive      |       |
+| LOW_BEAM_RT_BCM      | Right Headlamp Low Beam                         | Inactive      |       |
+| TRN_SIG_SW_L_BCM     | Turn Signal Left Switch Input Status            | Off           |       |
+| TRN_SIG_SW_R_BCM     | Turn Signal Right Switch Input Status           | Off           |       |
+| HORN_SW_BCM          | Horn Switch                                     | OFF           |       |
+| IGN_SW_STATE_BCM     | Ignition Switch State                           | Run           |       |
 
+## Accessory Protocol Interface Module (APIM)
 
+| PID                    | Description                                                                  | Value       | Units |
+|------------------------|------------------------------------------------------------------------------|-------------|-------|
+| APIM_ASC_F111_PID      | APIM_ASC_F111_PID                                                            | 0           |       |
+| APIM_ASC_F113_PID      | APIM_ASC_F113_PID                                                            | 1280652628  |       |
+| AUDIO_SRC_FD52         | AUDIO_SRC_FD52                                                               | FM1         |       |
+| BT_CONN                | Bluetooth Device Connected                                                   | Yes         |       |
+| BT_PAIR                | Bluetooth Device Paired                                                      | Yes         |       |
+| APIM_SED_8033_PID      | ECU Status                                                                   | 0           |       |
+| GEAR_DISPLAY_APIM      | Gear Display                                                                 | Park Position |     |
+| GPS_LATITUDE_APIM      | Global position latitude                                                     | 2239        |       |
+| GPS_LONGITUDE_APIM     | Global position longitude                                                    | –7316       |       |
+| GPS_ALTITUDE_APIM      | GPS Altitude                                                                 | 78.74       | ft    |
+| GPS_HEADING_APIM       | GPS Heading                                                                  | 11          | deg   |
+| GPS_SPEED_APIM         | GPS Speed                                                                    | 0           | MPH   |
 
 ----
 
@@ -366,8 +409,49 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | BAT_TEMP_BCM          | Vehicle Battery – Estimated Temperature                         | 73.4       | °F    |
 | BAT_ST_CHRG_BCM       | Vehicle Battery – State of Charge                              | 66         | %     |
 
+## Accessory Protocol Interface Module (APIM)
 
-
+| PID                    | Description                                                                  | Value       | Units |
+|------------------------|------------------------------------------------------------------------------|-------------|-------|
+| APIM_ASC_F111_PID      | APIM_ASC_F111_PID                                                            | 0           |       |
+| APIM_ASC_F113_PID      | APIM_ASC_F113_PID                                                            | 1280652628  |       |
+| AUDIO_SRC_FD52         | AUDIO_SRC_FD52                                                               | FM1         |       |
+| BAT_MOD_APIM           | Battery Module Voltage                                                       | 14.4        | V     |
+| BT_CONN                | Bluetooth Device Connected                                                   | Yes         |       |
+| BT_PAIR                | Bluetooth Device Paired                                                      | Yes         |       |
+| APIM_M_P               | ECU Mono Primary Source                                                      | Inactive    |       |
+| APIM_P_C               | ECU Phone Call                                                               | Inactive    |       |
+| APIM_S_P               | ECU Stereo Primary Source                                                    | Active      |       |
+| APIM_S_S               | ECU Stereo Secondary Source                                                  | Inactive    |       |
+| USBDEVICE1             | USBDEVICE1                                                                   | Yes         |       |
+| USBDEVICE2             | USBDEVICE2                                                                   | No          |       |
+| APIM_State             | ECU Operating States                                                         | Default     |       |
+| APIM_SED_8033_PID      | ECU Status                                                                   | 0           |       |
+| GEAR_DISPLAY_APIM      | Gear Display                                                                 | Park Position |     |
+| GPS_LATITUDE_APIM      | Global position latitude                                                     | 2239        |       |
+| GPS_LONGITUDE_APIM     | Global position longitude                                                    | –7316       |       |
+| GPS_ALTITUDE_APIM      | GPS Altitude                                                                 | 78.74       | ft    |
+| GPS_FIX_APIM           | GPS Fix                                                                      | 3D Fix      |       |
+| GPS_HEADING_APIM       | GPS Heading                                                                  | 11          | deg   |
+| GPS_SPEED_APIM         | GPS Speed                                                                    | 0           | MPH   |
+| KEYPOS_APIM            | Ignition key input                                                           | Ignition    |       |
+| APIM_NUM_0202_PID      | Number of diagnostic trouble codes set due to diagnostic test                | 0           |       |
+| SCS_END_APIM           | SCS_END_APIM                                                                 | RELEASED    |       |
+| SCS_MEDIA_APIM         | SCS_MEDIA_APIM                                                               | RELEASED    |       |
+| SCS_MENUMINUS_APIM     | SCS_MENUMINUS_APIM                                                           | RELEASED    |       |
+| SCS_MENUPLUS_APIM      | SCS_MENUPLUS_APIM                                                            | RELEASED    |       |
+| SCS_MODE_APIM          | SCS_MODE_APIM                                                                | RELEASED    |       |
+| SCS_MUTE_APIM          | SCS_MUTE_APIM                                                                | RELEASED    |       |
+| SCS_OK_APIM            | SCS_OK_APIM                                                                  | RELEASED    |       |
+| SCS_PHONE_APIM         | SCS_PHONE_APIM                                                               | RELEASED    |       |
+| SCS_SEEKMINUS_APIM     | SCS_SEEKMINUS_APIM                                                           | RELEASED    |       |
+| SCS_SEEKPLUS_APIM      | SCS_SEEKPLUS_APIM                                                            | RELEASED    |       |
+| SCS_SEND_APIM          | SCS_SEND_APIM                                                                | RELEASED    |       |
+| SCS_VOLDOWN_APIM       | SCS_VOLDOWN_APIM                                                             | RELEASED    |       |
+| SCS_VOLUP_APIM         | SCS_VOLUP_APIM                                                               | RELEASED    |       |
+| SCS_VOICE_APIM         | Steering Wheel Voice Button                                                  | RELEASED    |       |
+| APIM_ASC_F141_PID      | Serial Number                                                                | 0           |       |
+| APIM_ASC_F188_PID      | Software version number                                                      | 0           |       |
 
 
 
