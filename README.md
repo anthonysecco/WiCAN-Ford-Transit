@@ -2,20 +2,22 @@
 
 # WiCAN Ford Transit
 
-WiCAN for Ford Transit exposes select OBDII sensor data to Home Assistant. This enables custom dashboards (e.g. on a tablet) and automations while driving. The project is **read-only** for now, with future plans to support sending commands via OBDII.
+[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using MQTT into Home Assistant.  This enables custom dashboards (e.g. on a tablet) and automations while driving. 
+
+For now, this project is **read-only**.  Additionaly complexities related to security and stability are introduce when sending commands on the OBDII interface.
 
 > ✅ Tested on a 2021 Ford Transit AWD 3.5L EcoBoost (North America)
 
 ## Project Scope
-While there's plenty of data available via the OBDII port, this project focuses on read-only, real-time, and actionable data that's relevant in an RV.  I do not intend to replace OBDII diagnostic devices available on the market.
+While there's plenty of data available via the OBDII port and CANbus, this project focuses on read-only, real-time, and actionable data that's relevant in an RV.  It's not intended to replace OBDII diagnostic devices or software available on the market.
 
 The primary reason for this scope is:
 
-1) The WiCAN is only online when the vehicle igition is in the **ON** position.  This limits the number of available use cases.
-2) Much of the information is already available on the vehicle's instrument panel
+1) The WiCAN is only **ON** when the vehicle igition is in the **ON** position.  This limits the available use cases.
+2) The vehicles instrument panel provides plenty of information already.
 3) Ford does not publish their proprietary PIDs, this list is based on forum research, serial sniffing of OBDII tools, and some help from ChatGPT.
 
-Therefore, I've prioritized data that **adds** to what's available on the instrument panel and/or triggers automations within Home Assitant **while the vehicle is on**.
+The focus therefore is to find what **adds** to what's available on the instrument panel and/or triggers automations within Home Assitant **while the vehicle is on**.
 
 ### Non-CAN Signals
 A number of state-related information is availble outside of the OBDII on the Ford Transit.  These have the advantage of being available while the vehicle is off.  
@@ -36,11 +38,31 @@ Since door states are available on the high-spec connector and available while t
 
 For more information visit my repo [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
 
+## Use Cases
+
+Given the above scope, I've identified the following use cases:
+
+### Dashboards
+
+| **Panel**              | **Description**                                                                  | **Purpose**                                           |
+| ---------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **Fuel Efficiency**    | Real-time, projected, and historical fuel consumption.                   | Adjust driving behavior and monitor fuel usage.       |
+| **Traction & Terrain** | Real-time data relevant to low-speed traction.                    | Modify off-road driving based on traction conditions. |
+| **Resources**          | Provide an overview of off-grid resource levels (battery, water, solar, signal). | Choose optimal parking or camping spots.              |
+
+### Automations
+
+| **Name**                 | **Trigger**                               | **Action**                                                         |
+| ------------------------ | ----------------------------------------- | ------------------------------------------------------------------ |
+| **Excessive Tilt Alert** | Pitch > 20 ° or Roll > 15 °               | Push notification “Vehicle tilt too steep—risk of rollover!”       |
+| **Dashboard Change**    | Vehicle moving / not moving        | Change relevant information on dashboard if vehicle moving    |
+| **Moving Mode**   | Vehicle moving / not moving        | Lock drawers and turn off lights, inverter, water |
+
 ---
 
 ## How It Works
 
-The [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device readsCAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
+The [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
 
 > This should also work on a WiCAN non-pro as well.
 
