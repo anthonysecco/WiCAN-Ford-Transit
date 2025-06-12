@@ -64,12 +64,11 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | EQ_RAT11              | Equivalence Ratio (Lambda) (Bank 1, Sensor 1)                     | 0.9907315  |       |
 | EQ_RAT21              | Equivalence Ratio (Lambda) (Bank 2, Sensor 1)                     | 1.006317   |       |
 
-
 ## All-Wheel Drive Module (AWDM)
 
 On the 2021 Transit AWD the “FAD” prefix refers to the Front Axle Disconnect system (sometimes also called the Front‐Axle Drive clutch). It’s the electro-hydraulic clutch pack that connects or disconnects the front driveshaft when called by the AWDM.
 
-Relevant sensors for monitoring are:
+Relevant PID for monitoring are:
 
 | PID Codename         | Description                                           | Value                        | Units  |
 |----------------------|-------------------------------------------------------|------------------------------|--------|
@@ -80,6 +79,8 @@ Relevant sensors for monitoring are:
 | TC_MTR_OUT_DC        | Torque Converter Clutch Duty-Cycle                    | 5                            | %      |
 | TC_TRQ_REQ           | Torque Converter Torque Requested                     | 0                            | lb·ft  |
 | TC_TRQCAP_INF        | 	Torque Converter Torque Capacity (Inferred)          | 0                            | lb·ft  |
+
+### Definitions
 
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
@@ -119,6 +120,10 @@ The inferred maximum torque capacity (in lb·ft) the current converter pressure 
 
 ## Body Control Module (BCM)
 
+The Body Control Module (BCM) is the central controller for all non-powertrain electrical functions—monitoring and managing door-ajar, hood and luggage-lid switches; key-in/ignition and PATS security; lighting (headlamps, turn signals, courtesy lights); horn and crash detection; tire-pressure monitoring; and battery state (voltage, current, temperature, age and cumulative charge/discharge).
+
+### Doors
+
 | PID                  | Description                                     | Value         | Units |
 |----------------------|-------------------------------------------------|---------------|-------|
 | DOOR_SW_DRVR_BCM     | Driver’s Door Ajar Switch Status                | Closed        |       |
@@ -127,6 +132,11 @@ The inferred maximum torque capacity (in lb·ft) the current converter pressure 
 | DOOR_SW_LR_BCM       | Left Rear Door Ajar Switch                      | Closed        |       |
 | DOOR_SW_RR_BCM       | Right Rear Door Ajar Switch                     | Closed        |       |
 | DOOR_SW_LUGG_BCM     | Luggage Compartment Lid Ajar Switch             | Closed        |       |
+
+### Tire Pressure
+
+| PID                  | Description                                     | Value         | Units |
+|----------------------|-------------------------------------------------|---------------|-------|
 | TPM_WRN_LMP_BCM      | Tire Pressure Monitoring System Indicator       | OFF           |       |
 | TPMS_STATUS_BCM      | Tire Pressure Monitoring System Status          | System Active |       |
 | TPM_MOTION_STAT_BCM  | TPMS Vehicle Motion Status                      | Parked        |       |
@@ -138,9 +148,17 @@ The inferred maximum torque capacity (in lb·ft) the current converter pressure 
 | TPM_PRES_RRO_BCM     | Right Rear Outer Tire Pressure                  | 151.79        | inHg  |
 | TPM_PRES_LRI_BCM     | Left Rear Inner Tire Pressure                   | 305.42        | inHg  |
 | TPM_PRES_RRI_BCM     | Right Rear Inner Tire Pressure                  | 305.42        | inHg  |
+
+### Battery
+| PID                  | Description                                     | Value         | Units |
+|----------------------|-------------------------------------------------|---------------|-------|
 | BAT_ST_CHRG_BCM      | Vehicle Battery – State of Charge               | 66            | %     |
 | BAT_CURRENT_BCM      | Vehicle Battery – Current                       | 14            | A     |
 | BATTERY_AGE_BCM      | Vehicle Battery – Days in Service               | 1373          |       |
+
+### Accessories
+| PID                  | Description                                     | Value         | Units |
+|----------------------|-------------------------------------------------|---------------|-------|
 | LOW_BEAM_LT_BCM      | Left Headlamp Low Beam                          | Inactive      |       |
 | LOW_BEAM_RT_BCM      | Right Headlamp Low Beam                         | Inactive      |       |
 | TRN_SIG_SW_L_BCM     | Turn Signal Left Switch Input Status            | Off           |       |
@@ -148,22 +166,7 @@ The inferred maximum torque capacity (in lb·ft) the current converter pressure 
 | HORN_SW_BCM          | Horn Switch                                     | OFF           |       |
 | IGN_SW_STATE_BCM     | Ignition Switch State                           | Run           |       |
 
-## Accessory Protocol Interface Module (APIM)
 
-| PID                    | Description                                                                  | Value       | Units |
-|------------------------|------------------------------------------------------------------------------|-------------|-------|
-| APIM_ASC_F111_PID      | APIM_ASC_F111_PID                                                            | 0           |       |
-| APIM_ASC_F113_PID      | APIM_ASC_F113_PID                                                            | 1280652628  |       |
-| AUDIO_SRC_FD52         | AUDIO_SRC_FD52                                                               | FM1         |       |
-| BT_CONN                | Bluetooth Device Connected                                                   | Yes         |       |
-| BT_PAIR                | Bluetooth Device Paired                                                      | Yes         |       |
-| APIM_SED_8033_PID      | ECU Status                                                                   | 0           |       |
-| GEAR_DISPLAY_APIM      | Gear Display                                                                 | Park Position |     |
-| GPS_LATITUDE_APIM      | Global position latitude                                                     | 2239        |       |
-| GPS_LONGITUDE_APIM     | Global position longitude                                                    | –7316       |       |
-| GPS_ALTITUDE_APIM      | GPS Altitude                                                                 | 78.74       | ft    |
-| GPS_HEADING_APIM       | GPS Heading                                                                  | 11          | deg   |
-| GPS_SPEED_APIM         | GPS Speed                                                                    | 0           | MPH   |
 
 ----
 
