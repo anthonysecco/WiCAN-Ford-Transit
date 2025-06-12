@@ -104,8 +104,18 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 
 ### 🔍 Monitoring PIDs
 
+#### Fuel Economy
+| Module | PID | Description          | Type             | Home Assistant Use       | Status    |
+| ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
+| PCM    | 0104 | Engine load    | `sensor` (%)    | Fuel Advisor     | ✅ Working |
+| PCM    | 22F49D | Fuel Rate          | `sensor` (g/s) | Fuel Advisor    | ✅ Working |
+| PCM    | 2203E8| Learned Octane Ratio | `sensor` (%)     | Fuel Advisor     | ✅ Working |
+| PCM    | TBD | Driving Mode         | `sensor` (enum) | Fuel / Off-road Advisor      | 🚧 In Progress |
+| PCM    | TBD | Brake On/Off        | `binary_sensor` (On/Off) | Fuel Advisor      | 🚧 In Progress |
+| IPC   | TBD | Distance to E       | `sensor` (km) | Fuel Advisor      | 🚧 In Progress  |
+| IPC   | TBD | Trailing Fuel Economy      | `sensor` (L/100KM) | Fuel Advisor      | 🚧 In Progress  |
 
-#### Engine Performance
+#### Powertrain Performance
 | Module | PID | Description          | Type             | Home Assistant Use       | Status    |
 | ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
 | PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring (offroad?)   | 🚧 In Progress |
@@ -119,17 +129,6 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 | PCM    | 0144 | AFR Command          | `sensor` (%) | Air-Fuel target ratio    | ✅ Working |
 | PCM    | 0134 | AFR Bank 1           | `sensor` (%) | Actual AFR (bank 1)      | ✅ Working |
 | PCM    | 0138 | AFR Bank 2           | `sensor` (%) | Actual AFR (bank 2)      | ✅ Working |
-
-#### Fuel Economy
-| Module | PID | Description          | Type             | Home Assistant Use       | Status    |
-| ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
-| PCM    | 0104 | Engine load    | `sensor` (%)    | Fuel Advisor     | ✅ Working |
-| PCM    | 22F49D | Fuel Rate          | `sensor` (g/s) | Fuel Advisor    | ✅ Working |
-| PCM    | 2203E8| Learned Octane Ratio | `sensor` (%)     | Fuel Advisor     | ✅ Working |
-| PCM    | TBD | Driving Mode         | `sensor` (enum) | Fuel / Off-road Advisor      | 🚧 In Progress |
-| PCM    | TBD | Brake On/Off        | `binary_sensor` (On/Off) | Fuel Advisor      | 🚧 In Progress |
-| IPC   | TBD | Distance to E       | `sensor` (km) | Fuel Advisor      | 🚧 In Progress  |
-| IPC   | TBD | Trailing Fuel Economy      | `sensor` (L/100KM) | Fuel Advisor      | 🚧 In Progress  |
 
 There are other standard SAE PIDs, but the ones above I find useful.
 
