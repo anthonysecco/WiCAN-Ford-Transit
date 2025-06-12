@@ -44,6 +44,8 @@ Given the above scope, I've identified the following use cases:
 
 ### Dashboards
 
+Some dashboard ideas.  These can be updated or changed with other vehicle data (GPS, Cell Signal, Fresh/Gray tank etc.)
+
 | **Panel**              | **Description**                                                                  | **Purpose**                                           |
 | ---------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | **Fuel Efficiency**    | Real-time, projected, and historical fuel consumption.                   | Adjust driving behavior and monitor fuel usage.       |
@@ -54,9 +56,10 @@ Given the above scope, I've identified the following use cases:
 
 | **Name**                 | **Trigger**                               | **Action**                                                         |
 | ------------------------ | ----------------------------------------- | ------------------------------------------------------------------ |
-| **Excessive Tilt Alert** | Pitch > 20 ° or Roll > 15 °               | Push notification “Vehicle tilt too steep—risk of rollover!”       |
 | **Dashboard Change**    | Vehicle moving / not moving        | Change relevant information on dashboard if vehicle moving    |
 | **Moving Mode**   | Vehicle moving / not moving        | Lock drawers and turn off lights, inverter, water |
+| **Trip Reports** | End of Day | Send message with trip summary (miles, time, fuel etc.) |
+| **Excessive Tilt Alert** | Pitch > 20 ° or Roll > 15 °               | Push notification “Vehicle tilt too steep—risk of rollover!”       |
 
 ---
 
