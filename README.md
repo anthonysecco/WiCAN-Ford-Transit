@@ -2,9 +2,9 @@
 
 # WiCAN Ford Transit
 
-[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using MQTT into Home Assistant.  This enables custom dashboards (e.g. on a tablet) and automations while driving. 
+[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/).  This enables custom dashboards (e.g. on a tablet) and automations while driving. 
 
-For now, this project is **read-only**.  Additionaly complexities related to security and stability are introduce when sending commands on the OBDII interface.
+For now, this project is **read-only**.  Additional complexities come into tplay when sending commands via the OBDII interface.
 
 > ✅ Tested on a 2021 Ford Transit AWD 3.5L EcoBoost (North America)
 
@@ -34,7 +34,7 @@ A number of state-related information is availble outside of the OBDII on the Fo
 - Door Ajar (Driver, Passenger, Side, Cargo)
 - Lock / Unlock Commands
 
-Since door states are available on the high-spec connector and available while the vehicle is off, they're **excluded** from this project.
+Since door states are available on the high-spec connector and available while the vehicle is off, they're **excluded** from this project.  It doesn't make sense to monitor them when the vehicle is on because the driver will see that on the vehicle's instrument panel.  Triggering automations isn't that useful related to door open/close while the vehicle is on.
 
 For more information visit my repo [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
 
@@ -159,6 +159,11 @@ I haven't found a PID available to WiCAN for these:
 These are simply not possible using factory hardware
 
 * **Oil Temperature ** - No sensor in vehicle.
+
+## ⏰ Wake Commands
+Many aftermarket alarm systems will send commands on the CANbus to awaken modules and then issue commands (lock, start etc.).  Additionally the vehicles TCU (telematics control unit) for things like Ford Pass can also awaken module.
+
+I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
 
 ---
 
