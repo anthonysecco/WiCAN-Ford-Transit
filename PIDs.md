@@ -52,17 +52,17 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | **PID**  | **Name**               | **Description**                               | **Units** | **Expression**     | **Status** |
 | -------- | ---------------------- | --------------------------------------------- | --------- | ------------------ | ---------- |
 | —        | ECT                    | Engine coolant temperature                    | °C        | B4-40              |            |
-| 0x221E1C | TFT                    | Transmission Fluid Temperature                | °C        | ((\[B4\:B5])/10)   | ✅          |
+| 0x221E1C | TFT                    | Transmission Fluid Temperature                | °C        | (\[B4\:B5])/10     | ✅          |
 | —        | IAT\_T                 | Intake Air Temperature                        | °C        | B4-40              |            |
 | —        | IAT2\_TEMP\_MZ         | Intake Air Temperature 2                      | °C        | B4-40              |            |
 | —        | AAT\_TEMP\_MZ          | Ambient Air Temperature                       | °C        | B4-40              |            |
 | —        | AAT\_MZ                | Ambient Air Temperature                       | °C        | B4-40              |            |
 | —        | BAT\_MZ                | Boost air temperature sensor                  | °C        | B4-40              |            |
 | —        | CHT                    | Cylinder Head Temperature                     | °C        | B4-40              |            |
-| —        | CATT21\_DSD            | Desired Catalyst Temperature Bank 2, Sensor 1 | °C        | ((\[B4\:B5])/10)   |            |
-| —        | EXHTEMP2\_MZ           | Exhaust Gas Temperature Sensor (Middle)       | °C        | ((\[B4\:B5])/10)   |            |
-| —        | CATT11\_DSD            | Desired Catalyst Temperature Bank 1, Sensor 1 | °C        | ((\[B4\:B5])/10)   |            |
-| —        | EXHTEMP1\_MZ           | Exhaust Gas Temperature Sensor (Upper)        | °C        | ((\[B4\:B5])/10)   |            |
+| —        | CATT21\_DSD            | Desired Catalyst Temperature Bank 2, Sensor 1 | °C        | (\[B4\:B5])/10     |            |
+| —        | EXHTEMP2\_MZ           | Exhaust Gas Temperature Sensor (Middle)       | °C        | (\[B4\:B5])/10     |            |
+| —        | CATT11\_DSD            | Desired Catalyst Temperature Bank 1, Sensor 1 | °C        | (\[B4\:B5])/10     |            |
+| —        | EXHTEMP1\_MZ           | Exhaust Gas Temperature Sensor (Upper)        | °C        | (\[B4\:B5])/10     |            |
 | —        | GEAR\_ENG\_PCM\_MZ     | Transmission Gear Engaged                     | —         | B4                 |            |
 | 0x221E12 | GEAR\_GGDS\_MZ         | Gear commanded by module                      | enum      | B4                 | ✅          |
 | —        | INGEAR                 | In gear                                       | —         | B4                 |            |
