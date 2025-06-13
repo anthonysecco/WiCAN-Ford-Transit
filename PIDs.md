@@ -100,12 +100,13 @@ While in technical terrain, it may be useful to display the torque split between
 
 I've consolidated the available sensors to the following as most relevant:
 
-| PID Codename        | PID Hex | Description                            | Value                  | Unit | Formula                                                      |
-| ------------------- | ------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------ |
-| FAD\_ACT\_STATUS    | 0x220722 | Front Axle Disconnect Actuator Status  | FAD in 4WD - CONNECTED | enum | B4 (Enum: 0=Disconnected, 1=Connected, 2=Transition, 3=Error) |
-| FAD\_STRG\_CMD      | 0x220728 | Front-Axle Disconnect Strategy Command | Connect Request        | enum | B4 (Enum: 0=Disconnect Request, 1=Connect Request)            |
-| FAD\_DISCON\_IN\_DC | 0x220726 | Front Axle Disconnect Input Duty Cycle | 0                      | %    | B4 \* 100 / 255                                               |
-| TC\_MTR\_OUT\_DC    | 0x220725 | Torque Converter Clutch Duty-Cycle     | 5                      | %    | B4 \* 100 / 255                                               |
+| PID      | Name                | Description                            | Value                  | Unit | Formula                                                       |
+| -------- | ------------------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------- |
+| 0x220722 | FAD\_ACT\_STATUS    | Front Axle Disconnect Actuator Status  | FAD in 4WD - CONNECTED | enum | B4 (Enum: 0=Disconnected, 1=Connected, 2=Transition, 3=Error) |
+| 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | Connect Request        | enum | B4 (Enum: 0=Disconnect Request, 1=Connect Request)            |
+| 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | 0                      | %    | B4 \* 100 / 255                                               |
+| 0x220725 | TC\_MTR\_OUT\_DC    | Torque Converter Clutch Duty-Cycle     | 5                      | %    | B4 \* 100 / 255                                               |
+
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
 - **“FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front & rear wheels.  
