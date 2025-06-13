@@ -44,17 +44,6 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x63 | EngRefTorq       | Engine Reference Torque                         | Nm      |
 | 0xA6 | Odometer         | Odometer                                        | km      |
 
-#### 🚧 Further review
-0x03 - Fuel system status (open/closed loop)
-0x52 - Ethanol fuel content (%)
-0x5E - Fuel rate (g/s)
-0x77 - Charge air temp
-0x78 - EGT1
-0x79 - EGT2
-0x7F - runtime
-0x9D - engine fuel rate (g/s)
-0xA4 - Transmission gear
-
 ### Powertrain Control Module (PCM)
 
 | PID Label          | PID | Description                                   | Example Value | Units | Expression                  |
