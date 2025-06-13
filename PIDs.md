@@ -26,43 +26,43 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 
 ### Powertrain Control Module (PCM)
 
-| PID                   | Description                                                       | Value      | Units |
-|-----------------------|-------------------------------------------------------------------|------------|-------|
-| ECT                   | Engine coolant temperature                                        | 181.4      | °F    |
-| TFT                   | Transmission Fluid Temperature                                    | 137.42     | °F    |
-| IAT_T                 | Intake Air Temperature                                            | 73.4       | °F    |
-| IAT_T                 | Intake Air Temperature                                            | 82.4       | °F    |
-| IAT2_TEMP_MZ          | Intake Air Temperature 2                                          | 93.2       | °F    |
-| AAT_TEMP_MZ           | Ambient Air Temperature                                           | 73.4       | °F    |
-| AAT_MZ                | Ambient Air Temperature                                           | 73.4       | °F    |
-| BAT_MZ                | Boost air temperature sensor                                      | 93.2       | °F    |
-| BAT_MZ                | Boost air temperature sensor                                      | 82.4       | °F    |
-| CHT                   | Cylinder Head Temperature                                         | 201.29     | °F    |
-| CATT21_DSD            | Desired Catalyst Temperature Bank 2, Sensor 1                     | 808.34     | °F    |
-| EXHTEMP2_MZ           | Exhaust Gas Temperature Sensor (Middle)                           | 808.34     | °F    |
-| CATT11_DSD            | Desired Catalyst Temperature Bank 1, Sensor 1                     | 808.34     | °F    |
-| EXHTEMP1_MZ           | Exhaust Gas Temperature Sensor (Upper)                            | 808.34     | °F    |
-| GEAR_ENG_PCM_MZ       | Transmission Gear Engaged                                         | Park       |       |
-| GEAR_GGDS_MZ          | Gear commanded by module                                          | P          |       |
-| INGEAR                | In gear                                                           | Off        |       |
-| VSS                   | Vehicle Speed                                                     | 0          | MPH   |
-| Rpm                   | Engine Revolutions Per Minute                                     | 625        | RPM   |
-| FLI                   | Fuel Level                                                        | 75.78      | %     |
-| IG_SW_MZ              | Ignition switch status                                            | On         |       |
-| AC_SW_MZ              | Air conditioning switch                                           | On         |       |
-| BOO                   | Brake ON/OFF                                                      | Off        |       |
-| WGC_MZ                | Wastegate Control Solenoid Valve                                  | 0          | %     |
-| BARO_MZ               | Barometric pressure                                               | 29.83      | inHg  |
-| MAP                   | Manifold absolute pressure sensor                                 | 11.81      | inHg  |
-| FUEL_SYS              | Fuel System Status (Open/Closed Loop)                             | CL         |       |
-| FP                    | Fuel pump                                                         | 30.3       | %     |
-| FUEL_P_DSD_MZ         | Fuel Pressure Desired                                             | 738.25     | inHg  |
-| FRP_DSD_MZ            | Fuel Rail Pressure Desired                                        | 738.25     | inHg  |
-| FUEL_PRES_MZ          | Fuel Pressure Sensor                                              | 741.21     | inHg  |
-| FRP_DCM               | Fuel Rail Pressure                                                | 741.21     | inHg  |
-| EQ_RAT_DSD            | Desired Equivalence Ratio (Lambda)                                | 0.9832285  |       |
-| EQ_RAT11              | Equivalence Ratio (Lambda) (Bank 1, Sensor 1)                     | 0.9907315  |       |
-| EQ_RAT21              | Equivalence Ratio (Lambda) (Bank 2, Sensor 1)                     | 1.006317   |       |
+| PID Label          | PID | Description                                   | Example Value | Units | Formula                    |
+| ------------------ | --- | --------------------------------------------- | ------------- | ----- | -------------------------- |
+| ECT                |     | Engine coolant temperature                    | 181.4         | °F    | (A-40)\*9/5+32             |
+| TFT                |     | Transmission Fluid Temperature                | 137.42        | °F    | (A-40)\*9/5+32             |
+| IAT\_T             |     | Intake Air Temperature                        | 73.4          | °F    | (A-40)\*9/5+32             |
+| IAT\_T             |     | Intake Air Temperature                        | 82.4          | °F    | (A-40)\*9/5+32             |
+| IAT2\_TEMP\_MZ     |     | Intake Air Temperature 2                      | 93.2          | °F    | (A-40)\*9/5+32             |
+| AAT\_TEMP\_MZ      |     | Ambient Air Temperature                       | 73.4          | °F    | (A-40)\*9/5+32             |
+| AAT\_MZ            |     | Ambient Air Temperature                       | 73.4          | °F    | (A-40)\*9/5+32             |
+| BAT\_MZ            |     | Boost air temperature sensor                  | 93.2          | °F    | (A-40)\*9/5+32             |
+| BAT\_MZ            |     | Boost air temperature sensor                  | 82.4          | °F    | (A-40)\*9/5+32             |
+| CHT                |     | Cylinder Head Temperature                     | 201.29        | °F    | (A-40)\*9/5+32             |
+| CATT21\_DSD        |     | Desired Catalyst Temperature Bank 2, Sensor 1 | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
+| EXHTEMP2\_MZ       |     | Exhaust Gas Temperature Sensor (Middle)       | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
+| CATT11\_DSD        |     | Desired Catalyst Temperature Bank 1, Sensor 1 | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
+| EXHTEMP1\_MZ       |     | Exhaust Gas Temperature Sensor (Upper)        | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
+| GEAR\_ENG\_PCM\_MZ |     | Transmission Gear Engaged                     | Park          |       | A                          |
+| GEAR\_GGDS\_MZ     |     | Gear commanded by module                      | P             |       | A                          |
+| INGEAR             |     | In gear                                       | Off           |       | A (0=Off, 1=On)            |
+| FLI                |     | Fuel Level                                    | 75.78         | %     | A\*100/255                 |
+| IG\_SW\_MZ         |     | Ignition switch status                        | On            |       | A                          |
+| AC\_SW\_MZ         |     | Air conditioning switch                       | On            |       | A                          |
+| BOO                |     | Brake ON/OFF                                  | Off           |       | A                          |
+| WGC\_MZ            |     | Wastegate Control Solenoid Valve              | 0             | %     | A\*100/255                 |
+| BARO\_MZ           |     | Barometric pressure                           | 29.83         | inHg  | (A*256+B)/10*0.02953       |
+| MAP                |     | Manifold absolute pressure sensor             | 11.81         | inHg  | (A*256+B)/10*0.02953       |
+| FUEL\_SYS          |     | Fuel System Status (Open/Closed Loop)         | CL            |       | A                          |
+| FP                 |     | Fuel pump                                     | 30.3          | %     | A\*100/255                 |
+| FUEL\_P\_DSD\_MZ   |     | Fuel Pressure Desired                         | 738.25        | inHg  | (A\*256+B)\*0.145038       |
+| FRP\_DSD\_MZ       |     | Fuel Rail Pressure Desired                    | 738.25        | inHg  | (A\*256+B)\*0.145038       |
+| FUEL\_PRES\_MZ     |     | Fuel Pressure Sensor                          | 741.21        | inHg  | (A\*256+B)\*0.145038       |
+| FRP\_DCM           |     | Fuel Rail Pressure                            | 741.21        | inHg  | (A\*256+B)\*0.145038       |
+| EQ\_RAT\_DSD       |     | Desired Equivalence Ratio (Lambda)            | 0.9832285     |       | (A\*256+B)/32768           |
+| EQ\_RAT11          |     | Equivalence Ratio (Lambda) (Bank 1, Sensor 1) | 0.9907315     |       | (A\*256+B)/32768           |
+| EQ\_RAT21          |     | Equivalence Ratio (Lambda) (Bank 2, Sensor 1) | 1.006317      |       | (A\*256+B)/32768           |
+
+
 
 ####🚫 Unavailable Data
 - Engine oil temperature
