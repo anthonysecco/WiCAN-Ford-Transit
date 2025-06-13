@@ -71,15 +71,16 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 
 On the 2021 Transit AWD the “FAD” prefix refers to the Front Axle Disconnect system (sometimes also called the Front‐Axle Drive clutch). It’s the electro-hydraulic clutch pack that connects or disconnects the front driveshaft when called by the AWDM.
 
+> Module initalization: STCCFCP;ATTP6;STPTOT100;ATSH000703;STCAFCP703,70B
+
 I've consolidated the available sensors to the following as most relevant:
 
 | PID Codename        | PID Hex | Description                            | Value                  | Unit | Formula                                                      |
 | ------------------- | ------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------ |
-| FAD\_ACT\_STATUS    |   | Front Axle Disconnect Actuator Status  | FAD in 4WD - CONNECTED |      | A (Enum: 0=Disconnected, 1=Connected, 2=Transition, 3=Error) |
-| FAD\_STRG\_CMD      |   | Front-Axle Disconnect Strategy Command | Connect Request        |      | A (Enum: 0=Disconnect Request, 1=Connect Request)            |
-| FAD\_DISCON\_IN\_DC |   | Front Axle Disconnect Input Duty Cycle | 0                      | %    | A \* 100 / 255                                               |
-| TC\_MTR\_OUT\_DC    |   | Torque Converter Clutch Duty-Cycle     | 5                      | %    | A \* 100 / 255                                               |
-
+| FAD\_ACT\_STATUS    | 220722 | Front Axle Disconnect Actuator Status  | FAD in 4WD - CONNECTED |      | B4 (Enum: 0=Disconnected, 1=Connected, 2=Transition, 3=Error) |
+| FAD\_STRG\_CMD      | 220728 | Front-Axle Disconnect Strategy Command | Connect Request        |      | B4 (Enum: 0=Disconnect Request, 1=Connect Request)            |
+| FAD\_DISCON\_IN\_DC | 220726 | Front Axle Disconnect Input Duty Cycle | 0                      | %    | B4 \* 100 / 255                                               |
+| TC\_MTR\_OUT\_DC    | 220725 | Torque Converter Clutch Duty-Cycle     | 5                      | %    | B4 \* 100 / 255                                               |
 
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
@@ -105,45 +106,63 @@ The PWM duty-cycle (0–100 %) applied to the torque-converter clutch solenoid t
 - **High duty-cycle** = stronger lock-up (more mechanical coupling >> more efficiency, less heat).
 
 ####🚫 Unavailable Data
-- FAD Clutch Temperature
+- FAD Clutch Temperature😭
 
 ## Body Control Module (BCM)
 
 The Body Control Module (BCM) is the central controller for all non-powertrain electrical functions—monitoring and managing door-ajar, hood and luggage-lid switches; key-in/ignition and PATS security; lighting (headlamps, turn signals, courtesy lights); horn and crash detection; tire-pressure monitoring; and battery state (voltage, current, temperature, age and cumulative charge/discharge).
 
+> Module initalization: ATSH000726;STCAFCP726,72E
+
 ### Doors
 
 | PID                 | PID Hex | Description                         | Value  | Units | Formula              |
 | ------------------- | ------- | ----------------------------------- | ------ | ----- | -------------------- |
-| DOOR\_SW\_DRVR\_BCM |         | Driver’s Door Ajar Switch Status    | Closed |       | A (0=Closed, 1=Open) |
-| DOOR\_SW\_PSGR\_BCM |         | Passenger Door Ajar Switch Status   | Closed |       | A (0=Closed, 1=Open) |
-| HOOD\_SW\_BCM       |         | Hood Ajar Switch                    | Closed |       | A (0=Closed, 1=Open) |
-| DOOR\_SW\_LR\_BCM   |         | Left Rear Door Ajar Switch          | Closed |       | A (0=Closed, 1=Open) |
-| DOOR\_SW\_RR\_BCM   |         | Right Rear Door Ajar Switch         | Closed |       | A (0=Closed, 1=Open) |
-| DOOR\_SW\_LUGG\_BCM |         | Luggage Compartment Lid Ajar Switch | Closed |       | A (0=Closed, 1=Open) |
+| DOOR\_SW\_DRVR\_BCM |         | Driver’s Door Ajar Switch Status    | Closed |       | |
+| DOOR\_SW\_PSGR\_BCM |         | Passenger Door Ajar Switch Status   | Closed |       | |
+| HOOD\_SW\_BCM       |         | Hood Ajar Switch                    | Closed |       | |
+| DOOR\_SW\_LR\_BCM   |         | Left Rear Door Ajar Switch          | Closed |       | |
+| DOOR\_SW\_RR\_BCM   |         | Right Rear Door Ajar Switch         | Closed |       | |
+| DOOR\_SW\_LUGG\_BCM |         | Luggage Compartment Lid Ajar Switch | Closed |       | |
 
 ### Tire Pressure
 
-| PID                    | PID Hex | Description                               | Value         | Units | Formula                 |
-| ---------------------- | ------- | ----------------------------------------- | ------------- | ----- | ----------------------- |
-| TPM\_WRN\_LMP\_BCM     |         | Tire Pressure Monitoring System Indicator | OFF           |       | A (0=Off, 1=On)         |
-| TPMS\_STATUS\_BCM      |         | Tire Pressure Monitoring System Status    | System Active |       | A (Enum)                |
-| TPM\_MOTION\_STAT\_BCM |         | TPMS Vehicle Motion Status                | Parked        |       | A (Enum)                |
-| PLCRD\_TP\_FRT\_BCM    |         | Front Tire Placard Pressure               | 16.83         | psi   | ((A×256+B)/10)×0.145038 |
-| TPM\_PRES\_LF\_BCM     |         | Left Front Tire Pressure                  | 17.02         | psi   | ((A×256+B)/10)×0.145038 |
-| TPM\_PRES\_RF\_BCM     |         | Right Front Tire Pressure                 | 16.42         | psi   | ((A×256+B)/10)×0.145038 |
-| PLCRD\_TP\_BCK\_BCM    |         | Rear Tire Placard Pressure                | 22.18         | psi   | ((A×256+B)/10)×0.145038 |
-| TPM\_PRES\_LRO\_BCM    |         | Left Rear Outer Tire Pressure             | 22.75         | psi   | ((A×256+B)/10)×0.145038 |
-| TPM\_PRES\_RRO\_BCM    |         | Right Rear Outer Tire Pressure            | 22.07         | psi   | ((A×256+B)/10)×0.145038 |
-| TPM\_PRES\_LRI\_BCM    |         | Left Rear Inner Tire Pressure             | 44.28         | psi   | ((A×256+B)/10)×0.145038 |
-| TPM\_PRES\_RRI\_BCM    |         | Right Rear Inner Tire Pressure            | 44.28         | psi   | ((A×256+B)/10)×0.145038 |
+| PID                    | PID Hex | Description                               | Value         | Units | Formula                     |
+| ---------------------- | ------- | ----------------------------------------- | ------------- | ----- | --------------------------- |
+| TPM\_WRN\_LMP\_BCM     |         | Tire Pressure Monitoring System Indicator | OFF           |       |                             |
+| TPMS\_STATUS\_BCM      | 22280D  | Tire Pressure Monitoring System Status    | System Active |       |                             |
+| TPM\_MOTION\_STAT\_BCM | 22203E  | TPMS Vehicle Motion Status                | Parked        |       | B4                           |
+| PLCRD\_TP\_FRT\_BCM    |         | Front Tire Placard Pressure               | 16.83         | psi   | (((B4×256)+B5)/10)×0.145038 |
+| TPM\_PRES\_LF\_BCM     | 222813  | Left Front Tire Pressure                  | 17.02         | psi   | (((B4×256)+B5)/10)×0.145038 |
+| TPM\_PRES\_RF\_BCM     | 222814  | Right Front Tire Pressure                 | 16.42         | psi   | (((B4×256)+B5)/10)×0.145038 |
+| PLCRD\_TP\_BCK\_BCM    |         | Rear Tire Placard Pressure                | 22.18         | psi   | (((B4×256)+B5)/10)×0.145038 |
+| TPM\_PRES\_LRO\_BCM    | 222816  | Left Rear Outer Tire Pressure             | 22.75         | psi   | (((B4×256)+B5)/10)×0.145038 |
+| TPM\_PRES\_RRO\_BCM    | 222815  | Right Rear Outer Tire Pressure            | 22.07         | psi   | (((B4×256)+B5)/10)×0.145038 |
+| TPM\_PRES\_LRI\_BCM    | 222818  | Left Rear Inner Tire Pressure             | 44.28         | psi   | (((B4×256)+B5)/10)×0.145038 |
+| TPM\_PRES\_RRI\_BCM    | 222817  | Right Rear Inner Tire Pressure            | 44.28         | psi   | (((B4×256)+B5)/10)×0.145038 |
+
+#### Tire Pressure Monitoring System Indicator
+
+
+#### Tire Pressure Monitoring System Status  
+- 00 System Inactive
+- 01 System Active
+- 02 System Faulted
+- 03 System Disabled
+
+#### TPMS Vehicle Motion Status
+Displays value when vehicle motion detected.
+- 00 Parked
+- 01 In Motion
+- 02 Learning Mode
+- 03 Fault
 
 ### Battery
 | PID                | PID Hex | Description                       | Value | Units | Formula         |
 | ------------------ | ------- | --------------------------------- | ----- | ----- | --------------- |
-| BAT\_ST\_CHRG\_BCM |         | Vehicle Battery – State of Charge | 66    | %     | A               |
-| BAT\_CURRENT\_BCM  |         | Vehicle Battery – Current         | 14    | A     | ((A\*256+B)/10) |
-| BATTERY\_AGE\_BCM  |         | Vehicle Battery – Days in Service | 1373  |       | A               |
+| BAT\_ST\_CHRG\_BCM | 224028 | Vehicle Battery – State of Charge | 66    | %     | A               |
+| BAT\_CURRENT\_BCM  | 22402B | Vehicle Battery – Current         | 14    | A     | ((A\*256+B)/10) |
+| BATTERY\_VOLTAGE\_BCM  | 22402A | Vehicle Battery – Days in Service | 1373  |       | A               |
 
 ### Accessories
 | PID                  | PID Hex | Description                           | Value    | Units | Formula                  |
