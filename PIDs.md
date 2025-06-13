@@ -79,6 +79,7 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | (\[B4\:B5])\*2/100 |            |
 | 0x2203E8 | LEARNED\_OCTANE\_RATIO | Learned Octane Ratio                          | %         | (\[B4\:B5])/16384  |            |
 > Module initalization: ATSH0007E0;STCAFCP7E0,7E8
+
 ####🚫 Unavailable Data
 - Engine oil temperature (No valid PID available)
 
