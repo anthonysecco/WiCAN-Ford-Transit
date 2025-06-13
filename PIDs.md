@@ -73,12 +73,13 @@ On the 2021 Transit AWD the “FAD” prefix refers to the Front Axle Disconnect
 
 I've consolidated the available sensors to the following as most relevant:
 
-| PID Codename         | Description                                           | Value                        | Units  |
-|----------------------|-------------------------------------------------------|------------------------------|--------|
-| FAD_ACT_STATUS       | Front Axle Disconnect Actuator Status                 | FAD in 4WD - CONNECTED       |        |
-| FAD_STRG_CMD         | Front-Axle Disconnect Strategy Command                | Connect Request              |        |
-| FAD_DISCON_IN_DC     | Front Axle Disconnect Input Duty Cycle                | 0                            | %      |
-| TC_MTR_OUT_DC        | Torque Converter Clutch Duty-Cycle                    | 5                            | %      |
+| PID Codename        | PID Hex | Description                            | Value                  | Unit | Formula                                                      |
+| ------------------- | ------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------ |
+| FAD\_ACT\_STATUS    |   | Front Axle Disconnect Actuator Status  | FAD in 4WD - CONNECTED |      | A (Enum: 0=Disconnected, 1=Connected, 2=Transition, 3=Error) |
+| FAD\_STRG\_CMD      |   | Front-Axle Disconnect Strategy Command | Connect Request        |      | A (Enum: 0=Disconnect Request, 1=Connect Request)            |
+| FAD\_DISCON\_IN\_DC |   | Front Axle Disconnect Input Duty Cycle | 0                      | %    | A \* 100 / 255                                               |
+| TC\_MTR\_OUT\_DC    |   | Torque Converter Clutch Duty-Cycle     | 5                      | %    | A \* 100 / 255                                               |
+
 
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
@@ -112,45 +113,46 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 ### Doors
 
-| PID                  | Description                                     | Value         | Units |
-|----------------------|-------------------------------------------------|---------------|-------|
-| DOOR_SW_DRVR_BCM     | Driver’s Door Ajar Switch Status                | Closed        |       |
-| DOOR_SW_PSGR_BCM     | Passenger Door Ajar Switch Status               | Closed        |       |
-| HOOD_SW_BCM          | Hood Ajar Switch                                | Closed        |       |
-| DOOR_SW_LR_BCM       | Left Rear Door Ajar Switch                      | Closed        |       |
-| DOOR_SW_RR_BCM       | Right Rear Door Ajar Switch                     | Closed        |       |
-| DOOR_SW_LUGG_BCM     | Luggage Compartment Lid Ajar Switch             | Closed        |       |
+| PID                 | PID Hex | Description                         | Value  | Units | Formula              |
+| ------------------- | ------- | ----------------------------------- | ------ | ----- | -------------------- |
+| DOOR\_SW\_DRVR\_BCM |         | Driver’s Door Ajar Switch Status    | Closed |       | A (0=Closed, 1=Open) |
+| DOOR\_SW\_PSGR\_BCM |         | Passenger Door Ajar Switch Status   | Closed |       | A (0=Closed, 1=Open) |
+| HOOD\_SW\_BCM       |         | Hood Ajar Switch                    | Closed |       | A (0=Closed, 1=Open) |
+| DOOR\_SW\_LR\_BCM   |         | Left Rear Door Ajar Switch          | Closed |       | A (0=Closed, 1=Open) |
+| DOOR\_SW\_RR\_BCM   |         | Right Rear Door Ajar Switch         | Closed |       | A (0=Closed, 1=Open) |
+| DOOR\_SW\_LUGG\_BCM |         | Luggage Compartment Lid Ajar Switch | Closed |       | A (0=Closed, 1=Open) |
 
 ### Tire Pressure
 
-| PID                  | Description                                     | Value         | Units |
-|----------------------|-------------------------------------------------|---------------|-------|
-| TPM_WRN_LMP_BCM      | Tire Pressure Monitoring System Indicator       | OFF           |       |
-| TPMS_STATUS_BCM      | Tire Pressure Monitoring System Status          | System Active |       |
-| TPM_MOTION_STAT_BCM  | TPMS Vehicle Motion Status                      | Parked        |       |
-| PLCRD_TP_FRT_BCM     | Front Tire Placard Pressure                     | 116.06        | inHg  |
-| TPM_PRES_LF_BCM      | Left Front Tire Pressure                        | 117.18        | inHg  |
-| TPM_PRES_RF_BCM      | Right Front Tire Pressure                       | 113.11        | inHg  |
-| PLCRD_TP_BCK_BCM     | Rear Tire Placard Pressure                      | 152.71        | inHg  |
-| TPM_PRES_LRO_BCM     | Left Rear Outer Tire Pressure                   | 156.88        | inHg  |
-| TPM_PRES_RRO_BCM     | Right Rear Outer Tire Pressure                  | 151.79        | inHg  |
-| TPM_PRES_LRI_BCM     | Left Rear Inner Tire Pressure                   | 305.42        | inHg  |
-| TPM_PRES_RRI_BCM     | Right Rear Inner Tire Pressure                  | 305.42        | inHg  |
+| PID                    | PID Hex | Description                               | Value         | Units | Formula                 |
+| ---------------------- | ------- | ----------------------------------------- | ------------- | ----- | ----------------------- |
+| TPM\_WRN\_LMP\_BCM     |         | Tire Pressure Monitoring System Indicator | OFF           |       | A (0=Off, 1=On)         |
+| TPMS\_STATUS\_BCM      |         | Tire Pressure Monitoring System Status    | System Active |       | A (Enum)                |
+| TPM\_MOTION\_STAT\_BCM |         | TPMS Vehicle Motion Status                | Parked        |       | A (Enum)                |
+| PLCRD\_TP\_FRT\_BCM    |         | Front Tire Placard Pressure               | 16.83         | psi   | ((A×256+B)/10)×0.145038 |
+| TPM\_PRES\_LF\_BCM     |         | Left Front Tire Pressure                  | 17.02         | psi   | ((A×256+B)/10)×0.145038 |
+| TPM\_PRES\_RF\_BCM     |         | Right Front Tire Pressure                 | 16.42         | psi   | ((A×256+B)/10)×0.145038 |
+| PLCRD\_TP\_BCK\_BCM    |         | Rear Tire Placard Pressure                | 22.18         | psi   | ((A×256+B)/10)×0.145038 |
+| TPM\_PRES\_LRO\_BCM    |         | Left Rear Outer Tire Pressure             | 22.75         | psi   | ((A×256+B)/10)×0.145038 |
+| TPM\_PRES\_RRO\_BCM    |         | Right Rear Outer Tire Pressure            | 22.07         | psi   | ((A×256+B)/10)×0.145038 |
+| TPM\_PRES\_LRI\_BCM    |         | Left Rear Inner Tire Pressure             | 44.28         | psi   | ((A×256+B)/10)×0.145038 |
+| TPM\_PRES\_RRI\_BCM    |         | Right Rear Inner Tire Pressure            | 44.28         | psi   | ((A×256+B)/10)×0.145038 |
 
 ### Battery
-| PID                  | Description                                     | Value         | Units |
-|----------------------|-------------------------------------------------|---------------|-------|
-| BAT_ST_CHRG_BCM      | Vehicle Battery – State of Charge               | 66            | %     |
-| BAT_CURRENT_BCM      | Vehicle Battery – Current                       | 14            | A     |
-| BATTERY_AGE_BCM      | Vehicle Battery – Days in Service               | 1373          |       |
+| PID                | PID Hex | Description                       | Value | Units | Formula         |
+| ------------------ | ------- | --------------------------------- | ----- | ----- | --------------- |
+| BAT\_ST\_CHRG\_BCM |         | Vehicle Battery – State of Charge | 66    | %     | A               |
+| BAT\_CURRENT\_BCM  |         | Vehicle Battery – Current         | 14    | A     | ((A\*256+B)/10) |
+| BATTERY\_AGE\_BCM  |         | Vehicle Battery – Days in Service | 1373  |       | A               |
 
 ### Accessories
-| PID                  | Description                                     | Value         | Units |
-|----------------------|-------------------------------------------------|---------------|-------|
-| LOW_BEAM_LT_BCM      | Left Headlamp Low Beam                          | Inactive      |       |
-| LOW_BEAM_RT_BCM      | Right Headlamp Low Beam                         | Inactive      |       |
-| TRN_SIG_SW_L_BCM     | Turn Signal Left Switch Input Status            | Off           |       |
-| TRN_SIG_SW_R_BCM     | Turn Signal Right Switch Input Status           | Off           |       |
-| HORN_SW_BCM          | Horn Switch                                     | OFF           |       |
-| IGN_SW_STATE_BCM     | Ignition Switch State                           | Run           |       |
+| PID                  | PID Hex | Description                           | Value    | Units | Formula                  |
+| -------------------- | ------- | ------------------------------------- | -------- | ----- | ------------------------ |
+| LOW\_BEAM\_LT\_BCM   |         | Left Headlamp Low Beam                | Inactive |       | A (0=Inactive, 1=Active) |
+| LOW\_BEAM\_RT\_BCM   |         | Right Headlamp Low Beam               | Inactive |       | A (0=Inactive, 1=Active) |
+| TRN\_SIG\_SW\_L\_BCM |         | Turn Signal Left Switch Input Status  | Off      |       | A (0=Off, 1=On)          |
+| TRN\_SIG\_SW\_R\_BCM |         | Turn Signal Right Switch Input Status | Off      |       | A (0=Off, 1=On)          |
+| HORN\_SW\_BCM        |         | Horn Switch                           | OFF      |       | A (0=Off, 1=On)          |
+| IGN\_SW\_STATE\_BCM  |         | Ignition Switch State                 | Run      |       | A (Enum)                 |
+
 
