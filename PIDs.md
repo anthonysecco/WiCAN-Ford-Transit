@@ -16,17 +16,16 @@ There's two "Modes" of interest
 
 The Ford Transit (especially 2020 and newer models) typically includes three main CAN buses, each serving different types of modules based on speed and priority. These buses are part of the vehicle’s network architecture that allows electronic modules to communicate.
 
+## Modules
+
 | Bus       | Abbreviation | CAN ID (Hex) | Module Name                  |
 |-----------|--------------|--------------|------------------------------|
 | HS-CAN1   | PCM          | 7E0          | Powertrain Control Module    |
 | HS-CAN1   | AWDM         | TBD          | All-Wheel Drive Module  |
 | HS-CAN1   | BCM        | TBD          | Body Control Module  |
 
-# Target PIDs
+### Powertrain Control Module (PCM)
 
-## Powertrain Control Module (PCM)
-
-### Temperatures
 | PID                   | Description                                                       | Value      | Units |
 |-----------------------|-------------------------------------------------------------------|------------|-------|
 | ECT                   | Engine coolant temperature                                        | 181.4      | °F    |
@@ -65,59 +64,47 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | EQ_RAT11              | Equivalence Ratio (Lambda) (Bank 1, Sensor 1)                     | 0.9907315  |       |
 | EQ_RAT21              | Equivalence Ratio (Lambda) (Bank 2, Sensor 1)                     | 1.006317   |       |
 
-## All-Wheel Drive Module (AWDM)
+####🚫 Unavailable Data
+- Engine oil temperature
+
+### All-Wheel Drive Module (AWDM)
 
 On the 2021 Transit AWD the “FAD” prefix refers to the Front Axle Disconnect system (sometimes also called the Front‐Axle Drive clutch). It’s the electro-hydraulic clutch pack that connects or disconnects the front driveshaft when called by the AWDM.
 
-Relevant PID for monitoring are:
+I've consolidated the available sensors to the following as most relevant:
 
 | PID Codename         | Description                                           | Value                        | Units  |
 |----------------------|-------------------------------------------------------|------------------------------|--------|
 | FAD_ACT_STATUS       | Front Axle Disconnect Actuator Status                 | FAD in 4WD - CONNECTED       |        |
-| FAD_CLTCH_CMD        | Front-Axle Disconnect Clutch Command                  | Command Connect              |        |
 | FAD_STRG_CMD         | Front-Axle Disconnect Strategy Command                | Connect Request              |        |
 | FAD_DISCON_IN_DC     | Front Axle Disconnect Input Duty Cycle                | 0                            | %      |
 | TC_MTR_OUT_DC        | Torque Converter Clutch Duty-Cycle                    | 5                            | %      |
-| TC_TRQ_REQ           | Torque Converter Torque Requested                     | 0                            | lb·ft  |
-| TC_TRQCAP_INF        | 	Torque Converter Torque Capacity (Inferred)          | 0                            | lb·ft  |
-
-### Definitions
 
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
 - **“FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front wheels.  
 - **“FAD in 2WD – DISCONNECTED”** would indicate the front axle is released and you’re in rear-wheel drive only.
 
-#### Front-Axle Disconnect Clutch Command  
-The low-level command sent to the FAD clutch solenoid or motor.  
-- **Command Connect** instructs the module to build hydraulic pressure and engage the clutch pack for AWD.  
-- **Command Disconnect** tells the module to relieve pressure and open the clutch plates, dropping back to 2WD.
-
 #### Front-Axle Disconnect Strategy Command  
 The high-level strategy request from the PCM governing AWD mode.  
 - **Connect Request** signals “go AWD”—the system wants front-axle engagement.  
 - **Disconnect Request** signals “back to RWD”—the system wants the front axle released.  
 - **Modulate** (if supported) requests smooth, partial engagement to meter torque split.
+> All states are to be confirmed.
 
 #### Front Axle Disconnect Input Duty Cycle  
 The PWM duty-cycle (0–100 %) applied to the disconnect control valve.  
-- **0 %** means no disengage signal (clutch remains engaged).  
+- **0 %** means no disengage signal (clutch remains engaged).
 - Higher values ramp open the clutch pack proportionally, allowing controlled slip or full disconnect.
+- **100 %** means full disengage signal (clutch disengaged) 
 
 #### Torque Converter Clutch Duty-Cycle  
 The PWM duty-cycle (0–100 %) applied to the torque-converter clutch solenoid to control lock-up pressure.  
-- **Low duty-cycle** = minimal lock-up (more fluid coupling).  
-- **High duty-cycle** = stronger lock-up (more mechanical coupling, better efficiency).
+- **Low duty-cycle** = minimal lock-up (more fluid coupling >> more slip, more heat, ).  
+- **High duty-cycle** = stronger lock-up (more mechanical coupling >> more efficiency, less heat).
 
-#### Torque Converter Torque Requested  
-The engine-to-transmission torque (in lb·ft) that the control logic is asking the torque-converter clutch to carry.  
-- **0 lb·ft** means “no lock-up requested” (the converter is free-spinning).  
-- A nonzero value indicates torque lock-up is commanded for efficiency or traction.
-
-#### Torque Converter Torque Capacity (Inferred)  
-The inferred maximum torque capacity (in lb·ft) the current converter pressure can transmit without slipping.  
-- **0 lb·ft** suggests no pressure (no capacity).  
-- As pressure builds, this value rises, indicating how much torque the clutch can hold locked.  
+####🚫 Unavailable Data
+- FAD Clutch Temperature
 
 ## Body Control Module (BCM)
 
@@ -166,3 +153,4 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 | TRN_SIG_SW_R_BCM     | Turn Signal Right Switch Input Status           | Off           |       |
 | HORN_SW_BCM          | Horn Switch                                     | OFF           |       |
 | IGN_SW_STATE_BCM     | Ignition Switch State                           | Run           |       |
+
