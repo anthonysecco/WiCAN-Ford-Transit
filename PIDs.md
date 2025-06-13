@@ -26,78 +26,78 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 
 ### SAE Standard (OBD)
 
+| PID  | PID Label        | Description                                     | Units | Status |
+| ---- | ---------------- | ----------------------------------------------- | ----- | ------ |
+| 0x04 | LOAD             | Calculated Engine Load                          | %     | ✅     |
+| 0x0B | MAP              | Manifold Absolute Pressure                      | kPa   | ✅     |
+| 0x0C | EngineRPM        | Engine RPM                                      | rpm   | ✅     |
+| 0x0D | VSS              | Vehicle Speed Sensor                            | km/h  | ✅     |
+| 0x11 | TP               | Throttle Position                               | %     | ✅     |
+| 0x2F | FL               | Fuel Level                                      | %     | ✅     |
+| 0x34 | OxySensor1\_FAER | Oxygen Sensor Bank 1 Fuel-Air Equivalence Ratio | Ratio | ✅     |
+| 0x38 | OxySensor5\_FAER | Oxygen Sensor Bank 2 Fuel-Air Equivalence Ratio | Ratio | ✅     |
+| 0x44 | FuelAirCmdEquiv  | Commanded Equivalence Ratio                     | Ratio | ✅     |
+| 0x46 | AMB\_TEMP        | Ambient Air Temperature                         | °C    | ✅     |
+| 0x62 | ActualEngTorqPct | Actual Engine Torque Percent                    | %     | ✅     |
+| 0x63 | EngRefTorq       | Engine Reference Torque                         | Nm    | ✅     |
+| 0xA6 | Odometer         | Odometer                                        | km    | ✅     |
+
 Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
 
-| PID  | PID Label        | Description                                     | Units   |
-| ---- | ---------------- | ----------------------------------------------- | ------- |
-| 0x04 | LOAD             | Calculated Engine Load                          | %       |
-| 0x0B | MAP              | Manifold Absolute Pressure                      | kPa     |
-| 0x0C | EngineRPM        | Engine RPM                                      | rpm     |
-| 0x0D | VSS              | Vehicle Speed Sensor                            | km/h    |
-| 0x11 | TP               | Throttle Position                               | %       |
-| 0x2F | FL               | Fuel Level                                      | %       |
-| 0x34 | OxySensor1\_FAER | Oxygen Sensor Bank 1 Fuel-Air Equivalence Ratio | Ratio   |
-| 0x38 | OxySensor5\_FAER | Oxygen Sensor Bank 2 Fuel-Air Equivalence Ratio | Ratio   |
-| 0x44 | FuelAirCmdEquiv  | Commanded Equivalence Ratio                     | Ratio   |
-| 0x46 | AMB_TEMP         | Ambient Air Temperature                         | C       |
-| 0x62 | ActualEngTorqPct | Actual Engine Torque Percent                    | %       |
-| 0x63 | EngRefTorq       | Engine Reference Torque                         | Nm      |
-| 0xA6 | Odometer         | Odometer                                        | km      |
+> ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
 
 ### Powertrain Control Module (PCM)
 
-| PID Label          | PID | Description                                   | Example Value | Units | Expression                  |
-| ------------------ | --- | --------------------------------------------- | ------------- | ----- | -------------------------- |
-| ECT                |     | Engine coolant temperature                    | 181.4         | °F    | (A-40)\*9/5+32             |
-| TFT                | 0x221E1C | Transmission Fluid Temperature                | 60        | °C    | (([B4:B5])*45)/720             |
-| IAT\_T             |     | Intake Air Temperature                        | 73.4          | °F    | (A-40)\*9/5+32             |
-| IAT\_T             |     | Intake Air Temperature                        | 82.4          | °F    | (A-40)\*9/5+32             |
-| IAT2\_TEMP\_MZ     |     | Intake Air Temperature 2                      | 93.2          | °F    | (A-40)\*9/5+32             |
-| AAT\_TEMP\_MZ      |     | Ambient Air Temperature                       | 73.4          | °F    | (A-40)\*9/5+32             |
-| AAT\_MZ            |     | Ambient Air Temperature                       | 73.4          | °F    | (A-40)\*9/5+32             |
-| BAT\_MZ            |     | Boost air temperature sensor                  | 93.2          | °F    | (A-40)\*9/5+32             |
-| BAT\_MZ            |     | Boost air temperature sensor                  | 82.4          | °F    | (A-40)\*9/5+32             |
-| CHT                |     | Cylinder Head Temperature                     | 201.29        | °F    | (A-40)\*9/5+32             |
-| CATT21\_DSD        |     | Desired Catalyst Temperature Bank 2, Sensor 1 | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
-| EXHTEMP2\_MZ       |     | Exhaust Gas Temperature Sensor (Middle)       | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
-| CATT11\_DSD        |     | Desired Catalyst Temperature Bank 1, Sensor 1 | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
-| EXHTEMP1\_MZ       |     | Exhaust Gas Temperature Sensor (Upper)        | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
-| GEAR\_ENG\_PCM\_MZ |     | Transmission Gear Engaged                     | Park          |       | A                          |
-| GEAR\_GGDS\_MZ     | 0x221E12 | Gear commanded by module                      | P             |       | B4                          |
-| INGEAR             |     | In gear                                       | Off           |       | A (0=Off, 1=On)            |
-| FLI                |     | Fuel Level                                    | 75.78         | %     | A\*100/255                 |
-| IG\_SW\_MZ         |     | Ignition switch status                        | On            |       | A                          |
-| AC\_SW\_MZ         |     | Air conditioning switch                       | On            |       | A                          |
-| BOO                |     | Brake ON/OFF                                  | Off           |       | A                          |
-| WGC\_MZ            | 0x220462 | Wastegate Control Solenoid Valve              | 0             | %     | B4/128*100                 |
-| MAP                |     | Manifold absolute pressure sensor             | 11.81         | inHg  | (A*256+B)/10*0.02953       |
-| FUEL\_SYS          |     | Fuel System Status (Open/Closed Loop)         | CL            |       | A                          |
-| FP                 |     | Fuel pump  duty cycle                         | 30.3          | %     | A\*100/255                 |
-| FUEL\_P\_DSD\_MZ   |     | Fuel Pressure Desired                         | 738.25        | inHg  | (A\*256+B)\*0.145038       |
-| FUEL\_PRES\_MZ     |     | Fuel Pressure Sensor                          | 741.21        | inHg  | (A\*256+B)\*0.145038       |
+> Module initalization: ATSH0007E0;STCAFCP7E0,7E8
 
-#### 🚧 Further review
-
-0x22054B - Oil Life (%) - B4 
-0x22F49D - Fuel Rate (g/s) - ([B4:B5])*2/100
-0x2203E8 - Learned Octane Ratio (%) - ([B4:B5])/16384
+| **PID**  | **Name**               | **Description**                               | **Units** | **Expression**     | **Status** |
+| -------- | ---------------------- | --------------------------------------------- | --------- | ------------------ | ---------- |
+| —        | ECT                    | Engine coolant temperature                    | °C        | B4-40              |            |
+| 0x221E1C | TFT                    | Transmission Fluid Temperature                | °C        | ((\[B4\:B5])/10)   | ✅          |
+| —        | IAT\_T                 | Intake Air Temperature                        | °C        | B4-40              |            |
+| —        | IAT2\_TEMP\_MZ         | Intake Air Temperature 2                      | °C        | B4-40              |            |
+| —        | AAT\_TEMP\_MZ          | Ambient Air Temperature                       | °C        | B4-40              |            |
+| —        | AAT\_MZ                | Ambient Air Temperature                       | °C        | B4-40              |            |
+| —        | BAT\_MZ                | Boost air temperature sensor                  | °C        | B4-40              |            |
+| —        | CHT                    | Cylinder Head Temperature                     | °C        | B4-40              |            |
+| —        | CATT21\_DSD            | Desired Catalyst Temperature Bank 2, Sensor 1 | °C        | ((\[B4\:B5])/10)   |            |
+| —        | EXHTEMP2\_MZ           | Exhaust Gas Temperature Sensor (Middle)       | °C        | ((\[B4\:B5])/10)   |            |
+| —        | CATT11\_DSD            | Desired Catalyst Temperature Bank 1, Sensor 1 | °C        | ((\[B4\:B5])/10)   |            |
+| —        | EXHTEMP1\_MZ           | Exhaust Gas Temperature Sensor (Upper)        | °C        | ((\[B4\:B5])/10)   |            |
+| —        | GEAR\_ENG\_PCM\_MZ     | Transmission Gear Engaged                     | —         | B4                 |            |
+| 0x221E12 | GEAR\_GGDS\_MZ         | Gear commanded by module                      | enum      | B4                 | ✅          |
+| —        | INGEAR                 | In gear                                       | —         | B4                 |            |
+| —        | FLI                    | Fuel Level                                    | %         | B4\*100/255        |            |
+| —        | IG\_SW\_MZ             | Ignition switch status                        | —         | B4                 |            |
+| —        | AC\_SW\_MZ             | Air conditioning switch                       | —         | B4                 |            |
+| —        | BOO                    | Brake ON/OFF                                  | —         | B4                 |            |
+| 0x220462 | WGC\_MZ                | Wastegate Control Solenoid Valve              | %         | B4\*100/128        | ✅          |
+| —        | MAP                    | Manifold absolute pressure sensor             | kPa       | (\[B4\:B5])/100    |            |
+| —        | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | —         | B4                 |            |
+| —        | FP                     | Fuel pump duty cycle                          | %         | B4\*100/255        |            |
+| —        | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | (\[B4\:B5])        |            |
+| —        | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | (\[B4\:B5])        |            |
+| 0x22054B | OIL\_LIFE              | Oil Life                                      | %         | B4                 | ✅          |
+| 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | (\[B4\:B5])\*2/100 |            |
+| 0x2203E8 | LEARNED\_OCTANE\_RATIO | Learned Octane Ratio                          | %         | (\[B4\:B5])/16384  |            |
 
 ####🚫 Unavailable Data
-- Engine oil temperature
+- Engine oil temperature (No valid PID available)
 
 ### All-Wheel Drive Module (AWDM)
 
-On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the torque to the front wheels by activating a electronic-hydraulic clutch pack.  This is called a Front Axle Disconnect (FAD) system (sometimes also called the Front‐Axle Drive clutch). 
+On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the torque to the front wheels by activating a electronic-hydraulic clutch pack.  This is called a Front Axle Disconnect (FAD) system.  
 
 In its mechanically default position, the front drive shaft is disconnected.  When the AWDM activates the electronic-hydraulic clutch pack, it connects the front drive shaft.  Up to 50% of engine torque can be diverted to the front wheels if the clutch is fully engaged.
 
 | **Wheels** | **Total Torque** |
+| ------------------- | ------- |
 | Front Wheels | 0-50% |
 | Rear Wheels | 0-100% |
 
-While in technical terrian, it may be useful to display the torque split between front/rear wheels.
+While in technical terrain, it may be useful to display the torque split between front/rear wheels.
 
-> Module initalization: STCCFCP;ATTP6;STPTOT100;ATSH000703;STCAFCP703,70B
+> Module initalization: ATSH000703;STCAFCP703,70B
 
 I've consolidated the available sensors to the following as most relevant:
 
@@ -112,6 +112,8 @@ I've consolidated the available sensors to the following as most relevant:
 Shows the real-time state of the Front-Axle Disconnect actuator.  
 - **“FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front & rear wheels.  
 - **“FAD in 2WD – DISCONNECTED”** would indicate the front axle is released and supplying torque to only rear-wheel drive only.
+
+> All states above have yet to be confirmed.
 
 #### Front-Axle Disconnect Strategy Command  
 The high-level strategy request from the PCM governing AWD mode.  
