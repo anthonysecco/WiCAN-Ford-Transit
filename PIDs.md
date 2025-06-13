@@ -70,7 +70,6 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | AC\_SW\_MZ         |     | Air conditioning switch                       | On            |       | A                          |
 | BOO                |     | Brake ON/OFF                                  | Off           |       | A                          |
 | WGC\_MZ            | 0x220462 | Wastegate Control Solenoid Valve              | 0             | %     | B4/128*100                 |
-| BARO\_MZ           |     | Barometric pressure                           | 29.83         | inHg  | (A*256+B)/10*0.02953       |
 | MAP                |     | Manifold absolute pressure sensor             | 11.81         | inHg  | (A*256+B)/10*0.02953       |
 | FUEL\_SYS          |     | Fuel System Status (Open/Closed Loop)         | CL            |       | A                          |
 | FP                 |     | Fuel pump  duty cycle                         | 30.3          | %     | A\*100/255                 |
