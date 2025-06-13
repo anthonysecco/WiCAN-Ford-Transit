@@ -1,4 +1,4 @@
-> This repo is under development and is constantly changing.  I do not guarantee the accuracy of the information below.
+> 🚧 This document is under development and is constantly changing.  I do not guarantee the accuracy of the information below.
 
 # Parameter IDs
 
@@ -24,12 +24,43 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | HS-CAN1   | AWDM         | 0x703          | All-Wheel Drive Module       |
 | HS-CAN1   | BCM          | 0x726          | Body Control Module          |
 
+### SAE Standard (OBD)
+
+Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
+
+| PID  | PID Label        | Description                                     | Units   |
+| ---- | ---------------- | ----------------------------------------------- | ------- |
+| 0x04 | LOAD             | Calculated Engine Load                          | %       |
+| 0x0B | MAP              | Manifold Absolute Pressure                      | kPa     |
+| 0x0C | EngineRPM        | Engine RPM                                      | rpm     |
+| 0x0D | VSS              | Vehicle Speed Sensor                            | km/h    |
+| 0x11 | TP               | Throttle Position                               | %       |
+| 0x2F | FL               | Fuel Level                                      | %       |
+| 0x34 | OxySensor1\_FAER | Oxygen Sensor Bank 1 Fuel-Air Equivalence Ratio | Ratio   |
+| 0x38 | OxySensor5\_FAER | Oxygen Sensor Bank 2 Fuel-Air Equivalence Ratio | Ratio   |
+| 0x44 | FuelAirCmdEquiv  | Commanded Equivalence Ratio                     | Ratio   |
+| 0x46 | AMB_TEMP         | Ambient Air Temperature                         | C       |
+| 0x62 | ActualEngTorqPct | Actual Engine Torque Percent                    | %       |
+| 0x63 | EngRefTorq       | Engine Reference Torque                         | Nm      |
+| 0xA6 | Odometer         | Odometer                                        | km      |
+
+#### 🚧 Further review
+0x03 - Fuel system status (open/closed loop)
+0x52 - Ethanol fuel content (%)
+0x5E - Fuel rate (g/s)
+0x77 - Charge air temp
+0x78 - EGT1
+0x79 - EGT2
+0x7F - runtime
+0x9D - engine fuel rate (g/s)
+0xA4 - Transmission gear
+
 ### Powertrain Control Module (PCM)
 
-| PID Label          | PID | Description                                   | Example Value | Units | Formula                    |
+| PID Label          | PID | Description                                   | Example Value | Units | Expression                  |
 | ------------------ | --- | --------------------------------------------- | ------------- | ----- | -------------------------- |
 | ECT                |     | Engine coolant temperature                    | 181.4         | °F    | (A-40)\*9/5+32             |
-| TFT                |     | Transmission Fluid Temperature                | 137.42        | °F    | (A-40)\*9/5+32             |
+| TFT                | 0x221E1C | Transmission Fluid Temperature                | 60        | °C    | (([B4:B5])*45)/720             |
 | IAT\_T             |     | Intake Air Temperature                        | 73.4          | °F    | (A-40)\*9/5+32             |
 | IAT\_T             |     | Intake Air Temperature                        | 82.4          | °F    | (A-40)\*9/5+32             |
 | IAT2\_TEMP\_MZ     |     | Intake Air Temperature 2                      | 93.2          | °F    | (A-40)\*9/5+32             |
@@ -43,24 +74,25 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | CATT11\_DSD        |     | Desired Catalyst Temperature Bank 1, Sensor 1 | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
 | EXHTEMP1\_MZ       |     | Exhaust Gas Temperature Sensor (Upper)        | 808.34        | °F    | ((A\*256+B)/10)\*9/5+32    |
 | GEAR\_ENG\_PCM\_MZ |     | Transmission Gear Engaged                     | Park          |       | A                          |
-| GEAR\_GGDS\_MZ     |     | Gear commanded by module                      | P             |       | A                          |
+| GEAR\_GGDS\_MZ     | 0x221E12 | Gear commanded by module                      | P             |       | B4                          |
 | INGEAR             |     | In gear                                       | Off           |       | A (0=Off, 1=On)            |
 | FLI                |     | Fuel Level                                    | 75.78         | %     | A\*100/255                 |
 | IG\_SW\_MZ         |     | Ignition switch status                        | On            |       | A                          |
 | AC\_SW\_MZ         |     | Air conditioning switch                       | On            |       | A                          |
 | BOO                |     | Brake ON/OFF                                  | Off           |       | A                          |
-| WGC\_MZ            |     | Wastegate Control Solenoid Valve              | 0             | %     | A\*100/255                 |
+| WGC\_MZ            | 0x220462 | Wastegate Control Solenoid Valve              | 0             | %     | B4/128*100                 |
 | BARO\_MZ           |     | Barometric pressure                           | 29.83         | inHg  | (A*256+B)/10*0.02953       |
 | MAP                |     | Manifold absolute pressure sensor             | 11.81         | inHg  | (A*256+B)/10*0.02953       |
 | FUEL\_SYS          |     | Fuel System Status (Open/Closed Loop)         | CL            |       | A                          |
-| FP                 |     | Fuel pump                                     | 30.3          | %     | A\*100/255                 |
+| FP                 |     | Fuel pump  duty cycle                         | 30.3          | %     | A\*100/255                 |
 | FUEL\_P\_DSD\_MZ   |     | Fuel Pressure Desired                         | 738.25        | inHg  | (A\*256+B)\*0.145038       |
-| FRP\_DSD\_MZ       |     | Fuel Rail Pressure Desired                    | 738.25        | inHg  | (A\*256+B)\*0.145038       |
 | FUEL\_PRES\_MZ     |     | Fuel Pressure Sensor                          | 741.21        | inHg  | (A\*256+B)\*0.145038       |
-| FRP\_DCM           |     | Fuel Rail Pressure                            | 741.21        | inHg  | (A\*256+B)\*0.145038       |
-| EQ\_RAT\_DSD       |     | Desired Equivalence Ratio (Lambda)            | 0.9832285     |       | (A\*256+B)/32768           |
-| EQ\_RAT11          |     | Equivalence Ratio (Lambda) (Bank 1, Sensor 1) | 0.9907315     |       | (A\*256+B)/32768           |
-| EQ\_RAT21          |     | Equivalence Ratio (Lambda) (Bank 2, Sensor 1) | 1.006317      |       | (A\*256+B)/32768           |
+
+#### 🚧 Further review
+
+0x22054B - Oil Life (%) - B4 
+0x22F49D - Fuel Rate (g/s) - ([B4:B5])*2/100
+0x2203E8 - Learned Octane Ratio (%) - ([B4:B5])/16384
 
 ####🚫 Unavailable Data
 - Engine oil temperature
@@ -142,14 +174,14 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 | PID      | Name                | Description                    | Units | Expression                          |
 | -------- | ------------------- | ------------------------------ | ----- | ----------------------------------- |
-| —        | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
-| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
-| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
-| —        | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
-| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
-| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
-| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
-| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | psi   | (((B4 × 256) + B5) / 10) × 0.145038 |
+| —        | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | psi   | ([B4:B5] / 10) × 0.145038 |
+| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | psi   | ([B4:B5] / 10) × 0.145038 |
+| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | psi   | ([B4:B5] / 10) × 0.145038 |
+| —        | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | psi   | ([B4:B5] / 10) × 0.145038 |
+| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | psi   | ([B4:B5] / 10) × 0.145038 |
+| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | psi   | ([B4:B5] / 10) × 0.145038 |
+| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | psi   | ([B4:B5]) / 10) × 0.145038 |
+| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | psi   | ([B4:B5]} / 10) × 0.145038 |
 
 
 ### Battery
@@ -157,9 +189,9 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 | PID      | Name                  | Description                       | Units | Expression                        |
 | -------- | --------------------- | --------------------------------- | ----- | --------------------------------- |
 | 0x224028 | BAT\_ST\_CHRG\_BCM    | Vehicle Battery – State of Charge | %     | B4                                |
-| 0x22402B | BAT\_CURRENT\_BCM     | Vehicle Battery – Current         | A     | (((B4 \* 256) + B5) / 16) - 511.7 |
-| 0x224090 | BAT\_CURRENT\_BCM     | Vehicle Battery – Current         | A     | (((B4 \* 256) + B5) / 16) - 511.7 |
-| 0x22402A | BATTERY\_VOLTAGE\_BCM | Vehicle Battery – Voltage         | V     | ((B4 \* 256) + B5) / 884          |
+| 0x22402B | BAT\_CURRENT\_BCM     | Vehicle Battery – Current         | A     | ([B4:B5] / 16) - 511.7 |
+| 0x224090 | BAT\_CURRENT\_BCM     | Vehicle Battery – Current         | A     | ([B4:B5] / 16) - 511.7 |
+| 0x22402A | BATTERY\_VOLTAGE\_BCM | Vehicle Battery – Voltage         | V     | ([B4:B5]) / 884          |
 
 ### Accessories
 
