@@ -26,7 +26,7 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 
 ## Powertrain Control Module (PCM)
 
-# Temperatures
+### Temperatures
 | PID                   | Description                                                       | Value      | Units |
 |-----------------------|-------------------------------------------------------------------|------------|-------|
 | ECT                   | Engine coolant temperature                                        | 181.4      | °F    |
