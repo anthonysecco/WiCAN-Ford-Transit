@@ -23,7 +23,7 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | HS-CAN1   | PCM          | 0x7E0          | Powertrain Control Module    |
 | HS-CAN1   | AWDM         | 0x703          | All-Wheel Drive Module       |
 | HS-CAN1   | BCM          | 0x726          | Body Control Module          |
-
+---
 ### SAE Standard (OBD)
 
 | PID  | PID Label        | Description                                     | Units | Status |
@@ -45,7 +45,7 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
 
 > ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
-
+---
 ### Powertrain Control Module (PCM)
 > Module initalization: ATSH0007E0;STCAFCP7E0,7E8
 
@@ -83,7 +83,7 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 
 ####🚫 Unavailable Data
 - Engine oil temperature (No valid PID available)
-
+---
 ### All-Wheel Drive Module (AWDM)
 > Module initalization: ATSH000703;STCAFCP703,70B
 
@@ -106,7 +106,6 @@ I've consolidated the available sensors to the following as most relevant:
 | 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | Connect Request        | enum | B4 (Enum: 0=Disconnect Request, 1=Connect Request)            |
 | 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | 0                      | %    | B4 \* 100 / 255                                               |
 | 0x220725 | TC\_MTR\_OUT\_DC    | Torque Converter Clutch Duty-Cycle     | 5                      | %    | B4 \* 100 / 255                                               |
-
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
 - **“FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front & rear wheels.  
@@ -139,7 +138,7 @@ The PWM duty-cycle (0–100 %) applied to the torque-converter clutch solenoid t
 
 ####🚫 Unavailable Data
 - FAD Clutch Temperature😭
-
+---
 ## Body Control Module (BCM)
 > Module initalization: ATSH000726;STCAFCP726,72E
 
