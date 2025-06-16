@@ -25,6 +25,9 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | HS-CAN1   | BCM          | 0x726          | Body Control Module          |
 ---
 ### SAE Standard (OBD)
+> ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
+
+Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
 
 | PID  | PID Label        | Description                                     | Units | Status |
 | ---- | ---------------- | ----------------------------------------------- | ----- | ------ |
@@ -42,9 +45,6 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | 0x63 | EngRefTorq       | Engine Reference Torque                         | Nm    | ✅     |
 | 0xA6 | Odometer         | Odometer                                        | km    | ✅     |
 
-Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
-
-> ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
 ---
 ### Powertrain Control Module (PCM)
 > Module initalization: ATSH0007E0;STCAFCP7E0,7E8
@@ -80,7 +80,6 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | (\[B4\:B5])\*2/100 |            |
 | 0x2203E8 | LEARNED\_OCTANE\_RATIO | Learned Octane Ratio                          | %         | (\[B4\:B5])/16384  |            |
 
-
 ####🚫 Unavailable Data
 - Engine oil temperature (No valid PID available)
 ---
@@ -91,14 +90,7 @@ On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the
 
 In its mechanically default position, the front drive shaft is disconnected.  When the AWDM activates the electronic-hydraulic clutch pack, it connects the front drive shaft.  Up to 50% of engine torque can be diverted to the front wheels if the clutch is fully engaged.
 
-| **Wheels** | **Total Torque** |
-| ------------------- | ------- |
-| Front Wheels | 0-50% |
-| Rear Wheels | 0-100% |
-
-While in technical terrain, it may be useful to display the torque split between front/rear wheels.
-
-I've consolidated the available sensors to the following as most relevant:
+While in technical terrain, it may be useful to display the torque split between front/rear wheels. I've consolidated the available sensors to the following relevant sensors:
 
 | PID      | Name                | Description                            | Value                  | Unit | Formula                                                       |
 | -------- | ------------------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------- |
@@ -106,6 +98,7 @@ I've consolidated the available sensors to the following as most relevant:
 | 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | Connect Request        | enum | B4 (Enum: 0=Disconnect Request, 1=Connect Request)            |
 | 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | 0                      | %    | B4 \* 100 / 255                                               |
 | 0x220725 | TC\_MTR\_OUT\_DC    | Torque Converter Clutch Duty-Cycle     | 5                      | %    | B4 \* 100 / 255                                               |
+
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
 - **“FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front & rear wheels.  
