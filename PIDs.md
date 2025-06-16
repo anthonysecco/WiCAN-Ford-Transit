@@ -167,11 +167,11 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 ### Battery
 
-| PID      | Name                  | Description                       | Units | Expression                        |
+| PID      | Name                  | Description                       | Units | Expression   |
 | -------- | --------------------- | --------------------------------- | ----- | ------------ |
-| 0x224028 | BAT\_ST\_CHRG\_BCM    | Vehicle Battery – State of Charge | %     | B4            |
-| 0x22402B | BAT\_CURRENT\_BCM     | Vehicle Battery – Current         | A     | ([B4:B5]) |
-| 0x22402A | BATTERY\_VOLTAGE\_BCM | Vehicle Battery – Voltage         | V     | ([B4:B5])      |
+| 0x224028 | BAT\_ST\_CHRG\_BCM    | Vehicle Battery – State of Charge | %     | B4      |
+| 0x22402B | BAT\_CURRENT\_BCM     | Vehicle Battery – Current         | A     | [B4:B5] |
+| 0x22402A | BATTERY\_VOLTAGE\_BCM | Vehicle Battery – Voltage         | V     | [B4:B5] |
 
 ### Accessories
 
