@@ -82,6 +82,8 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x2203DC | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | (\[B4\:B5])        |            |
 | 0x22F423 | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | (\[B4\:B5])        |            |
 
+Extra details below.
+
 #### Drive Mode
 Selectable modes on the dashboard.  Adjusts programing of PCM, AWDM, and ABS for different driving modes.  This will report current mode.
 - 00 → Normal
@@ -106,7 +108,43 @@ Indicates if brakes are being applied
 - 06 → ON Pedal Pressed
 - 00 → OFF
 
+#### Wastegate Solenoid
+Indicates duty cycle % sent to wastegate to **OPEN** and release excess boost pressure.
+
+#### Oil Life %
+0-100%, same as shown on the instrument panel.
+
+#### Alternator Duty Cycle
+Represents the PCM’s PWM‐duty command to the alternator’s internal regulator, not a direct measure of alternator load. The PCM continuously reads system voltage (via its voltage PIDs) and, when voltage sags under electrical demand (lights, HVAC, winch, etc.), ramps up the duty cycle to boost field current and raise alternator output; when voltage is high and load light, it dials the duty back down to prevent overcharging.
+
+Low percentages (10–30 %) at cruising indicate minimal charge maintenance, while high percentages (50–100 %) under heavy electrical load or low RPM signal the PCM driving the alternator hard. Because GENCMD is a control signal rather than a sensor of current or torque, you’ll want to pair it with the Mode 22 Battery Current PID (0x2142) and system‐voltage PIDs to see the actual amps flowing and get a true picture of charging‐system load.
+
+#### Learned Octane Ratio 
+The Learned Octane Ratio (LOR) is a closed-loop **multiplier** the PCM uses to dynamically adjust its load and spark-advance tables based on fuel knock feedback. As the engine runs, the PCM incrementally “learns” the octane quality by nudging spark timing forward (seeking maximum efficiency) and watching for knock. If no knock occurs, it continues advancing toward its high-octane target; if knock is detected, it retreats toward a conservative, lower-octane calibration. This system lets the EcoBoost engine safely exploit whatever octane you’ve filled it with, optimizing power and efficiency without manual tuning.
+
+Learned Octane Ratio is a relative tuning factor, not an absolute octane meter. Ford calibrates LOR so that zero corresponds to the engine’s nominal (recommended) fuel rating.  For the Transit, that's 87 AKI. When you run on 87-octane, LOR will hover around 0.0, meaning the PCM is using its baseline spark‐advance tables.
+
+- LOR ≈ 0.0 → you’re at the recommended 87 AKI
+- LOR < 0.0 → fuel is “better” (higher octane) than 87 → PCM advances spark
+- LOR > 0.0 → fuel is “weaker” (lower octane) than 87 → PCM retards spark
+
+#### Fuel pump duty cycle 
+The PCM’s PWM command to the low-pressure (lift) fuel pump in the tank. Rather than simply switching the pump fully on or off, the PCM modulates the pump’s duty between 0–100 % to precisely control the flow and maintain the target feed pressure for the high-pressure direct-injection system. This can be useful for how how hard the fuel pump is working drawing fuel from the tank.
+
+#### Fuel Rate  
+#### Fuel System Status
+**Open Loop** - Fuel Ratio determined based on static table.  Used on cold start and wide-open throttle situations
+**Closed Loop** - Fuel ratio is determined using measurements from narrowband oxygen sensors to maintain stochmetic fuel ratio of 14.67:1
+
+#### Fuel Pressure Desired
+PCM Desired fuel pressure based on calculated engine load.
+
+#### Fuel Pressure Sensor
+Actual fuel pressure measured.  Difference between pressure sensor and desired pressure determines pump duty cycle.
+
 #### Other PIDs of Interest
+These may be developed in the future.
+
 - Ford FAN1
 - Ford FAN2
 - Ford FAN3
@@ -173,16 +211,18 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 ### Doors
 
-> 🚧 Formulas under construction
+| PID      | Name                | Description              | Units | Expression     | Status |
+| -------- | ------------------- | ------------------------ | ----- | -------------- | ------ |
+| 0x225B1D | DOOR\_SW\_DRVR\_BCM | Driver’s Door Ajar       | —     | ((A >> 0) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_PSGR\_BCM | Passenger Door Ajar      | —     | ((A >> 1) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_LR\_BCM   | Left Rear Door Ajar      | —     | ((A >> 3) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_RR\_BCM   | Right Rear Door Ajar     | —     | ((A >> 4) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_LUGG\_BCM | Luggage Compartment Ajar | —     | ((A >> 5) & 1) | 🚧     |
+| 0x225B1D | HOOD\_SW\_BCM       | Hood Ajar                | —     | ((A >> 2) & 1) | 🚧     |
 
-| PID      | Name                | Description              | Units | Expression     |
-| -------- | ------------------- | ------------------------ | ----- | -------------- |
-| 0x225B1D | DOOR\_SW\_DRVR\_BCM | Driver’s Door Ajar       | —     | ((A >> 0) & 1) |
-| 0x225B1D | DOOR\_SW\_PSGR\_BCM | Passenger Door Ajar      | —     | ((A >> 1) & 1) |
-| 0x225B1D | DOOR\_SW\_LR\_BCM   | Left Rear Door Ajar      | —     | ((A >> 3) & 1) |
-| 0x225B1D | DOOR\_SW\_RR\_BCM   | Right Rear Door Ajar     | —     | ((A >> 4) & 1) |
-| 0x225B1D | DOOR\_SW\_LUGG\_BCM | Luggage Compartment Ajar | —     | ((A >> 5) & 1) |
-| 0x225B1D | HOOD\_SW\_BCM       | Hood Ajar                | —     | ((A >> 2) & 1) |
+> 🚧 Door states are show by bit, not byte.  Some work needed to track individual bits yet.
+>
+> Naming convention needs to be mapped to actual doors.
 
 ### Tire Pressure
 
