@@ -82,7 +82,31 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x2203DC | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | (\[B4\:B5])        |            |
 | 0x22F423 | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | (\[B4\:B5])        |            |
 
-Other PIDs of Interest
+#### Drive Mode
+Selectable modes on the dashboard.  Adjusts programing of PCM, AWDM, and ABS for different driving modes.  This will report current mode.
+- 00 → Normal
+- 06 → Eco
+- 05 → Slippery
+- 08 → Mud & Ruts
+- 0 →3 Tow / Haul
+
+#### Gear Commanded
+- Park
+- Reverse
+- Neutral
+- Drive (1 to 10)
+
+#### A/C Compressor Switch
+Indicates of A/C compressor clutch is being called to engage.
+- 01 → ON
+- 00 → OFF
+
+#### Brake On/Off
+Indicates if brakes are being applied
+- 06 → ON Pedal Pressed
+- 00 → OFF
+
+#### Other PIDs of Interest
 - Ford FAN1
 - Ford FAN2
 - Ford FAN3
@@ -102,24 +126,24 @@ While in technical terrain, it may be useful to display the torque split between
 
 > Module initalization: ATSH000703;STCAFCP703,70B
 
-| PID      | Name                | Description                            | Value                  | Unit | Expression                                                    |
-| -------- | ------------------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------- |
-| 0x220722 | FAD\_ACT\_STATUS    | Front Axle Disconnect Actuator Status  | FAD in 4WD - CONNECTED | enum | B4 (Enum: 0=Disconnected, 1=Connected, 2=Transition, 3=Error) |
-| 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | Connect Request        | enum | B4 (Enum: 0=Disconnect Request, 1=Connect Request)            |
-| 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | 0                      | %    | B4 \* 100 / 255                                               |
-| 0x220725 | TC\_MTR\_OUT\_DC    | Torque Converter Clutch Duty-Cycle     | 5                      | %    | B4 \* 100 / 255                                               |
+| PID      | Name                | Description                            | Unit | Expression      |
+| -------- | ------------------- | -------------------------------------- | ---- | --------------- |
+| 0x220722 | FAD\_ACT\_STATUS    | Front Axle Disconnect Actuator Status  | enum | B4              |
+| 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | enum | B4              |
+| 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | %    | B4 \* 100 / 255 |
+| 0x220725 | TC\_MTR\_OUT\_DC    | Torque Converter Clutch Duty-Cycle     | %    | B4 \* 100 / 255 |
 
 #### Front-Axle Disconnect Actuator Status  
 Shows the real-time state of the Front-Axle Disconnect actuator.  
-- **“FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front & rear wheels.  
-- **“FAD in 2WD – DISCONNECTED”** would indicate the front axle is released and supplying torque to only rear-wheel drive only.
+- **1 = “FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front & rear wheels.  
+- **0 = “FAD in 2WD – DISCONNECTED”** would indicate the front axle is released and supplying torque to only rear-wheel drive only.
 
 > All states above have yet to be confirmed.
 
 #### Front-Axle Disconnect Strategy Command  
 The high-level strategy request from the PCM governing AWD mode.  
-- **Connect Request** signals “go AWD”—the system wants front-axle engagement.  
-- **Disconnect Request** signals “back to RWD”—the system wants the front axle released.  
+- **01 = Connect Request** signals “go AWD”—the system wants front-axle engagement.  
+- **00 = Disconnect Request** signals “back to RWD”—the system wants the front axle released.  
 - **Modulate** (if supported) requests smooth, partial engagement to meter torque split.
 
 > All states above have yet to be confirmed.
@@ -143,7 +167,6 @@ The PWM duty-cycle (0–100 %) applied to the torque-converter clutch solenoid t
 - FAD Clutch Temperature😭
 
 ## Body Control Module (BCM)
-
 The Body Control Module (BCM) is the central controller for all non-powertrain electrical functions—monitoring and managing door-ajar, hood and luggage-lid switches; key-in/ignition and PATS security; lighting (headlamps, turn signals, courtesy lights); horn and crash detection; tire-pressure monitoring; and battery state (voltage, current, temperature, age and cumulative charge/discharge).
 
 > Module initalization: ATSH000726;STCAFCP726,72E
@@ -178,9 +201,9 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 | PID      | Name                  | Description                       | Units | Expression   |
 | -------- | --------------------- | --------------------------------- | ----- | ------------ |
-| 0x224028 | BAT\_ST\_CHRG\_BCM    | Vehicle Battery – State of Charge | %     | B4      |
-| 0x22402B | BAT\_CURRENT\_BCM     | Vehicle Battery – Current         | A     | [B4:B5] |
-| 0x22402A | BATTERY\_VOLTAGE\_BCM | Vehicle Battery – Voltage         | V     | [B4:B5] |
+| 0x224028 | BAT\_SOC    | Vehicle Battery – State of Charge | %     | B4      |
+| 0x22402B | BAT\_CURRENT     | Vehicle Battery – Current         | A     | [B4:B5] |
+| 0x22402A | BAT\_VOLTAGE | Vehicle Battery – Voltage         | V     | [B4:B5] |
 
 ### Accessories
 
