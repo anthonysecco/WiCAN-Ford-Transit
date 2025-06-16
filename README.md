@@ -104,17 +104,17 @@ Otherwise, here's what I'm interested in but haven't yet solved:
 | **Wheel Spin**                   | Display wheel spin for all tires for off-road   |
 | **Traction Contrl Intervention** | % how much TSC is engaged                       |
 
-## 🚫 Unavailable
+### 🚫 Unavailable
 These simply don't exist with factory equipment:
 
 * **Oil Temperature ** - No sensor in vehicle.
 * **AWD Clutch temperature** - No sensor in vehicle.
 
-## ⏰ Wake Commands
+### ⏰ Wake Commands
 Many aftermarket alarm systems will send commands on the CANbus to awaken modules and then issue commands (lock, start etc.).  Additionally the vehicles TCU (telematics control unit) for things like Ford Pass can also awaken module.
 
 I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
 
-## 📁 Extended PID List
+### 📁 Extended PID List
 
 See [`PIDs.md`](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) for experimental and unverified PIDs. These are community-contributed or AI-suggested—**use at your own discretion**.
