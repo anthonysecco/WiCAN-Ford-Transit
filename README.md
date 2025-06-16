@@ -85,20 +85,6 @@ The [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device reads CAN data and 
 
 > 🚧 **This section to be defined** 🚧
 
-### 🔍 Monitoring PIDs
-
-#### Fuel Economy
-| IPC   | TBD | Distance to E       | `sensor` (km) | Fuel Advisor      | 🚧 In Progress  |
-| IPC   | TBD | Trailing Fuel Economy      | `sensor` (L/100KM) | Fuel Advisor      | 🚧 In Progress  |
-
-#### Powertrain Performance
-| Module | PID | Description          | Type             | Home Assistant Use       | Status    |
-| ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
-| PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring (offroad?)   | 🚧 In Progress |
-| PCM    | 221E1C | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring (offroad?)  | ✅ Working |
-
-There are other standard SAE PIDs, but the ones above I find useful.
-
 ---
 
 ## 💖 Support
