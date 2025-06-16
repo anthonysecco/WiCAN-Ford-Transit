@@ -25,11 +25,11 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | HS-CAN1   | PCM          | 0x7E0          | Powertrain Control Module    |
 | HS-CAN1   | AWDM         | 0x703          | All-Wheel Drive Module       |
 | HS-CAN1   | BCM          | 0x726          | Body Control Module          |
----
-### SAE Standard (OBD)
-> ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
 
+### SAE Standard (OBD)
 Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
+
+> ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
 
 | PID  | PID Label        | Description                                     | Units | Status |
 | ---- | ---------------- | ----------------------------------------------- | ----- | ------ |
@@ -47,8 +47,8 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x63 | EngRefTorq       | Engine Reference Torque                         | Nm    | ✅     |
 | 0xA6 | Odometer         | Odometer                                        | km    | ✅     |
 
----
 ### Powertrain Control Module (PCM)
+
 > Module initalization: ATSH0007E0;STCAFCP7E0,7E8
 
 | **PID**  | **Name**               | **Description**                               | **Units** | **Expression**     | **Status** |
@@ -80,18 +80,24 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x22054B | OIL\_LIFE              | Oil Life                                      | %         | B4                 | ✅          |
 | 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | (\[B4\:B5])\*2/100 |            |
 | 0x2203E8 | LEARNED\_OCTANE\_RATIO | Learned Octane Ratio                          | %         | (\[B4\:B5])/16384  |            |
+| —        | PWNTRN_DRVMODE         | Drive Mode                                    | enum      | B4                 |            |
+| —        | GENCMD                 | Alternator Duty Cycle                         | %         | B4                 |            |
+| —        | LFC                    | Low-Speed Fan                                 | On/Off    | B4                 |            |
+| —        | HFC                    | High-Speed Fan                                | On/Off    | B4                 |            |
+| —        | VCTSYS                 | Open/Close Loop                               | On/Off    | B4                 |            |
 
 ####🚫 Unavailable Data
 - Engine oil temperature (No valid PID available)
----
+
 ### All-Wheel Drive Module (AWDM)
-> Module initalization: ATSH000703;STCAFCP703,70B
 
 On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the torque to the front wheels by activating a electronic-hydraulic clutch pack.  This is called a Front Axle Disconnect (FAD) system.  
 
 In its mechanically default position, the front drive shaft is disconnected.  When the AWDM activates the electronic-hydraulic clutch pack, it connects the front drive shaft.  Up to 50% of engine torque can be diverted to the front wheels if the clutch is fully engaged.
 
 While in technical terrain, it may be useful to display the torque split between front/rear wheels. I've consolidated the available sensors to the following relevant sensors:
+
+> Module initalization: ATSH000703;STCAFCP703,70B
 
 | PID      | Name                | Description                            | Value                  | Unit | Formula                                                       |
 | -------- | ------------------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------- |
@@ -132,11 +138,12 @@ The PWM duty-cycle (0–100 %) applied to the torque-converter clutch solenoid t
 
 ####🚫 Unavailable Data
 - FAD Clutch Temperature😭
----
+
 ## Body Control Module (BCM)
-> Module initalization: ATSH000726;STCAFCP726,72E
 
 The Body Control Module (BCM) is the central controller for all non-powertrain electrical functions—monitoring and managing door-ajar, hood and luggage-lid switches; key-in/ignition and PATS security; lighting (headlamps, turn signals, courtesy lights); horn and crash detection; tire-pressure monitoring; and battery state (voltage, current, temperature, age and cumulative charge/discharge).
+
+> Module initalization: ATSH000726;STCAFCP726,72E
 
 ### Doors
 
