@@ -1,3 +1,7 @@
+| Useful Links |
+|-------|
+| [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) |
+
 > 🚧 **This repo is under heavy development** 🚧
 
 # WiCAN Ford Transit
@@ -77,42 +81,13 @@ The [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device reads CAN data and 
 
 ---
 
-## PID Background
+## Home Assistant Sensors
 
-### Standard PIDs
-
-Standard SAE PIDs (Parameter IDs) are a set of standardized diagnostic codes defined by the SAE J1979 protocol, which allow external diagnostic tools (like OBD-II scanners) to request data from a vehicle’s ECU (Engine Control Unit). These PIDs are used to retrieve real-time sensor data, diagnostic trouble codes (DTCs), and other vehicle information.  J1979 is the standard for OBD-II communication, used widely in North America and supported globally.
-
-The standard SAE PIDs provide a strong base which is enough to track engine state and motion. Adding the vehicle profile JSON expands access to gear selection, turbo behavior, and more.
-
-### Ford-specific PIDs
-
-Every manufacture will have additional PIDs that have detailed vehicle-specific information for each module.  You will see some of these below.
-
----
-
-### 🎬 Actionable PIDs
-
-| Module | PID | Description    | Type            | Home Assistant Use       | Status    |
-| ------ | --- | -------------- | --------------- | ------------------------ | --------- |
-| OBD    | 010D | Speedometer    | `sensor` (km/h) | Vehicle motion detection | ✅ Working |
-| OBD    | 010C | Engine Speed   | `sensor` (RPM)  | Detect engine state      | ✅ Working |
-| OBD    | 012F | Fuel Gauge     | `sensor` (%)    | Trigger low-fuel alerts  | ✅ Working |
-| OBD    | 01A6 | Odometer       | `sensor` (km)   | Maintenance alerts       | ✅ Working |
-| PCM    | 221E12 | Gear Selection | `sensor` (enum) | Driving state awareness  | ✅ Working |
-
----
+> 🚧 **This section to be defined** 🚧
 
 ### 🔍 Monitoring PIDs
 
 #### Fuel Economy
-| Module | PID | Description          | Type             | Home Assistant Use       | Status    |
-| ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
-| PCM    | 0104 | Engine load    | `sensor` (%)    | Fuel Advisor     | ✅ Working |
-| PCM    | 22F49D | Fuel Rate          | `sensor` (g/s) | Fuel Advisor    | ✅ Working |
-| PCM    | 2203E8| Learned Octane Ratio | `sensor` (%)     | Fuel Advisor     | ✅ Working |
-| PCM    | TBD | Driving Mode         | `sensor` (enum) | Fuel / Off-road Advisor      | 🚧 In Progress |
-| PCM    | TBD | Brake On/Off        | `binary_sensor` (On/Off) | Fuel Advisor      | 🚧 In Progress |
 | IPC   | TBD | Distance to E       | `sensor` (km) | Fuel Advisor      | 🚧 In Progress  |
 | IPC   | TBD | Trailing Fuel Economy      | `sensor` (L/100KM) | Fuel Advisor      | 🚧 In Progress  |
 
@@ -121,15 +96,6 @@ Every manufacture will have additional PIDs that have detailed vehicle-specific 
 | ------ | --- | -------------------- | ---------------- | ------------------------ | --------- |
 | PCM    | TBD | Coolant Temp         | `sensor` (°C)    | Engine temp monitoring (offroad?)   | 🚧 In Progress |
 | PCM    | 221E1C | Transmission Temp    | `sensor` (°C)    | Gearbox temp monitoring (offroad?)  | ✅ Working |
-| PCM    | 010B | Intake Manifold Abs Pressure | `sensor` (kPa)   | Turbo performance  | ✅ Working |
-| PCM    | 220462 | Wastegate Open       | `sensor` (%)     | Turbo control monitoring | ✅ Working |
-| PCM    | 22054B | Oil Life             | `sensor` (%)     | Remaining oil health     | ✅ Working |
-| PCM    | 0163 | Torque Reference     | `sensor` (Nm)    | Engine torque value      | ✅ Working |
-| PCM    | 0162 | Torque Percent       | `sensor` (%)     | Relative torque load     | ✅ Working |
-| PCM    | 0111 | Throttle Position    | `sensor` (%)     | Driver input load        | ✅ Working |
-| PCM    | 0144 | AFR Command          | `sensor` (%) | Air-Fuel target ratio    | ✅ Working |
-| PCM    | 0134 | AFR Bank 1           | `sensor` (%) | Actual AFR (bank 1)      | ✅ Working |
-| PCM    | 0138 | AFR Bank 2           | `sensor` (%) | Actual AFR (bank 2)      | ✅ Working |
 
 There are other standard SAE PIDs, but the ones above I find useful.
 
@@ -141,29 +107,22 @@ The development of this repo took many hours and dollars in hardware, software, 
 ## 💪 Future Enhancements
 If you have feature requests, please create an _issue_.  It's been said that I can be bribed with coffee. 😊
 
-Here are some potential expansion areas...
+Otherwise, here's what I'm interested in but haven't yet solved:
 
-I haven't found a PID available to WiCAN for these:
-
-* **Parking Brake** – `binary_sensor` (ABS module, hard to access)
-* **Open/Closed Loop** – `binary_sensor` (AFR feedback mode)
-* **Regen Braking** – `binary_sensor` (Smart alternator charging, put on Fuel advisor)
-* **Auxilary Switch States** - `binary_sensor` (Track states of rocker switches for automations)
-* **Battery State of Charge** - `binary_sensor` (display how dead/alive the vehicle battery is in %)
-* **A/C Compressor On/Off States** - `binary_sensor` (Display on fuel advisor)
-* **Turn Signals or blind spot monitors** - `binary_sensor` (trigger vehicle camera to display on corresponding side of the vehicle for lane change)
-
-### 🛻 Off-Road Wishlist
-* **AWD Clutch Duty Cycle** - 'sensor' (Display calculated torque split)
-* **AWD Clutch temperature** - 'sensor' (monitor for overheating)
-* **Tire Pressure** - 'sensor' (Display all tires for off-road advisor)
-* **Wheel Spin** - 'sensor' (Display wheel spin for all tires)
-* **Traction Contrl Intervention** - 'sensor' (% how much TSC is engaged)
+| **Feature**                      | **Description**                                 |
+| -------------------------------- | ----------------------------------------------- |
+| **Parking Brake**                | In ABS module only, hard to access              |
+| **Open/Closed Loop**             | AFR feedback mode                               |
+| **Regen Braking**                | Smart alternator charging; put on Fuel advisor  |
+| **Auxilary Switch States**       | Track states of rocker switches for automations |
+| **Wheel Spin**                   | Display wheel spin for all tires for off-road   |
+| **Traction Contrl Intervention** | % how much TSC is engaged                       |
 
 ## 🚫 Unavailable
-These are simply not possible using factory hardware
+These simply don't exist with factory equipment:
 
 * **Oil Temperature ** - No sensor in vehicle.
+* **AWD Clutch temperature** - No sensor in vehicle.
 
 ## ⏰ Wake Commands
 Many aftermarket alarm systems will send commands on the CANbus to awaken modules and then issue commands (lock, start etc.).  Additionally the vehicles TCU (telematics control unit) for things like Ford Pass can also awaken module.
