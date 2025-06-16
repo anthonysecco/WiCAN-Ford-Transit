@@ -1,6 +1,6 @@
 > 🚧 This document is under development and is constantly changing.  I do not guarantee the accuracy of the information below.
 
-# Parameter IDs
+# PID List
 
 OBD-II PIDs (Parameter IDs) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the On-Board Diagnostics (OBD) port. They’re used by diagnostic tools, scan gauges, and systems like Home Assistant (via CAN integration) to read real-time sensor data.
 
