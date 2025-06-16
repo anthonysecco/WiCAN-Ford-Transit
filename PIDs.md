@@ -91,9 +91,13 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x2203E8 | LEARNED\_OCTANE\_RATIO | Learned Octane Ratio                          | %         | (\[B4\:B5])/16384  |            |
 | —        | PWNTRN_DRVMODE         | Drive Mode                                    | enum      | B4                 |            |
 | —        | GENCMD                 | Alternator Duty Cycle                         | %         | B4                 |            |
-| —        | LFC                    | Low-Speed Fan                                 | On/Off    | B4                 |            |
-| —        | HFC                    | High-Speed Fan                                | On/Off    | B4                 |            |
-| —        | VCTSYS                 | Open/Close Loop                               | On/Off    | B4                 |            |
+
+Other PIDs of Interest
+- Ford FAN1
+- Ford FAN2
+- Ford FAN3
+- PN_SW_MZ (Parking Neutral Switch)
+- INGEAR (In gear)
 
 ####🚫 Unavailable Data
 - Engine oil temperature (No valid PID available)
