@@ -57,7 +57,7 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 
 ### Powertrain Control Module (PCM)
 
-> Module initalization: ATSH0007E0;STCAFCP7E0,7E8
+> Module initalization: ATSH7E0
 
 | **PID**  | **Name**               | **Description**                               | **Units** | **Expression**     | **Status** |
 | -------- | ---------------------- | --------------------------------------------- | --------- | ------------------ | ---------- |
