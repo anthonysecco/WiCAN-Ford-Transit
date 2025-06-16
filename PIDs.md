@@ -62,42 +62,32 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 
 | **PID**  | **Name**               | **Description**                               | **Units** | **Expression**     | **Status** |
 | -------- | ---------------------- | --------------------------------------------- | --------- | ------------------ | ---------- |
-| —        | ECT                    | Engine coolant temperature                    | °C        | B4-40              |            |
-| 0x221E1C | TFT                    | Transmission Fluid Temperature                | °C        | (\[B4\:B5])/10     | ✅          |
-| —        | IAT\_T                 | Intake Air Temperature                        | °C        | B4-40              |            |
-| —        | IAT2\_TEMP\_MZ         | Intake Air Temperature 2                      | °C        | B4-40              |            |
-| —        | AAT\_TEMP\_MZ          | Ambient Air Temperature                       | °C        | B4-40              |            |
-| —        | AAT\_MZ                | Ambient Air Temperature                       | °C        | B4-40              |            |
-| —        | BAT\_MZ                | Boost air temperature sensor                  | °C        | B4-40              |            |
-| —        | CHT                    | Cylinder Head Temperature                     | °C        | B4-40              |            |
-| —        | CATT21\_DSD            | Desired Catalyst Temperature Bank 2, Sensor 1 | °C        | (\[B4\:B5])/10     |            |
-| —        | EXHTEMP2\_MZ           | Exhaust Gas Temperature Sensor (Middle)       | °C        | (\[B4\:B5])/10     |            |
-| —        | CATT11\_DSD            | Desired Catalyst Temperature Bank 1, Sensor 1 | °C        | (\[B4\:B5])/10     |            |
-| —        | EXHTEMP1\_MZ           | Exhaust Gas Temperature Sensor (Upper)        | °C        | (\[B4\:B5])/10     |            |
-| —        | GEAR\_ENG\_PCM\_MZ     | Transmission Gear Engaged                     | —         | B4                 |            |
+| 0x22F405 | ECT                    | Engine coolant temperature                    | °C        | B4-40              |            |
+| 0x22F40F | IAT                    | Intake Air Temperature                        | °C        | B4-40              |            |
+| 0x2203CA | IAT2                   | Intake Air Temperature 2                      | °C        | B4-40              |            |
+| 0x22057D | AAT                    | Ambient Air Temperature                       | °C        | B4-40              |            |
+| 0x220334 | CHT                    | Cylinder Head Temperature                     | °C        | B4-40              |            |
+| 0x221E1C | TFT                    | Transmission Fluid Temperature                | °C        | (\[B4\:B5])/16     | ✅          |
+| 0x220651 | PWNTRN_DRVMODE         | Drive Mode                                    | enum      | B4                 |            |
 | 0x221E12 | GEAR\_GGDS\_MZ         | Gear commanded by module                      | enum      | B4                 | ✅          |
-| —        | INGEAR                 | In gear                                       | —         | B4                 |            |
-| —        | FLI                    | Fuel Level                                    | %         | B4\*100/255        |            |
-| —        | IG\_SW\_MZ             | Ignition switch status                        | —         | B4                 |            |
-| —        | AC\_SW\_MZ             | Air conditioning switch                       | —         | B4                 |            |
-| —        | BOO                    | Brake ON/OFF                                  | —         | B4                 |            |
+| 0x22099B | AC\_SW\_MZ             | A/C Compressor (ON/OFF)                       | binary    | B4                 |            |
+| 0x222B00 | BOO                    | Brake (ON/OFF)                                | binary    | B4                 |            |
 | 0x220462 | WGC\_MZ                | Wastegate Control Solenoid Valve              | %         | B4\*100/128        | ✅          |
-| —        | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | —         | B4                 |            |
-| —        | FP                     | Fuel pump duty cycle                          | %         | B4\*100/255        |            |
-| —        | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | (\[B4\:B5])        |            |
-| —        | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | (\[B4\:B5])        |            |
 | 0x22054B | OIL\_LIFE              | Oil Life                                      | %         | B4                 | ✅          |
+| 0x220598 | GENCMD                 | Alternator Duty Cycle                         | %         | B4                 |            |
+| 0x2203E8 | LRND\_OCT\_RAT         | Learned Octane Ratio                          | %         | (\[B4\:B5])/16384  |            |
+| 0x220307 | FP                     | Fuel pump duty cycle                          | %         | B4\*100/255        |            |
 | 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | (\[B4\:B5])\*2/100 |            |
-| 0x2203E8 | LEARNED\_OCTANE\_RATIO | Learned Octane Ratio                          | %         | (\[B4\:B5])/16384  |            |
-| —        | PWNTRN_DRVMODE         | Drive Mode                                    | enum      | B4                 |            |
-| —        | GENCMD                 | Alternator Duty Cycle                         | %         | B4                 |            |
+| 0x22F403 | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | binary    | B4                 |            |
+| 0x2203DC | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | (\[B4\:B5])        |            |
+| 0x22F423 | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | (\[B4\:B5])        |            |
 
 Other PIDs of Interest
 - Ford FAN1
 - Ford FAN2
 - Ford FAN3
-- PN_SW_MZ (Parking Neutral Switch)
-- INGEAR (In gear)
+- Bank 1/2 Desired Cat Temp
+- Bank 1/2 Actual Cat temp
 
 ####🚫 Unavailable Data
 - Engine oil temperature (No valid PID available)
@@ -112,7 +102,7 @@ While in technical terrain, it may be useful to display the torque split between
 
 > Module initalization: ATSH000703;STCAFCP703,70B
 
-| PID      | Name                | Description                            | Value                  | Unit | Formula                                                       |
+| PID      | Name                | Description                            | Value                  | Unit | Expression                                                    |
 | -------- | ------------------- | -------------------------------------- | ---------------------- | ---- | ------------------------------------------------------------- |
 | 0x220722 | FAD\_ACT\_STATUS    | Front Axle Disconnect Actuator Status  | FAD in 4WD - CONNECTED | enum | B4 (Enum: 0=Disconnected, 1=Connected, 2=Transition, 3=Error) |
 | 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | Connect Request        | enum | B4 (Enum: 0=Disconnect Request, 1=Connect Request)            |
@@ -175,10 +165,10 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 | PID      | Name                | Description                    | Units | Expression   |
 | -------- | ------------------- | ------------------------------ | ----- | ------------ |
-| —        | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | kPa   | [B4:B5] / 10 |
+| 0x222827 | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | kPa   | [B4:B5] / 10 |
 | 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | kPa   | [B4:B5] / 10 |
 | 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | kPa   | [B4:B5] / 10 |
-| —        | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | kPa   | [B4:B5] / 10 |
+| 0x222828 | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | kPa   | [B4:B5] / 10 |
 | 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | kPa   | [B4:B5] / 10 |
 | 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | kPa   | [B4:B5] / 10 |
 | 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | kPa   | [B4:B5] / 10 |
