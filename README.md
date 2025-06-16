@@ -1,6 +1,7 @@
 | Useful Links |
 |-------|
 | [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) |
+| [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/)
 
 > 🚧 **This repo is under heavy development** 🚧
 
