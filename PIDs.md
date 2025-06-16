@@ -26,12 +26,21 @@ The Ford Transit (especially 2020 and newer models) typically includes three mai
 | HS-CAN1   | AWDM         | 0x703          | All-Wheel Drive Module       |
 | HS-CAN1   | BCM          | 0x726          | Body Control Module          |
 
+Table Values
+
+- PID = Hex Value of Parameter ID
+- Name = Short name
+- Description = Human understand description
+- Units = metric unit for PID
+- Expression = Translate value to decimal form
+- Status = Status as it relates to WiCAN in this project.
+
 ### SAE Standard (OBD)
 Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
 
 > ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
 
-| PID  | PID Label        | Description                                     | Units | Status |
+| **PID** | **Name**      | **Description**                                 | **Units** | **Status** |
 | ---- | ---------------- | ----------------------------------------------- | ----- | ------ |
 | 0x04 | LOAD             | Calculated Engine Load                          | %     | ✅     |
 | 0x0B | MAP              | Manifold Absolute Pressure                      | kPa   | ✅     |
