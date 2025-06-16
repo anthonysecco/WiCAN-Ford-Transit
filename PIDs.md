@@ -4,13 +4,15 @@
 
 OBD-II PIDs (Parameter IDs) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the On-Board Diagnostics (OBD) port. They’re used by diagnostic tools, scan gauges, and systems like Home Assistant (via CAN integration) to read real-time sensor data.
 
-There's two "Modes" of interest
+_Almost_ all PID data is provided in metric.  The expressions below maintain metric measurements of all PIDs.  They may be converted to your unit of preference in your application.  In the case of home assistant, I convert these units to US Imperial in the MQTT YAML configuration.
 
 ### Modes
 
-**Mode 1** shows "standard" PIDs as specified by SAE.  This includes common things like speed, RPM etc.
+There's two "Modes" of interest:
 
-**Mode 22** shows manufacture specific data.  This is where we can get some detailed information about the vehicle.  Manufactures usually standardize around set of code across vehicles.  This means we can take things found on the F-150 or Explorer and apply it to the Transit given simialries in powertrain and modules.
+- **Mode 1** shows "standard" PIDs as specified by SAE.  This includes common things like speed, RPM etc.
+
+- **Mode 22** shows manufacture specific data.  This is where we can get some detailed information about the vehicle.  Manufactures usually standardize around set of code across vehicles.  This means we can take things found on the F-150 or Explorer and apply it to the Transit given simialries in powertrain and modules.
 
 ### CAN Bus
 
@@ -152,16 +154,16 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 ### Tire Pressure
 
-| PID      | Name                | Description                    | Units | Expression                          |
-| -------- | ------------------- | ------------------------------ | ----- | ----------------------------------- |
-| —        | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | psi   | ([B4:B5] / 10) × 0.145038 |
-| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | psi   | ([B4:B5] / 10) × 0.145038 |
-| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | psi   | ([B4:B5] / 10) × 0.145038 |
-| —        | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | psi   | ([B4:B5] / 10) × 0.145038 |
-| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | psi   | ([B4:B5] / 10) × 0.145038 |
-| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | psi   | ([B4:B5] / 10) × 0.145038 |
-| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | psi   | ([B4:B5]) / 10) × 0.145038 |
-| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | psi   | ([B4:B5]} / 10) × 0.145038 |
+| PID      | Name                | Description                    | Units | Expression   |
+| -------- | ------------------- | ------------------------------ | ----- | ------------ |
+| —        | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | kPa   | [B4:B5] / 10 |
+| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | kPa   | [B4:B5] / 10 |
+| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | kPa   | [B4:B5] / 10 |
+| —        | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | kPa   | [B4:B5] / 10 |
+| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | kPa   | [B4:B5] / 10 |
+| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | kPa   | [B4:B5] / 10 |
+| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | kPa   | [B4:B5] / 10 |
+| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | kPa   | [B4:B5] / 10 |
 
 ### Battery
 
