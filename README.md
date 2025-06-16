@@ -1,12 +1,10 @@
-> 🚧 **This repo is under heavy development and is incomplete.**
+> 🚧 **This repo is under heavy development** 🚧
 
 # WiCAN Ford Transit
 
-[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/).  This enables custom dashboards (e.g. on a tablet) and automations while driving. 
+[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) and other tools.  From there a user can build custom dashboards (e.g. on a tablet) and other automations while driving. 
 
-For now, this project is **read-only**.  Additional complexities come into tplay when sending commands via the OBDII interface.
-
-> ✅ Tested on a 2021 Ford Transit AWD 3.5L EcoBoost (North America)
+> Testing performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
 
 ## Project Scope
 While there's plenty of data available via the OBDII port and CANbus, this project focuses on read-only, real-time, and actionable data that's relevant in an RV.  It's not intended to replace OBDII diagnostic devices or software available on the market.
@@ -137,7 +135,14 @@ There are other standard SAE PIDs, but the ones above I find useful.
 
 ---
 
-## 💪 Wishlist
+## 💖 Support
+The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
+
+## 💪 Future Enhancements
+If you have feature requests, please create an _issue_.  It's been said that I can be bribed with coffee. 😊
+
+Here are some potential expansion areas...
+
 I haven't found a PID available to WiCAN for these:
 
 * **Parking Brake** – `binary_sensor` (ABS module, hard to access)
@@ -165,10 +170,6 @@ Many aftermarket alarm systems will send commands on the CANbus to awaken module
 
 I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
 
----
-
 ## 📁 Extended PID List
 
 See [`PIDs.md`](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) for experimental and unverified PIDs. These are community-contributed or AI-suggested—**use at your own discretion**.
-
----
