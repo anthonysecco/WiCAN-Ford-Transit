@@ -219,9 +219,7 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 | 0x225B1D | DOOR\_SW\_LUGG\_BCM | Luggage Compartment Ajar | —     | ((A >> 5) & 1) | 🚧     |
 | 0x225B1D | HOOD\_SW\_BCM       | Hood Ajar                | —     | ((A >> 2) & 1) | 🚧     |
 
-> 🚧 Door states are show by bit, not byte.  Some work needed to track individual bits yet.
->
-> Naming convention needs to be mapped to actual doors.
+> 🚧 Door states are show by bit, not byte.  Some work needed to track individual bits yet. Naming convention needs to be mapped to actual doors.
 
 ### Tire Pressure
 
@@ -243,13 +241,3 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 | 0x224028 | BAT\_SOC     | Vehicle Battery – State of Charge | %     | B4         | 🚧     |
 | 0x22402B | BAT\_CURRENT | Vehicle Battery – Current         | A     | \[B4\:B5]  | 🚧     |
 | 0x22402A | BAT\_VOLTAGE | Vehicle Battery – Voltage         | V     | \[B4\:B5]  | 🚧     |
-
-### Accessories
-
-| PID | Name          | Description          | Units       | Expression       | Status |
-| --- | ------------- | -------------------- | ----------- | ---------------- | ------ |
-| —   | DOOR\_DRV     | Driver Door Ajar     | Closed/Open | (Byte2 >> 0) & 1 | 🚧     |
-| —   | DOOR\_PASS    | Passenger Door Ajar  | Closed/Open | (Byte2 >> 1) & 1 | 🚧     |
-| —   | DOOR\_SLIDING | Sliding Door Ajar    | Closed/Open | (Byte2 >> 2) & 1 | 🚧     |
-| —   | DOOR\_REAR    | Rear Cargo Door Ajar | Closed/Open | (Byte2 >> 3) & 1 | 🚧     |
-| —   | HOOD\_AJAR    | Hood Ajar            | Closed/Open | (Byte2 >> 4) & 1 | 🚧     |
