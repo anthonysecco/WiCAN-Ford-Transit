@@ -1,13 +1,11 @@
 > 🚧 This document is under development and is constantly changing.  I do not guarantee the accuracy of the information below.
 
 # PID List
-
-OBD-II PIDs (Parameter IDs) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the On-Board Diagnostics (OBD) port. They’re used by diagnostic tools, scan gauges, and systems like Home Assistant (via CAN integration) to read real-time sensor data.
+OBD-II PIDs (On-Board Diagnostics Parameter IDs) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the OBD port. They’re used by diagnostic tools, scan gauges, and systems like Home Assistant (via CAN integration) to read real-time sensor data.
 
 _Almost_ all PID data is provided in metric.  The expressions below maintain metric measurements of all PIDs.  They may be converted to your unit of preference in your application.  In the case of home assistant, I convert these units to US Imperial in the MQTT YAML configuration.
 
 ### Modes
-
 There's two "Modes" of interest:
 
 - **Mode 1** shows "standard" PIDs as specified by SAE.  This includes common things like speed, RPM etc.
@@ -15,7 +13,6 @@ There's two "Modes" of interest:
 - **Mode 22** shows manufacture specific data.  This is where we can get some detailed information about the vehicle.  Manufactures usually standardize around set of code across vehicles.  This means we can take things found on the F-150 or Explorer and apply it to the Transit given simialries in powertrain and modules.
 
 ### CAN Bus
-
 The Ford Transit (especially 2020 and newer models) typically includes three main CAN buses, each serving different types of modules based on speed and priority. These buses are part of the vehicle’s network architecture that allows electronic modules to communicate.
 
 ## Modules
@@ -75,9 +72,9 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x22054B | OIL\_LIFE              | Oil Life                                      | %         | B4                 | ✅          |
 | 0x220598 | GENCMD                 | Alternator Duty Cycle                         | %         | B4                 |            |
 | 0x2203E8 | LRND\_OCT\_RAT         | Learned Octane Ratio                          | %         | \[B4\:B5]/16384  |            |
-| 0x220307 | FP                     | Fuel pump duty cycle                          | %         | B4\*100/255        |            |
+| 0x220307 | FP                     | Fuel pump duty cycle                          | %         | B4\*100/255      |            |
 | 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | \[B4\:B5]\*2/100 |            |
-| 0x22F403 | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | binary    | B4                 |            |
+| 0x22F403 | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | binary    | B4               |            |
 | 0x2203DC | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | \[B4\:B5]        |            |
 | 0x22F423 | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | \[B4\:B5]        |            |
 
@@ -154,7 +151,6 @@ These may be developed in the future.
 - Engine oil temperature (No valid PID available)
 
 ### All-Wheel Drive Module (AWDM)
-
 On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the torque to the front wheels by activating a electronic-hydraulic clutch pack.  This is called a Front Axle Disconnect (FAD) system.  
 
 In its mechanically default position, the front drive shaft is disconnected.  When the AWDM activates the electronic-hydraulic clutch pack, it connects the front drive shaft.  Up to 50% of engine torque can be diverted to the front wheels if the clutch is fully engaged.
