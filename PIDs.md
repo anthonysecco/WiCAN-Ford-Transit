@@ -1,21 +1,24 @@
 > 🚧 This document is under development and is constantly changing.  I do not guarantee the accuracy of the information below.
 
 # PID List
-OBD-II PIDs (On-Board Diagnostics Parameter IDs) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the OBD port. They’re used by diagnostic tools, scan gauges, and systems like Home Assistant (via CAN integration) to read real-time sensor data.
+OBD-II PIDs (On-Board Diagnostics Parameter Identifers) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the OBD port. They’re used by diagnostic tools and scan gauges.  In this case, I would like to implement it with Home Assistant.
 
-_Almost_ all PID data is provided in metric.  The expressions below maintain metric measurements of all PIDs.  They may be converted to your unit of preference in your application.  In the case of home assistant, I convert these units to US Imperial in the MQTT YAML configuration.
+_Almost_ all PID data is provided in metric.  The expressions below maintain the native unit of measurement from the PID.  They may be converted to your unit of preference in your application.  In the case of Home Assistant, I convert these units to US Imperial in the MQTT YAML configuration.
 
-### Modes
-There's two "Modes" of interest:
+Manufactures usually standardize around set of code across vehicles.  This means we can take things found on the F-150 or Explorer and apply it to the Transit given simialries in powertrain and modules.
+
+## CAN Basics
+
+When pulling PIDs, there's two "Modes" of interest:
 
 - **Mode 1** shows "standard" PIDs as specified by SAE.  This includes common things like speed, RPM etc.
 
-- **Mode 22** shows manufacture specific data.  This is where we can get some detailed information about the vehicle.  Manufactures usually standardize around set of code across vehicles.  This means we can take things found on the F-150 or Explorer and apply it to the Transit given simialries in powertrain and modules.
+- **Mode 22** shows manufacture specific data.  This is where we can get some detailed information about the vehicle.  
 
-### CAN Bus
 The Ford Transit (especially 2020 and newer models) typically includes three main CAN buses, each serving different types of modules based on speed and priority. These buses are part of the vehicle’s network architecture that allows electronic modules to communicate.
 
 ## Modules
+The list of modules and PIDs is not exhaustive.  PIDs are broken out below by module.
 
 | Bus       | Abbreviation | CAN ID (Hex) | Module Name                  |
 |-----------|--------------|--------------|------------------------------|
@@ -28,11 +31,11 @@ Each module will be broken out by the following:
 - Name = Short name
 - Description = Human understand description
 - Units = metric unit for PID
-- Expression = Translate value to decimal form
+- Expression = Translate value to decimal form, typically  metric unit.
 - Status = Status as it relates to WiCAN in this project.
 
 ### SAE Standard (OBD)
-Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).
+Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).  The PCM technically offers up standardized OBD PIDs.
 
 > ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
 
@@ -89,10 +92,10 @@ Selectable modes on the dashboard.  Adjusts programing of PCM, AWDM, and ABS for
 - 03 → Tow / Haul
 
 #### Gear Commanded
-- Park
-- Reverse
-- Neutral
-- Drive (1 to 10)
+- 70 → Park
+- 60 → Reverse
+- 50 → Neutral
+- 1 to 10  → Drive(actual forward gear)
 
 #### A/C Compressor Switch
 Indicates of A/C compressor clutch is being called to engage.
@@ -111,23 +114,27 @@ Indicates duty cycle % sent to wastegate to **OPEN** and release excess boost pr
 0-100%, same as shown on the instrument panel.
 
 #### Alternator Duty Cycle
-Represents the PCM’s PWM‐duty command to the alternator’s internal regulator, not a direct measure of alternator load. The PCM continuously reads system voltage (via its voltage PIDs) and, when voltage sags under electrical demand (lights, HVAC, winch, etc.), ramps up the duty cycle to boost field current and raise alternator output; when voltage is high and load light, it dials the duty back down to prevent overcharging.
+Represents the PCM’s PWM-duty command to the alternator’s regulator, not direct alternator load. The PCM monitors system voltage and adjusts duty cycle: increasing it under electrical demand (lights, HVAC, winch) to raise output, or decreasing it when voltage is high to prevent overcharging.
 
-Low percentages (10–30 %) at cruising indicate minimal charge maintenance, while high percentages (50–100 %) under heavy electrical load or low RPM signal the PCM driving the alternator hard. Because GENCMD is a control signal rather than a sensor of current or torque, you’ll want to pair it with the Mode 22 Battery Current PID (0x2142) and system‐voltage PIDs to see the actual amps flowing and get a true picture of charging‐system load.
+Low duty (10–30%) at cruise shows minimal charging; high duty (50–100%) under heavy load or low RPM indicates maximum alternator output. Since GENCMD controls rather than senses current or torque, pair it with Mode 22 Battery Current PID (0x2142) and voltage PIDs to see actual amps and charging load.
 
 #### Learned Octane Ratio 
-The Learned Octane Ratio (LOR) is a closed-loop **multiplier** the PCM uses to dynamically adjust its load and spark-advance tables based on fuel knock feedback. As the engine runs, the PCM incrementally “learns” the octane quality by nudging spark timing forward (seeking maximum efficiency) and watching for knock. If no knock occurs, it continues advancing toward its high-octane target; if knock is detected, it retreats toward a conservative, lower-octane calibration. This system lets the EcoBoost engine safely exploit whatever octane you’ve filled it with, optimizing power and efficiency without manual tuning.
+The Learned Octane Ratio (LOR) is a closed-loop multiplier the PCM uses to adjust load and spark timing based on knock feedback. As the engine runs, it advances timing for efficiency, backing off if knock occurs. This allows the EcoBoost to optimize performance for the fuel’s octane without manual tuning.
 
-Learned Octane Ratio is a relative tuning factor, not an absolute octane meter. Ford calibrates LOR so that zero corresponds to the engine’s nominal (recommended) fuel rating.  For the Transit, that's 87 AKI. When you run on 87-octane, LOR will hover around 0.0, meaning the PCM is using its baseline spark‐advance tables.
+LOR is a relative factor, not a direct octane reading. Ford calibrates 0.0 to the recommended 87 AKI. On 87-octane, LOR stays near 0.0; below 0.0 indicates higher octane (more advance), while above 0.0 indicates lower octane (less advance).
 
-- LOR ≈ 0.0 → you’re at the recommended 87 AKI
-- LOR < 0.0 → fuel is “better” (higher octane) than 87 → PCM advances spark
-- LOR > 0.0 → fuel is “weaker” (lower octane) than 87 → PCM retards spark
+- LOR ≈ 0.0 → recommended 87 AKI
+- LOR < 0.0 → higher octane → more spark advance
+- LOR > 0.0 → lower octane → spark retard
+
+> ℹ️ Exact AKI equivalents for LOR values are unclear.
 
 #### Fuel pump duty cycle 
 The PCM’s PWM command to the low-pressure (lift) fuel pump in the tank. Rather than simply switching the pump fully on or off, the PCM modulates the pump’s duty between 0–100 % to precisely control the flow and maintain the target feed pressure for the high-pressure direct-injection system. This can be useful for how how hard the fuel pump is working drawing fuel from the tank.
 
 #### Fuel Rate  
+Mass of fuel consumed in grams per second.  Useful when calculating MPG when combined with speed.
+
 #### Fuel System Status
 **Open Loop** - Fuel Ratio determined based on static table.  Used on cold start and wide-open throttle situations
 **Closed Loop** - Fuel ratio is determined using measurements from narrowband oxygen sensors to maintain stochmetic fuel ratio of 14.67:1
@@ -221,14 +228,14 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 | PID      | Name                | Description                    | Units | Expression   | Status |
 | -------- | ------------------- | ------------------------------ | ----- | ------------ | ------ |
-| 0x222827 | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | kPa   | \[B4\:B5]/10 | 🚧     |
-| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | kPa   | \[B4\:B5]/10 | 🚧     |
-| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | kPa   | \[B4\:B5]/10 | 🚧     |
-| 0x222828 | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | kPa   | \[B4\:B5]/10 | 🚧     |
-| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | kPa   | \[B4\:B5]/10 | 🚧     |
-| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | kPa   | \[B4\:B5]/10 | 🚧     |
-| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | kPa   | \[B4\:B5]/10 | 🚧     |
-| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | kPa   | \[B4\:B5]/10 | 🚧     |
+| 0x222827 | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222828 | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | InHg  | \[B4\:B5]/10 | 🚧     |
 
 ### Battery
 
