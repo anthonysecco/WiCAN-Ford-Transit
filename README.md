@@ -9,41 +9,105 @@
 
 [WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) and other tools.  From there a user can build custom dashboards (e.g. on a tablet) and other automations while driving. 
 
-> Testing performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
-
 ## Project Scope
-While there's plenty of data available via the OBDII port and CANbus, this project focuses on read-only, real-time, and actionable data that's relevant in an RV.  It's not intended to replace OBDII diagnostic devices or software available on the market.
+This project intends to:
+1) To supplement real-time information that may not be displayed (or displayed well) on the instrument panel.
+2) To provide actional data to Home Assistant to trigger actions
 
-The primary reason for this scope is:
+It does **not** intend to:
+1) Replace OBDII diagnostic devices or software available on the market (FORScan, OBDwiz etc.)
 
-1) The WiCAN is only **ON** when the vehicle igition is in the **ON** position.  This limits the available use cases.
-2) The vehicles instrument panel provides plenty of information already.
-3) Ford does not publish their proprietary PIDs, this list is based on forum research, serial sniffing of OBDII tools, and some help from ChatGPT.
+> The project works for both WiCAN and WiCAN Pro unless indicated otherwise.
 
-The focus therefore is to find what **adds** to what's available on the instrument panel and/or triggers automations within Home Assitant **while the vehicle is on**.
+Limiting factors on this project
+1) The WiCAN is only **ON** when the vehicle igition is in the **ON** position.  This will limit use cases.
+2) Ford does not publish their proprietary PIDs, this list is based on forum research, serial sniffing of OBDII tools, and some help from ChatGPT.
 
 ### Non-CAN Signals
-A number of state-related information is availble outside of the OBDII on the Ford Transit.  These have the advantage of being available while the vehicle is off.  
+It's far better to interface with the Transit using Non-CAN interfaces.  The are reliable and function even when the igition is **off**.  Here are examples of what's available:
 
-**Auxilary Harness** - Under the driver seat
+**Auxilary Harness** - Standard equipment. Connector under the driver seat.
 - Engine On/Off
 - Igition On/Off
 - Vehicle Speed Sensor
 
-**High Spec Connector** - Optional connector located behind the glovebox
+**High Spec Connector** - Optional equipment. Connector located behind the glovebox.
 - Engine On/Off
 - Igition On/Off
 - Vehicle Speed Sensor
 - Door Ajar (Driver, Passenger, Side, Cargo)
 - Lock / Unlock Commands
 
-Since door states are available on the high-spec connector and available while the vehicle is off, they're **excluded** from this project.  It doesn't make sense to monitor them when the vehicle is on because the driver will see that on the vehicle's instrument panel.  Triggering automations isn't that useful related to door open/close while the vehicle is on.
+For more information visit [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
 
-For more information visit my repo [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
+## Ford Transit Entities Available
 
-## Use Cases
+> Testing performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
 
-Given the above scope, I've identified the following use cases:
+| Entity                                         | Type            | Unit  | PID      |
+|:-----------------------------------------------|:----------------|:------|:---------|
+| A/C Compressor (ON/OFF)                        | `binary_sensor` | binary| 0x22099B |
+| Actual Engine Torque Percent                   | `sensor`        | %     | 0x62     |
+| Ambient Air Temperature                        | `sensor`        | °C    | 0x46     |
+| Ambient Air Temperature                        | `sensor`        | °C    | 0x22057D |
+| Alternator Duty Cycle                          | `sensor`        | %     | 0x220598 |
+| Brake (ON/OFF)                                 | `binary_sensor` | binary| 0x222B00 |
+| Calculated Engine Load                         | `sensor`        | %     | 0x04     |
+| Commanded Equivalence Ratio                    | `sensor`        | Ratio | 0x44     |
+| Drive Mode                                     | `sensor`        | enum  | 0x220651 |
+| Engine RPM                                     | `sensor`        | rpm   | 0x0C     |
+| Engine Reference Torque                        | `sensor`        | Nm    | 0x63     |
+| Engine coolant temperature                     | `sensor`        | °C    | 0x22F405 |
+| Fuel Level                                     | `sensor`        | %     | 0x2F     |
+| Fuel Pressure Desired                          | `sensor`        | kPa   | 0x2203DC |
+| Fuel Pressure Sensor                           | `sensor`        | kPa   | 0x22F423 |
+| Fuel Rate                                      | `sensor`        | g/s   | 0x22F49D |
+| Fuel System Status (Open/Closed Loop)          | `sensor`        | binary| 0x22F403 |
+| Fuel pump duty cycle                           | `sensor`        | %     | 0x220307 |
+| Gear commanded by module                       | `sensor`        | enum  | 0x221E12 |
+| Intake Air Temperature                         | `sensor`        | °C    | 0x22F40F |
+| Intake Air Temperature 2                       | `sensor`        | °C    | 0x2203CA |
+| Learned Octane Ratio                           | `sensor`        | %     | 0x2203E8 |
+| Manifold Absolute Pressure                     | `sensor`        | kPa   | 0x0B     |
+| Oil Life                                       | `sensor`        | %     | 0x22054B |
+| Odometer                                       | `sensor`        | km    | 0xA6     |
+| Oxygen Sensor Bank 1 Fuel-Air Equivalence Ratio| `sensor`        | Ratio | 0x34     |
+| Oxygen Sensor Bank 2 Fuel-Air Equivalence Ratio| `sensor`        | Ratio | 0x38     |
+| Throttle Position                              | `sensor`        | %     | 0x11     |
+| Transmission Fluid Temperature                 | `sensor`        | °C    | 0x221E1C |
+| Vehicle Speed Sensor                           | `sensor`        | km/h  | 0x0D     |
+| Wastegate Control Solenoid Valve               | `sensor`        | %     | 0x220462 |
+
+## 🏗️ How It Works
+The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
+
+This guide assumes you have WiCAN connected to the OBDII, joined it to your Wi-Fi network, have it communicating with your MQTT broker, and enabled AutoPID mode.  You may likely already have some standard PIDs working.
+
+### Add Vehicle Profile
+1) Download the JSON file here for the Ford Transit.
+2) Navigate to **Automate** tab.
+3) Upload vehicle profile JSON
+4) Click 'Submit' to make the upload PIDs active.  This will reboot the WiCAN.
+
+### Configure MQTT
+You will need to instruct WiCAN on the topic you wish data to be posted.  You may use the topic provided in the this YAML file or one of your own choosing.
+
+Additionaly, you'll need to set the interval.  For real-time data, I suggest an interval no less than 1000ms.  For non real-time data, I suggest as long of an interval as is reasonable.  For example, tire pressure and odometer, won't be changing as frequency, to 60000ms (60s) is plenty.  This reduces load on the WiCAN and Home Assistant.
+
+Once configured, submit and reboot your WiCAN.  If all is well, you should see the data flowing into your MQTT broker.  Use MQTT Explorer to validate data is flowing.  I suggest keeping your vehicle running when testing to validate the sensors are working as expected.
+
+### Configure MQTT Entities
+Once you validated that all expected sensors are streaming into your MQTT broker, you may now begin to add the sensors to Home Assistant.
+
+You may use the YAML file found here as a template to add your entities.  This YAML converts the MQTT topic into US Imperial units.
+
+There are some template sensors also included in that YAML file for calcuated values such as Horsepower.
+
+Reload your Home Assistant configuration and you should now see the entities.
+
+## 🚗 Use Cases
+
+> 🥼 I'm still experimenting to see how this data can be useful and will expand this section.
 
 ### Dashboards
 
@@ -66,56 +130,31 @@ Some dashboard ideas.  These can be updated or changed with other vehicle data (
 
 ---
 
-## How It Works
-
-The [WiCAN Pro](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
-
-> This should also work on a WiCAN non-pro as well.
-
-### Quick Overview
-
-1. Plug in the WiCAN device
-2. Configure network + MQTT
-3. Add PIDs (standard + Ford Transit profile JSON)
-4. Load MQTT YAML config into Home Assistant
-5. Build your dashboard and automations
-
----
-
-## Home Assistant Sensors
-
-> 🚧 **This section to be defined** 🚧
-
----
-
-## 💖 Support
-The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
-
 ## 💪 Future Enhancements
-If you have feature requests, please create an _issue_.  It's been said that I can be bribed with coffee. 😊
-
-Otherwise, here's what I'm interested in but haven't yet solved:
+The following are entities I would like to add.  It doesn't mean I've figured out how to yet.
 
 | **Feature**                      | **Description**                                 |
 | -------------------------------- | ----------------------------------------------- |
 | **Parking Brake**                | In ABS module only, hard to access              |
-| **Open/Closed Loop**             | AFR feedback mode                               |
 | **Regen Braking**                | Smart alternator charging; put on Fuel advisor  |
 | **Auxilary Switch States**       | Track states of rocker switches for automations |
 | **Wheel Spin**                   | Display wheel spin for all tires for off-road   |
 | **Traction Contrl Intervention** | % how much TSC is engaged                       |
+| **All-Wheel Drive Engagement  ** | % torque split between front and rear           |
+| **All-Wheel Drive Clutch Temp  ** | C monitor to prevent overheating               |
+
+If you have requests, please create an _issue_.  It's been said that I can be bribed with coffee. 😊
+
+## 💖 Support
+The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
 
 ### 🚫 Unavailable
 These simply don't exist with factory equipment:
 
 * **Oil Temperature ** - No sensor in vehicle.
-* **AWD Clutch temperature** - No sensor in vehicle.
+* **Cylinder Head Temperature ** - No sensor in vehicle.
 
 ### ⏰ Wake Commands
 Many aftermarket alarm systems will send commands on the CANbus to awaken modules and then issue commands (lock, start etc.).  Additionally the vehicles TCU (telematics control unit) for things like Ford Pass can also awaken module.
 
 I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
-
-### 📁 Extended PID List
-
-See [`PIDs.md`](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) for experimental and unverified PIDs. These are community-contributed or AI-suggested—**use at your own discretion**.
