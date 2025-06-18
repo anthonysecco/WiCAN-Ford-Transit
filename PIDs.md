@@ -61,25 +61,25 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 
 | **PID**  | **Name**               | **Description**                               | **Units** | **Expression**     | **Status** |
 | -------- | ---------------------- | --------------------------------------------- | --------- | ------------------ | ---------- |
-| 0x22F405 | ECT                    | Engine coolant temperature                    | °C        | B4-40              |            |
-| 0x22F40F | IAT                    | Intake Air Temperature                        | °C        | B4-40              |            |
-| 0x2203CA | IAT2                   | Intake Air Temperature 2                      | °C        | B4-40              |            |
-| 0x22057D | AAT                    | Ambient Air Temperature                       | °C        | B4-40              |            |
-| 0x220334 | CHT                    | Cylinder Head Temperature                     | °C        | B4-40              |            |
+| 0x22F405 | ECT                    | Engine coolant temperature                    | °C        | B4-40              | ✅          |
+| 0x22F40F | IAT                    | Intake Air Temperature                        | °C        | B4-40              | ✅           |
+| 0x2203CA | IAT2                   | Intake Air Temperature 2                      | °C        | B4-40              | ✅           |
+| 0x22057D | AAT                    | Ambient Air Temperature                       | °C        | B4-40              | ✅           |
+| 0x220334 | CHT                    | Cylinder Head Temperature                     | °C        | B4-40              | 🚧           |
 | 0x221E1C | TFT                    | Transmission Fluid Temperature                | °C        | \[B4\:B5]/16     | ✅          |
-| 0x220651 | PWNTRN_DRVMODE         | Drive Mode                                    | enum      | B4                 |            |
+| 0x220651 | PWNTRN_DRVMODE         | Drive Mode                                    | enum      | B4                 | ✅           |
 | 0x221E12 | GEAR\_GGDS\_MZ         | Gear commanded by module                      | enum      | B4                 | ✅          |
-| 0x22099B | AC\_SW\_MZ             | A/C Compressor (ON/OFF)                       | binary    | B4                 |            |
-| 0x222B00 | BOO                    | Brake (ON/OFF)                                | binary    | B4                 |            |
+| 0x22099B | AC\_SW\_MZ             | A/C Compressor (ON/OFF)                       | binary    | B4                 | ✅           |
+| 0x222B00 | BOO                    | Brake (ON/OFF)                                | binary    | B4                 | ✅           |
 | 0x220462 | WGC\_MZ                | Wastegate Control Solenoid Valve              | %         | B4\*100/128        | ✅          |
 | 0x22054B | OIL\_LIFE              | Oil Life                                      | %         | B4                 | ✅          |
-| 0x220598 | GENCMD                 | Alternator Duty Cycle                         | %         | B4                 |            |
-| 0x2203E8 | LRND\_OCT\_RAT         | Learned Octane Ratio                          | %         | \[B4\:B5]/16384  |            |
-| 0x220307 | FP                     | Fuel pump duty cycle                          | %         | B4\*100/255      |            |
-| 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | \[B4\:B5]\*2/100 |            |
-| 0x22F403 | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | binary    | B4               |            |
-| 0x2203DC | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | \[B4\:B5]        |            |
-| 0x22F423 | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | \[B4\:B5]        |            |
+| 0x220598 | GENCMD                 | Alternator Duty Cycle                         | %         | B4                 | ✅           |
+| 0x2203E8 | LRND\_OCT\_RAT         | Learned Octane Ratio                          | %         | \[B4\:B5]/16384  | ✅           |
+| 0x220307 | FP                     | Fuel pump duty cycle                          | %         | B4\*100/255      | ✅           |
+| 0x22F49D | FUEL\_RATE             | Fuel Rate                                     | g/s       | \[B4\:B5]\*2/100 | ✅           |
+| 0x22F403 | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | binary    | B4               | ✅           |
+| 0x2203DC | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | \[B4\:B5]        | ✅           |
+| 0x22F423 | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | \[B4\:B5]        | ✅           |
 
 Extra details below.
 
@@ -229,18 +229,18 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 | PID      | Name                | Description                    | Units | Expression   | Status |
 | -------- | ------------------- | ------------------------------ | ----- | ------------ | ------ |
 | 0x222827 | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | InHg  | \[B4\:B5]/10 | ✅     |
+| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | InHg  | \[B4\:B5]/10 | ✅     |
 | 0x222828 | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | InHg  | \[B4\:B5]/10 | 🚧     |
+| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | InHg  | \[B4\:B5]/10 | ✅     |
+| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | InHg  | \[B4\:B5]/10 | ✅     |
+| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | InHg  | \[B4\:B5]/10 | ✅     |
+| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | InHg  | \[B4\:B5]/10 | ✅     |
 
 ### Battery
 
 | PID      | Name         | Description                       | Units | Expression | Status |
 | -------- | ------------ | --------------------------------- | ----- | ---------- | ------ |
-| 0x224028 | BAT\_SOC     | Vehicle Battery – State of Charge | %     | B4         | 🚧     |
-| 0x22402B | BAT\_CURRENT | Vehicle Battery – Current         | A     | \[B4\:B5]  | 🚧     |
-| 0x22402A | BAT\_VOLTAGE | Vehicle Battery – Voltage         | V     | \[B4\:B5]  | 🚧     |
+| 0x224028 | BAT\_SOC     | Vehicle Battery – State of Charge | %     | B4         | ✅     |
+| 0x22402B | BAT\_CURRENT | Vehicle Battery – Current         | A     | \[B4\:B5]  | ✅     |
+| 0x22402A | BAT\_VOLTAGE | Vehicle Battery – Voltage         | V     | \[B4\:B5]  | ✅     |
