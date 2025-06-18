@@ -2,7 +2,9 @@
 
 # WiCAN Ford Transit
 
-[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) and other tools.  From there a user can build custom dashboards (e.g. on a tablet) and other automations while driving. 
+[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) or other tools.  
+
+From there a user can build custom dashboards (e.g. on a tablet) and automations while driving. 
 
 | Useful Links |
 |-------|
@@ -12,14 +14,14 @@
 | [MQTT YAML](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) |
 
 ## Project Scope
+The project works for both WiCAN and WiCAN Pro unless indicated otherwise.
+
 This project intends to:
 1) To supplement real-time information that may not be displayed (or displayed well) on the instrument panel.
 2) To provide actional data to Home Assistant to trigger actions
 
 It does **not** intend to:
 1) Replace OBDII diagnostic devices or software available on the market (FORScan, OBDwiz etc.)
-
-> The project works for both WiCAN and WiCAN Pro unless indicated otherwise.
 
 Limiting factors on this project
 1) The WiCAN is only **ON** when the vehicle igition is in the **ON** position.  This will limit use cases.
@@ -90,7 +92,9 @@ For more information visit [Ford Transit Door Interface](https://github.com/anth
 | Vehicle Speed                               | `sensor`         | mph  | 0x0D      |
 | Wastegate                                   | `sensor`         | %    | 0x220462  |
 
-For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).
+For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md). 
+
+I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/obdwiz.md).  I don't have a FORScan dump, but its similar.
 
 ## 🏗️ How It Works
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
