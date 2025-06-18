@@ -3,7 +3,7 @@
 # PID List
 OBD-II PIDs (On-Board Diagnostics Parameter Identifers) are standardized codes used to request data from a vehicle’s electronic control units (ECUs) via the OBD port. They’re used by diagnostic tools and scan gauges.  In this case, I would like to implement it with Home Assistant.
 
-_Almost_ all PID data is provided in metric.  The expressions below maintain the native unit of measurement from the PID.  They may be converted to your unit of preference in your application.  In the case of Home Assistant, I convert these units to US Imperial in the MQTT YAML configuration.
+The expressions below maintain the native unit of measurement from the PID, typically metric.  They may be converted to your unit of preference in your application.  In the case of Home Assistant, I convert these units to US Imperial in the MQTT YAML configuration.
 
 Manufactures usually standardize around set of code across vehicles.  This means we can take things found on the F-150 or Explorer and apply it to the Transit given simialries in powertrain and modules.
 
@@ -18,13 +18,15 @@ When pulling PIDs, there's two "Modes" of interest:
 The Ford Transit (especially 2020 and newer models) typically includes three main CAN buses, each serving different types of modules based on speed and priority. These buses are part of the vehicle’s network architecture that allows electronic modules to communicate.
 
 ## Modules
-The list of modules and PIDs is not exhaustive.  PIDs are broken out below by module.
+The list of modules and PIDs is not exhaustive.  
 
 | Bus       | Abbreviation | CAN ID (Hex) | Module Name                  |
 |-----------|--------------|--------------|------------------------------|
 | HS-CAN1   | PCM          | 0x7E0          | Powertrain Control Module    |
 | HS-CAN1   | BCM          | 0x726          | Body Control Module          |
 | HS-CAN1   | AWDM         | 0x703          | All-Wheel Drive Module       |
+
+PIDs are broken out below by module.
 
 Each module will be broken out by the following:
 - PID = Hex Value of Parameter ID
@@ -37,7 +39,7 @@ Each module will be broken out by the following:
 ### SAE Standard (OBD)
 Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PIDs).  The PCM technically offers up standardized OBD PIDs.
 
-> ℹ️ Not all of SAE PIDs are accessible or functional in WiCAN.
+As of Wican v4.12, the following OBD PIDs work and provide data:
 
 | **PID** | **Name**      | **Description**                                 | **Units** | **Status** |
 | ---- | ---------------- | ----------------------------------------------- | ----- | ------ |
@@ -79,8 +81,6 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x22F403 | FUEL\_SYS              | Fuel System Status (Open/Closed Loop)         | binary    | B4               | ✅           |
 | 0x2203DC | FUEL\_P\_DSD\_MZ       | Fuel Pressure Desired                         | kPa       | \[B4\:B5]        | ✅           |
 | 0x22F423 | FUEL\_PRES\_MZ         | Fuel Pressure Sensor                          | kPa       | \[B4\:B5]        | ✅           |
-
-Extra details below.
 
 #### Drive Mode
 Selectable modes on the dashboard.  Adjusts programing of PCM, AWDM, and ABS for different driving modes.  This will report current mode.
@@ -126,7 +126,7 @@ LOR is a relative factor, not a direct octane reading. Ford calibrates 0.0 to th
 - LOR < 0.0 → higher octane → more spark advance
 - LOR > 0.0 → lower octane → spark retard
 
-> ℹ️ Exact AKI equivalents for LOR values are unclear.
+> ℹ️ Exact AKI equivalents for LOR values are not available.  If you know how this works, open an issue.
 
 #### Fuel pump duty cycle 
 The PCM’s PWM command to the low-pressure (lift) fuel pump in the tank. Rather than simply switching the pump fully on or off, the PCM modulates the pump’s duty between 0–100 % to precisely control the flow and maintain the target feed pressure for the high-pressure direct-injection system. This can be useful for how how hard the fuel pump is working drawing fuel from the tank.
@@ -149,50 +149,22 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 
 > Module initalization: ATSH000726;STCAFCP726,72E
 
-### Tire Pressure
-
-| PID      | Name                | Description                    | Units | Expression   | Status |
-| -------- | ------------------- | ------------------------------ | ----- | ------------ | ------ |
-| 0x222827 | PLCRD\_TP\_FRT\_BCM | Front Tire Placard Pressure    | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222813 | TPM\_PRES\_LF\_BCM  | Left Front Tire Pressure       | InHg  | \[B4\:B5]/10 | ✅     |
-| 0x222814 | TPM\_PRES\_RF\_BCM  | Right Front Tire Pressure      | InHg  | \[B4\:B5]/10 | ✅     |
-| 0x222828 | PLCRD\_TP\_BCK\_BCM | Rear Tire Placard Pressure     | InHg  | \[B4\:B5]/10 | 🚧     |
-| 0x222816 | TPM\_PRES\_LRO\_BCM | Left Rear Outer Tire Pressure  | InHg  | \[B4\:B5]/10 | ✅     |
-| 0x222815 | TPM\_PRES\_RRO\_BCM | Right Rear Outer Tire Pressure | InHg  | \[B4\:B5]/10 | ✅     |
-| 0x222818 | TPM\_PRES\_LRI\_BCM | Left Rear Inner Tire Pressure  | InHg  | \[B4\:B5]/10 | ✅     |
-| 0x222817 | TPM\_PRES\_RRI\_BCM | Right Rear Inner Tire Pressure | InHg  | \[B4\:B5]/10 | ✅     |
-
-### Battery
-
-| PID      | Name         | Description                       | Units | Expression | Status |
-| -------- | ------------ | --------------------------------- | ----- | ---------- | ------ |
-| 0x224028 | BAT\_SOC     | Vehicle Battery – State of Charge | %     | B4         | ✅     |
-| 0x22402B | BAT\_CURRENT | Vehicle Battery – Current         | A     | \[B4\:B5]  | ✅     |
-| 0x22402A | BAT\_VOLTAGE | Vehicle Battery – Voltage         | V     | \[B4\:B5]  | ✅     |
-
-### Doors
-
-| PID      | Name                | Description              | Units | Expression     | Status |
-| -------- | ------------------- | ------------------------ | ----- | -------------- | ------ |
-| 0x225B1D | DOOR\_SW\_DRVR\_BCM | Driver’s Door Ajar       | —     | ((A >> 0) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_PSGR\_BCM | Passenger Door Ajar      | —     | ((A >> 1) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_LR\_BCM   | Left Rear Door Ajar      | —     | ((A >> 3) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_RR\_BCM   | Right Rear Door Ajar     | —     | ((A >> 4) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_LUGG\_BCM | Luggage Compartment Ajar | —     | ((A >> 5) & 1) | 🚧     |
-| 0x225B1D | HOOD\_SW\_BCM       | Hood Ajar                | —     | ((A >> 2) & 1) | 🚧     |
-
-## Wishlist
-
-### PCM
-- Ford FAN1
-- Ford FAN2
-- Ford FAN3
-- Bank 1/2 Desired Cat Temp
-- Bank 1/2 Actual Cat temp
-
-### AWDM
-- AWD Clutch duty cycle
-- AWD Clutch temp
-
-###🚫 Unavailable Data
-- Engine oil temperature (No valid PID available)
+| PID      | Name                 | Description                      | Units | Expression       | Status |
+|:---------|:---------------------|:---------------------------------|:------|:-----------------|:------:|
+| 0x222827 | PLCRD\_TP\_FRT\_BCM  | Front Tire Placard Pressure      | InHg  | \[B4\:B5]/10     | 🚧     |
+| 0x222813 | TPM\_PRES\_LF\_BCM   | Left Front Tire Pressure         | InHg  | \[B4\:B5]/10     | ✅     |
+| 0x222814 | TPM\_PRES\_RF\_BCM   | Right Front Tire Pressure        | InHg  | \[B4\:B5]/10     | ✅     |
+| 0x222828 | PLCRD\_TP\_BCK\_BCM  | Rear Tire Placard Pressure       | InHg  | \[B4\:B5]/10     | 🚧     |
+| 0x222816 | TPM\_PRES\_LRO\_BCM  | Left Rear Outer Tire Pressure    | InHg  | \[B4\:B5]/10     | ✅     |
+| 0x222815 | TPM\_PRES\_RRO\_BCM  | Right Rear Outer Tire Pressure   | InHg  | \[B4\:B5]/10     | ✅     |
+| 0x222818 | TPM\_PRES\_LRI\_BCM  | Left Rear Inner Tire Pressure    | InHg  | \[B4\:B5]/10     | ✅     |
+| 0x222817 | TPM\_PRES\_RRI\_BCM  | Right Rear Inner Tire Pressure   | InHg  | \[B4\:B5]/10     | ✅     |
+| 0x224028 | BAT\_SOC            | Vehicle Battery – State of Charge| %     | B4               | ✅     |
+| 0x22402B | BAT\_CURRENT        | Vehicle Battery – Current        | A     | \[B4\:B5]        | ✅     |
+| 0x22402A | BAT\_VOLTAGE        | Vehicle Battery – Voltage        | V     | \[B4\:B5]        | ✅     |
+| 0x225B1D | DOOR\_SW\_DRVR\_BCM | Driver’s Door Ajar               | —     | ((A >> 0) & 1)   | 🚧     |
+| 0x225B1D | DOOR\_SW\_PSGR\_BCM | Passenger Door Ajar              | —     | ((A >> 1) & 1)   | 🚧     |
+| 0x225B1D | DOOR\_SW\_LR\_BCM   | Left Rear Door Ajar              | —     | ((A >> 3) & 1)   | 🚧     |
+| 0x225B1D | DOOR\_SW\_RR\_BCM   | Right Rear Door Ajar             | —     | ((A >> 4) & 1)   | 🚧     |
+| 0x225B1D | DOOR\_SW\_LUGG\_BCM | Luggage Compartment Ajar         | —     | ((A >> 5) & 1)   | 🚧     |
+| 0x225B1D | HOOD\_SW\_BCM       | Hood Ajar                        | —     | ((A >> 2) & 1)   | 🚧     |
