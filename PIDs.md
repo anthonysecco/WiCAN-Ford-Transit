@@ -23,8 +23,8 @@ The list of modules and PIDs is not exhaustive.  PIDs are broken out below by mo
 | Bus       | Abbreviation | CAN ID (Hex) | Module Name                  |
 |-----------|--------------|--------------|------------------------------|
 | HS-CAN1   | PCM          | 0x7E0          | Powertrain Control Module    |
-| HS-CAN1   | AWDM         | 0x703          | All-Wheel Drive Module       |
 | HS-CAN1   | BCM          | 0x726          | Body Control Module          |
+| HS-CAN1   | AWDM         | 0x703          | All-Wheel Drive Module       |
 
 Each module will be broken out by the following:
 - PID = Hex Value of Parameter ID
@@ -144,53 +144,10 @@ PCM Desired fuel pressure based on calculated engine load.
 #### Fuel Pressure Sensor
 Actual fuel pressure measured.  Difference between pressure sensor and desired pressure determines pump duty cycle.
 
-#### Other PIDs of Interest
-These may be developed in the future.
-
-- Ford FAN1
-- Ford FAN2
-- Ford FAN3
-- Bank 1/2 Desired Cat Temp
-- Bank 1/2 Actual Cat temp
-
-####🚫 Unavailable Data
-- Engine oil temperature (No valid PID available)
-
-### All-Wheel Drive Module (AWDM)
-On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the torque to the front wheels.
-
-Unfortunately there are no useful PIDs known to that information regarding the status of the AWDM and engagement of the front wheels.  From my testing, PIDs on the AWDM from FORScan and OBDwiz do not provide any useful information.  For example, the AWD clutch always shows 0%, whereas the dash shows varying torque split.
-
-The PIDs below while they can be queried, do not result in useful data.
-
-> Module initalization: ATSH000703;STCAFCP703,70B
-
-| PID      | Name                | Description                            | Unit | Expression  | Status |
-| -------- | ------------------- | -------------------------------------- | ---- | ----------- | ------ |
-| 0x220722 | FAD\_ACT\_STATUS    | Front Axle Disconnect Actuator Status  | enum | B4          | 🚫     |
-| 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | enum | B4          | 🚫     |
-| 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | %    | B4\*100/255 | 🚫     |
-
-#### Other PIDs of Interest
-- FAD Clutch Temperature
-
 ## Body Control Module (BCM)
 The Body Control Module (BCM) is the central controller for all non-powertrain electrical functions—monitoring and managing door-ajar, hood and luggage-lid switches; key-in/ignition and PATS security; lighting (headlamps, turn signals, courtesy lights); horn and crash detection; tire-pressure monitoring; and battery state (voltage, current, temperature, age and cumulative charge/discharge).
 
 > Module initalization: ATSH000726;STCAFCP726,72E
-
-### Doors
-
-| PID      | Name                | Description              | Units | Expression     | Status |
-| -------- | ------------------- | ------------------------ | ----- | -------------- | ------ |
-| 0x225B1D | DOOR\_SW\_DRVR\_BCM | Driver’s Door Ajar       | —     | ((A >> 0) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_PSGR\_BCM | Passenger Door Ajar      | —     | ((A >> 1) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_LR\_BCM   | Left Rear Door Ajar      | —     | ((A >> 3) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_RR\_BCM   | Right Rear Door Ajar     | —     | ((A >> 4) & 1) | 🚧     |
-| 0x225B1D | DOOR\_SW\_LUGG\_BCM | Luggage Compartment Ajar | —     | ((A >> 5) & 1) | 🚧     |
-| 0x225B1D | HOOD\_SW\_BCM       | Hood Ajar                | —     | ((A >> 2) & 1) | 🚧     |
-
-> 🚧 Door states are show by bit, not byte.  Some work needed to track individual bits yet. Naming convention needs to be mapped to actual doors.
 
 ### Tire Pressure
 
@@ -212,3 +169,30 @@ The Body Control Module (BCM) is the central controller for all non-powertrain e
 | 0x224028 | BAT\_SOC     | Vehicle Battery – State of Charge | %     | B4         | ✅     |
 | 0x22402B | BAT\_CURRENT | Vehicle Battery – Current         | A     | \[B4\:B5]  | ✅     |
 | 0x22402A | BAT\_VOLTAGE | Vehicle Battery – Voltage         | V     | \[B4\:B5]  | ✅     |
+
+### Doors
+
+| PID      | Name                | Description              | Units | Expression     | Status |
+| -------- | ------------------- | ------------------------ | ----- | -------------- | ------ |
+| 0x225B1D | DOOR\_SW\_DRVR\_BCM | Driver’s Door Ajar       | —     | ((A >> 0) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_PSGR\_BCM | Passenger Door Ajar      | —     | ((A >> 1) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_LR\_BCM   | Left Rear Door Ajar      | —     | ((A >> 3) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_RR\_BCM   | Right Rear Door Ajar     | —     | ((A >> 4) & 1) | 🚧     |
+| 0x225B1D | DOOR\_SW\_LUGG\_BCM | Luggage Compartment Ajar | —     | ((A >> 5) & 1) | 🚧     |
+| 0x225B1D | HOOD\_SW\_BCM       | Hood Ajar                | —     | ((A >> 2) & 1) | 🚧     |
+
+## Wishlist
+
+### PCM
+- Ford FAN1
+- Ford FAN2
+- Ford FAN3
+- Bank 1/2 Desired Cat Temp
+- Bank 1/2 Actual Cat temp
+
+### AWDM
+- AWD Clutch duty cycle
+- AWD Clutch temp
+
+###🚫 Unavailable Data
+- Engine oil temperature (No valid PID available)
