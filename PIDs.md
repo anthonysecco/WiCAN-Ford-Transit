@@ -65,7 +65,6 @@ Full definition of J1979 standard [here](https://en.wikipedia.org/wiki/OBD-II_PI
 | 0x22F40F | IAT                    | Intake Air Temperature                        | °C        | B4-40              | ✅           |
 | 0x2203CA | IAT2                   | Intake Air Temperature 2                      | °C        | B4-40              | ✅           |
 | 0x22057D | AAT                    | Ambient Air Temperature                       | °C        | B4-40              | ✅           |
-| 0x220334 | CHT                    | Cylinder Head Temperature                     | °C        | B4-40              | 🚧           |
 | 0x221E1C | TFT                    | Transmission Fluid Temperature                | °C        | \[B4\:B5]/16     | ✅          |
 | 0x220651 | PWNTRN_DRVMODE         | Drive Mode                                    | enum      | B4                 | ✅           |
 | 0x221E12 | GEAR\_GGDS\_MZ         | Gear commanded by module                      | enum      | B4                 | ✅          |
@@ -158,53 +157,22 @@ These may be developed in the future.
 - Engine oil temperature (No valid PID available)
 
 ### All-Wheel Drive Module (AWDM)
-On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the torque to the front wheels by activating a electronic-hydraulic clutch pack.  This is called a Front Axle Disconnect (FAD) system.  
+On the 2021 Transit AWD has a RWD-biased system that can divert up to 50% of the torque to the front wheels.
 
-In its mechanically default position, the front drive shaft is disconnected.  When the AWDM activates the electronic-hydraulic clutch pack, it connects the front drive shaft.  Up to 50% of engine torque can be diverted to the front wheels if the clutch is fully engaged.
+Unfortunately there are no useful PIDs known to that information regarding the status of the AWDM and engagement of the front wheels.  From my testing, PIDs on the AWDM from FORScan and OBDwiz do not provide any useful information.  For example, the AWD clutch always shows 0%, whereas the dash shows varying torque split.
 
-While in technical terrain, it may be useful to display the torque split between front/rear wheels. I've consolidated the available sensors to the following relevant sensors:
+The PIDs below while they can be queried, do not result in useful data.
 
 > Module initalization: ATSH000703;STCAFCP703,70B
 
 | PID      | Name                | Description                            | Unit | Expression  | Status |
 | -------- | ------------------- | -------------------------------------- | ---- | ----------- | ------ |
-| 0x220722 | FAD\_ACT\_STATUS    | Front Axle Disconnect Actuator Status  | enum | B4          | 🚧     |
-| 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | enum | B4          | 🚧     |
-| 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | %    | B4\*100/255 | 🚧     |
-| 0x220725 | TC\_MTR\_OUT\_DC    | Torque Converter Clutch Duty-Cycle     | %    | B4\*100/255 | 🚧     |
+| 0x220722 | FAD\_ACT\_STATUS    | Front Axle Disconnect Actuator Status  | enum | B4          | 🚫     |
+| 0x220728 | FAD\_STRG\_CMD      | Front-Axle Disconnect Strategy Command | enum | B4          | 🚫     |
+| 0x220726 | FAD\_DISCON\_IN\_DC | Front Axle Disconnect Input Duty Cycle | %    | B4\*100/255 | 🚫     |
 
-#### Front-Axle Disconnect Actuator Status  
-Shows the real-time state of the Front-Axle Disconnect actuator.  
-- **1 = “FAD in 4WD – CONNECTED”** means the front driveshaft is actively engaged, supplying torque to the front & rear wheels.  
-- **0 = “FAD in 2WD – DISCONNECTED”** would indicate the front axle is released and supplying torque to only rear-wheel drive only.
-
-> All states above have yet to be confirmed.
-
-#### Front-Axle Disconnect Strategy Command  
-The high-level strategy request from the PCM governing AWD mode.  
-- **01 = Connect Request** signals “go AWD”—the system wants front-axle engagement.  
-- **00 = Disconnect Request** signals “back to RWD”—the system wants the front axle released.  
-- **Modulate** (if supported) requests smooth, partial engagement to meter torque split.
-
-> All states above have yet to be confirmed.
-
-#### Front Axle Disconnect Input Duty Cycle  
-The PWM duty-cycle (0–100 %) applied to the disconnect control valve.  
-- **0 %** means no disengage signal (clutch remains engaged).
-- Higher values ramp open the clutch pack proportionally, allowing controlled slip or full disconnect.
-- **100 %** means full disengage signal (clutch disengaged) 
-
-> Engage/disengage spectrum yet to be confirmed
-
-#### Torque Converter Clutch Duty-Cycle  
-The PWM duty-cycle (0–100 %) applied to the torque-converter clutch solenoid to control lock-up pressure.  
-- **Low duty-cycle** = minimal lock-up (more fluid coupling >> more slip, more heat, ).  
-- **High duty-cycle** = stronger lock-up (more mechanical coupling >> more efficiency, less heat).
-
-> Engage/disengage spectrum yet to be confirmed
-
-####🚫 Unavailable Data
-- FAD Clutch Temperature😭
+#### Other PIDs of Interest
+- FAD Clutch Temperature
 
 ## Body Control Module (BCM)
 The Body Control Module (BCM) is the central controller for all non-powertrain electrical functions—monitoring and managing door-ajar, hood and luggage-lid switches; key-in/ignition and PATS security; lighting (headlamps, turn signals, courtesy lights); horn and crash detection; tire-pressure monitoring; and battery state (voltage, current, temperature, age and cumulative charge/discharge).
