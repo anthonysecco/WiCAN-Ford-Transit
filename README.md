@@ -160,9 +160,6 @@ The following are entities I would like to add.  It doesn't mean I've figured ou
 
 If you have requests, please create an _issue_.  It's been said that I can be bribed with coffee. 😊
 
-## 💖 Support
-The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
-
 ### 🚫 Unavailable
 These simply don't exist with factory equipment:
 
@@ -173,3 +170,14 @@ These simply don't exist with factory equipment:
 Many aftermarket alarm systems will send commands on the CANbus to awaken modules and then issue commands (lock, start etc.).  Additionally the vehicles TCU (telematics control unit) for things like Ford Pass can also awaken module.
 
 I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
+
+## 💖 Support
+The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
+
+## Contributions
+
+Open issues, suggest improvements, or contribute pull requests directly here on GitHub.
+
+## License
+
+This project is licensed under the MIT License. For more details, see the LICENSE file.&#x20;
