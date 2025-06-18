@@ -1,7 +1,9 @@
 | Useful Links |
 |-------|
 | [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) |
-| [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/)
+| [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/) |
+| [Transit Profile](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/2021-Ford-Transit-North-America.json) |
+| [MQTT YAML](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) |
 
 > 🚧 **This repo is under heavy development** 🚧
 
@@ -44,39 +46,49 @@ For more information visit [Ford Transit Door Interface](https://github.com/anth
 
 > Testing performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
 
-| Entity                                         | Type            | Unit  | PID      |
-|:-----------------------------------------------|:----------------|:------|:---------|
-| A/C Compressor (ON/OFF)                        | `binary_sensor` | binary| 0x22099B |
-| Actual Engine Torque Percent                   | `sensor`        | %     | 0x62     |
-| Ambient Air Temperature                        | `sensor`        | °C    | 0x46     |
-| Ambient Air Temperature                        | `sensor`        | °C    | 0x22057D |
-| Alternator Duty Cycle                          | `sensor`        | %     | 0x220598 |
-| Brake (ON/OFF)                                 | `binary_sensor` | binary| 0x222B00 |
-| Calculated Engine Load                         | `sensor`        | %     | 0x04     |
-| Commanded Equivalence Ratio                    | `sensor`        | Ratio | 0x44     |
-| Drive Mode                                     | `sensor`        | enum  | 0x220651 |
-| Engine RPM                                     | `sensor`        | rpm   | 0x0C     |
-| Engine Reference Torque                        | `sensor`        | Nm    | 0x63     |
-| Engine coolant temperature                     | `sensor`        | °C    | 0x22F405 |
-| Fuel Level                                     | `sensor`        | %     | 0x2F     |
-| Fuel Pressure Desired                          | `sensor`        | kPa   | 0x2203DC |
-| Fuel Pressure Sensor                           | `sensor`        | kPa   | 0x22F423 |
-| Fuel Rate                                      | `sensor`        | g/s   | 0x22F49D |
-| Fuel System Status (Open/Closed Loop)          | `sensor`        | binary| 0x22F403 |
-| Fuel pump duty cycle                           | `sensor`        | %     | 0x220307 |
-| Gear commanded by module                       | `sensor`        | enum  | 0x221E12 |
-| Intake Air Temperature                         | `sensor`        | °C    | 0x22F40F |
-| Intake Air Temperature 2                       | `sensor`        | °C    | 0x2203CA |
-| Learned Octane Ratio                           | `sensor`        | %     | 0x2203E8 |
-| Manifold Absolute Pressure                     | `sensor`        | kPa   | 0x0B     |
-| Oil Life                                       | `sensor`        | %     | 0x22054B |
-| Odometer                                       | `sensor`        | km    | 0xA6     |
-| Oxygen Sensor Bank 1 Fuel-Air Equivalence Ratio| `sensor`        | Ratio | 0x34     |
-| Oxygen Sensor Bank 2 Fuel-Air Equivalence Ratio| `sensor`        | Ratio | 0x38     |
-| Throttle Position                              | `sensor`        | %     | 0x11     |
-| Transmission Fluid Temperature                 | `sensor`        | °C    | 0x221E1C |
-| Vehicle Speed Sensor                           | `sensor`        | km/h  | 0x0D     |
-| Wastegate Control Solenoid Valve               | `sensor`        | %     | 0x220462 |
+| Entity                                      | Type             | Unit | Source    |
+|:--------------------------------------------|:-----------------|:-----|:----------|
+| A/C Compressor Status                       | `binary_sensor`  |      | 0x22099B  |
+| Alternator Duty Cycle                       | `sensor`         | %    | 0x220598  |
+| Barometric Pressure                         | `sensor`         | psi  | 0x33      |
+| Boost Gauge                                 | `sensor`         | psi  | Template  |
+| Brake On/Off                                | `binary_sensor`  |      | 0x222B00  |
+| Drive Mode                                  | `sensor`         | enum | 0x220651  |
+| Engine Coolant Temp                         | `sensor`         | °F   | 0x22F405  |
+| Engine Horsepower                           | `sensor`         | hp   | Template  |
+| Engine Load                                 | `sensor`         | %    | 0x04      |
+| Engine Running                              | `binary_sensor`  |      | Template  |
+| Engine Speed                                | `sensor`         | RPM  | 0x0C      |
+| Engine Torque                               | `sensor`         | lb-ft| Template  |
+| Engine Torque Percent                       | `sensor`         | %    | 0x62      |
+| Engine Torque Reference                     | `sensor`         | Nm   | 0x63      |
+| Fuel Level                                  | `sensor`         | %    | 0x2F      |
+| Fuel Pressure Actual                        | `sensor`         | psi  | 0x22F423  |
+| Fuel Pressure Desired                       | `sensor`         | psi  | 0x2203DC  |
+| Fuel Rate                                   | `sensor`         | g/s  | 0x22F49D  |
+| Fuel System Status                          | `sensor`         | enum | 0x22F403  |
+| Fuel Pump Duty Cycle                        | `sensor`         | %    | 0x220307  |
+| Intake Air Temp                             | `sensor`         | °F   | 0x22F40F  |
+| Intake Air Temp 2                           | `sensor`         | °F   | 0x2203CA  |
+| Learned Octane Ratio                        | `sensor`         | %    | 0x2203E8  |
+| Manifold Pressure                           | `sensor`         | psi  | 0x0B      |
+| Oil Life                                    | `sensor`         | %    | 0x22054B  |
+| Odometer                                    | `sensor`         | mi   | 0xA6      |
+| OBD Status                                  | `binary_sensor`  |      | WiCAN     |
+| Real-Time Fuel Economy                      | `sensor`         | MPG  | Template  |
+| Throttle Position                           | `sensor`         | %    | 0x11      |
+| Transmission Fluid Temp                     | `sensor`         | °F   | 0x221E1C  |
+| Transmission Gear                           | `sensor`         | enum | 0x221E12  |
+| Tire Pressure Left Front                    | `sensor`         | InHg | 0x222813  |
+| Tire Pressure Left Rear Outer               | `sensor`         | InHg | 0x222816  |
+| Tire Pressure Right Front                   | `sensor`         | InHg | 0x222814  |
+| Tire Pressure Right Rear Outer              | `sensor`         | InHg | 0x222815  |
+| Vehicle Battery Current                     | `sensor`         | A    | 0x22402B  |
+| Vehicle Battery Power                       | `sensor`         | W    | Template  |
+| Vehicle Battery State of Charge             | `sensor`         | %    | 0x224028  |
+| Vehicle Battery Voltage                     | `sensor`         | V    | 0x22402A  |
+| Vehicle Speed                               | `sensor`         | mph  | 0x0D      |
+| Wastegate                                   | `sensor`         | %    | 0x220462  |
 
 ## 🏗️ How It Works
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
@@ -99,7 +111,7 @@ Once configured, submit and reboot your WiCAN.  If all is well, you should see t
 ### Configure MQTT Entities
 Once you validated that all expected sensors are streaming into your MQTT broker, you may now begin to add the sensors to Home Assistant.
 
-You may use the YAML file found here as a template to add your entities.  This YAML converts the MQTT topic into US Imperial units.
+You may use the YAML file found [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) as a template to add your entities.  This YAML converts the MQTT topic into US Imperial units.
 
 There are some template sensors also included in that YAML file for calcuated values such as Horsepower.
 
@@ -135,6 +147,7 @@ The following are entities I would like to add.  It doesn't mean I've figured ou
 
 | **Feature**                      | **Description**                                 |
 | -------------------------------- | ----------------------------------------------- |
+| **Inner Tires**                  | For Dual Rear Wheel Configurations              |
 | **Parking Brake**                | In ABS module only, hard to access              |
 | **Regen Braking**                | Smart alternator charging; put on Fuel advisor  |
 | **Auxilary Switch States**       | Track states of rocker switches for automations |
