@@ -1,15 +1,15 @@
+![image](https://github.com/user-attachments/assets/befab2a4-e66b-4935-ad08-d809927ac942) 
+
+# WiCAN Ford Transit
+
+[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) and other tools.  From there a user can build custom dashboards (e.g. on a tablet) and other automations while driving. 
+
 | Useful Links |
 |-------|
 | [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) |
 | [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/) |
 | [Transit Profile](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/2021-Ford-Transit-North-America.json) |
 | [MQTT YAML](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) |
-
-> 🚧 **This repo is under heavy development** 🚧
-
-# WiCAN Ford Transit
-
-[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) and other tools.  From there a user can build custom dashboards (e.g. on a tablet) and other automations while driving. 
 
 ## Project Scope
 This project intends to:
