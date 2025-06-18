@@ -90,6 +90,8 @@ For more information visit [Ford Transit Door Interface](https://github.com/anth
 | Vehicle Speed                               | `sensor`         | mph  | 0x0D      |
 | Wastegate                                   | `sensor`         | %    | 0x220462  |
 
+For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).
+
 ## 🏗️ How It Works
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
 
