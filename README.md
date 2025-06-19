@@ -11,7 +11,7 @@ What's WiCAN?
 
 Let's get started!
 
-## Project Scope
+## 👷 Project Scope
 Both WiCAN and WiCAN Pro are supported unless otherwise indicated.
 
 This project intends to:
@@ -42,7 +42,7 @@ It's far better to interface with the Transit using Non-CAN interfaces when poss
 
 For more information visit [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
 
-## Ford Transit Entities Available
+## 🧑‍💻 Ford Transit Entities Available
 
 > Testing was performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
 
@@ -109,7 +109,7 @@ For more details on the source, visit [PID List](https://github.com/anthonysecco
 I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/obdwiz.md).  I don't have a FORScan dump, but its similar.
 
 
-## 🏗️ How It Works
+## 🤖 How It Works
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN bus data and publishes it to your MQTT broker. From there, Home Assistant subscribes to the data stream using YAML configuration files.
 
 This guide assumes you:
@@ -118,7 +118,7 @@ This guide assumes you:
 - Enabled AutoPID mode
 - Connected it to your MQTT broker
 
-## Standard PIDs
+### Standard PIDs
 
 1) Naviate to **Automate** tab
 2) Select ECU Protocol **6- ISO 15765-4 (CAN 11bit/500K)**
