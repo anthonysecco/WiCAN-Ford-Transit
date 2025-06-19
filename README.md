@@ -48,49 +48,51 @@ For more information visit [Ford Transit Door Interface](https://github.com/anth
 
 > Testing performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
 
-| Entity                                      | Type             | Unit | Source    | Tier |
-|:--------------------------------------------|:-----------------|:-----|:----------|:-----|
-| A/C Compressor Status                       | `binary_sensor`  |      | 0x22099B  | C    |
-| Alternator Duty Cycle                       | `sensor`         | %    | 0x220598  | A    |
-| Barometric Pressure                         | `sensor`         | psi  | 0x33      | B    |
-| Boost Gauge                                 | `sensor`         | psi  | Template  | B    |
-| Brake On/Off                                | `binary_sensor`  |      | 0x222B00  | C    |
-| Drive Mode                                  | `sensor`         | enum | 0x220651  | B    |
-| Engine Coolant Temp                         | `sensor`         | °F   | 0x22F405  | S    |
-| Engine Horsepower                           | `sensor`         | hp   | Template  | B    |
-| Engine Load                                 | `sensor`         | %    | 0x04      | A    |
-| Engine Running                              | `binary_sensor`  |      | Template  | S    |
-| Engine Speed                                | `sensor`         | RPM  | 0x0C      | B    |
-| Engine Torque                               | `sensor`         | lb-ft| Template  | B    |
-| Engine Torque Percent                       | `sensor`         | %    | 0x62      | B    |
-| Engine Torque Reference                     | `sensor`         | Nm   | 0x63      | B    |
-| Fuel Level                                  | `sensor`         | %    | 0x2F      | S    |
-| Fuel Pressure Actual                        | `sensor`         | psi  | 0x22F423  | D    |
-| Fuel Pressure Desired                       | `sensor`         | psi  | 0x2203DC  | D    |
-| Fuel Rate                                   | `sensor`         | g/s  | 0x22F49D  | S    |
-| Fuel System Status                          | `sensor`         | enum | 0x22F403  | A    |
-| Fuel Pump Duty Cycle                        | `sensor`         | %    | 0x220307  | D    |
-| Intake Air Temp                             | `sensor`         | °F   | 0x22F40F  | C    |
-| Intake Air Temp 2                           | `sensor`         | °F   | 0x2203CA  | C    |
-| Learned Octane Ratio                        | `sensor`         | %    | 0x2203E8  | A    |
-| Manifold Pressure                           | `sensor`         | psi  | 0x0B      | B    |
-| Oil Life                                    | `sensor`         | %    | 0x22054B  | B    |
-| Odometer                                    | `sensor`         | mi   | 0xA6      | S    |
-| OBD Status                                  | `binary_sensor`  |      | WiCAN     | S    |
-| Real-Time Fuel Economy                      | `sensor`         | MPG  | Template  | S    |
-| Throttle Position                           | `sensor`         | %    | 0x11      | D    |
-| Transmission Fluid Temp                     | `sensor`         | °F   | 0x221E1C  | A    |
-| Transmission Gear                           | `sensor`         | enum | 0x221E12  | S    |
-| Tire Pressure Left Front                    | `sensor`         | InHg | 0x222813  | S    |
-| Tire Pressure Left Rear Outer               | `sensor`         | InHg | 0x222816  | S    |
-| Tire Pressure Right Front                   | `sensor`         | InHg | 0x222814  | S    |
-| Tire Pressure Right Rear Outer              | `sensor`         | InHg | 0x222815  | S    |
-| Vehicle Battery Current                     | `sensor`         | A    | 0x22402B  | C    |
-| Vehicle Battery Power                       | `sensor`         | W    | Template  | C    |
-| Vehicle Battery State of Charge             | `sensor`         | %    | 0x224028  | A    |
-| Vehicle Battery Voltage                     | `sensor`         | V    | 0x22402A  | C    |
-| Vehicle Speed                               | `sensor`         | mph  | 0x0D      | S    |
-| Wastegate                                   | `sensor`         | %    | 0x220462  | D    |
+| Entity                          | Type            | Unit  | Source   | Sug. Refresh | Tier |
+| :------------------------------ | :-------------- | :---- | :------- | :----------- | :--- |
+| A/C Compressor Status           | `binary_sensor` |       | 0x22099B | 5000ms       | C    |
+| Alternator Duty Cycle           | `sensor`        | %     | 0x220598 | 5000ms       | A    |
+| Barometric Pressure             | `sensor`        | psi   | 0x33     | 5000ms       | B    |
+| Boost Gauge                     | `sensor`        | psi   | Template |              | B    |
+| Brake On/Off                    | `binary_sensor` |       | 0x222B00 | 1000ms       | C    |
+| Drive Mode                      | `sensor`        | enum  | 0x220651 | 1000ms       | B    |
+| Engine Coolant Temp             | `sensor`        | °F    | 0x22F405 | 5000ms       | S    |
+| Engine Horsepower               | `sensor`        | hp    | Template | -            | B    |
+| Engine Load                     | `sensor`        | %     | 0x04     | 1000ms       | A    |
+| Engine Running                  | `binary_sensor` |       | Template | -            | S    |
+| Engine Speed                    | `sensor`        | RPM   | 0x0C     | 1000ms       | B    |
+| Engine Torque                   | `sensor`        | lb-ft | Template |              | B    |
+| Engine Torque Percent           | `sensor`        | %     | 0x62     | 1000ms       | B    |
+| Engine Torque Reference         | `sensor`        | Nm    | 0x63     | 60000ms      | B    |
+| Fuel Level                      | `sensor`        | %     | 0x2F     | 60000ms      | S    |
+| Fuel Pressure Actual            | `sensor`        | psi   | 0x22F423 | 1000ms       | D    |
+| Fuel Pressure Desired           | `sensor`        | psi   | 0x2203DC | 1000ms       | D    |
+| Fuel Rate                       | `sensor`        | g/s   | 0x22F49D | 1000ms       | S    |
+| Fuel System Status              | `sensor`        | enum  | 0x22F403 | 1000ms       | A    |
+| Fuel Pump Duty Cycle            | `sensor`        | %     | 0x220307 | 1000ms       | D    |
+| Intake Air Temp                 | `sensor`        | °F    | 0x22F40F | 5000ms       | C    |
+| Intake Air Temp 2               | `sensor`        | °F    | 0x2203CA | 5000ms       | C    |
+| Learned Octane Ratio            | `sensor`        | %     | 0x2203E8 | 60000ms      | A    |
+| Manifold Pressure               | `sensor`        | psi   | 0x0B     | 1000ms       | B    |
+| Oil Life                        | `sensor`        | %     | 0x22054B | 60000ms      | B    |
+| Odometer                        | `sensor`        | mi    | 0xA6     | 60000ms      | S    |
+| OBD Status                      | `binary_sensor` |       | WiCAN    | -            | S    |
+| Real-Time Fuel Economy          | `sensor`        | MPG   | Template | -            | S    |
+| Throttle Position               | `sensor`        | %     | 0x11     | 1000ms       | D    |
+| Transmission Fluid Temp         | `sensor`        | °F    | 0x221E1C | 5000ms       | A    |
+| Transmission Gear               | `sensor`        | enum  | 0x221E12 | 1000ms       | S    |
+| Tire Pressure Left Front        | `sensor`        | InHg  | 0x222813 | 5000ms       | S    |
+| Tire Pressure Left Rear Outer   | `sensor`        | InHg  | 0x222816 | 5000ms       | S    |
+| Tire Pressure Right Front       | `sensor`        | InHg  | 0x222814 | 5000ms       | S    |
+| Tire Pressure Right Rear Outer  | `sensor`        | InHg  | 0x222815 | 5000ms       | S    |
+| Vehicle Battery Current         | `sensor`        | A     | 0x22402B | 5000ms       | C    |
+| Vehicle Battery Power           | `sensor`        | W     | Template | 5000ms       | C    |
+| Vehicle Battery State of Charge | `sensor`        | %     | 0x224028 | 5000ms       | A    |
+| Vehicle Battery Voltage         | `sensor`        | V     | 0x22402A | 5000ms       | C    |
+| Vehicle Speed                   | `sensor`        | mph   | 0x0D     | 1000ms       | S    |
+| Wastegate                       | `sensor`        | %     | 0x220462 | 1000ms       | D    |
+
+Suggested Refresh is my suggested period setting for MQTT updates in WiCAN.
 
 ### Tiers
 | Tier  | Description|
@@ -114,11 +116,23 @@ The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publ
 
 This guide assumes you have WiCAN connected to the OBDII, joined it to your Wi-Fi network, have it communicating with your MQTT broker, and enabled AutoPID mode.  You may likely already have some standard PIDs working.
 
-### Add Vehicle Profile
-1) Download the JSON file here for the Ford Transit.
+## Standard PIDs
+
+1) Naviate to **Automate** tab
+2) Select ECU Protocol **6- ISO 15765-4 (CAN 11bit/500K)**
+3) Scan for PIDs
+4) Add the PIDs of your choice.  Not all work correctly.  Refer to [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md)) to see what's been tested.
+
+
+### Vehicle Specific (Profile)
+1) Download the JSON file [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/2021-Ford-Transit-North-America.json) for the Ford Transit.
 2) Navigate to **Automate** tab.
-3) Upload vehicle profile JSON
-4) Click 'Submit' to make the upload PIDs active.  This will reboot the WiCAN.
+3) Scroll to Vehicle Specific and **Enable**
+4) Upload vehicle profile JSON
+5) Select Vehicle model from drop-down
+6) Click 'Submit' to make the upload PIDs active.  This will reboot the WiCAN.
+
+After applying, specific initialization and additional PIDs will show below.  Next configure MQTT.
 
 ### Configure MQTT
 You will need to instruct WiCAN on the topic you wish data to be posted.  You may use the topic provided in the this YAML file or one of your own choosing.
