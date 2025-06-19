@@ -1,5 +1,6 @@
 ![image](https://github.com/user-attachments/assets/befab2a4-e66b-4935-ad08-d809927ac942) 
 
+
 # WiCAN Ford Transit
 
 [WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) or other tools.  
@@ -156,6 +157,8 @@ Reload your Home Assistant configuration and you should now see the entities.
 
 ### Dashboards
 
+> 🚧 More information to be added here.
+
 Some dashboard ideas.  These can be updated or changed with other vehicle data (GPS, Cell Signal, Fresh/Gray tank etc.)
 
 | **Panel**              | **Description**                                                                  | **Purpose**                                           |
@@ -163,14 +166,20 @@ Some dashboard ideas.  These can be updated or changed with other vehicle data (
 | **Fuel Efficiency**    | Real-time, projected, and historical fuel consumption.                   | Adjust driving behavior and monitor fuel usage.       |
 | **Traction & Terrain** | Real-time data relevant to low-speed traction.                    | Modify off-road driving based on traction conditions. |
 | **Resources**          | Provide an overview of off-grid resource levels (battery, water, solar, signal). | Choose optimal parking or camping spots.              |
+| **Trip Reports** | End of Day | Send message with trip summary (miles, time, fuel etc.) |
+
+I'm also experimenting with conditional dashboards that displays different data based on:
+- Vehicle Moving/Not Moving
+- Vehicle On/Off
+- Vehicle Drive Modes (Normal/Mud/Slippery/Tow)
 
 ### Automations
 
+> 🚧 More information to be added here.
+
 | **Name**                 | **Trigger**                               | **Action**                                                         |
 | ------------------------ | ----------------------------------------- | ------------------------------------------------------------------ |
-| **Dashboard Change**    | Vehicle moving / not moving        | Change relevant information on dashboard if vehicle moving    |
 | **Moving Mode**   | Vehicle moving / not moving        | Lock drawers and turn off lights, inverter, water |
-| **Trip Reports** | End of Day | Send message with trip summary (miles, time, fuel etc.) |
 | **Excessive Tilt Alert** | Pitch > 20 ° or Roll > 15 °               | Push notification “Vehicle tilt too steep—risk of rollover!”       |
 
 ---
