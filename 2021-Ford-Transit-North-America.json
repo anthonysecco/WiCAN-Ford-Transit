@@ -1,67 +1,7 @@
 {
-  "car_model": "2021 Ford Transit AWD",
+  "car_model": "2021-Ford-Transit-North-America",
   "init": "ATE0;ATL0;ATH0;ATR1;ATST32;ATSP6;ATCAF1;",
   "pids": [
-    {
-      "pid": "220722",
-      "pid_init": "ATSH000703;STCAFCP703,70B;",
-      "parameters": [
-        {
-          "name": "AWDM-Front-Axle-Disconnect-Actuator-Status",
-          "class": "enum",
-          "expression": "B4",
-          "unit": "enum",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220726",
-      "pid_init": "ATSH000703;STCAFCP703,70B;",
-      "parameters": [
-        {
-          "name": "AWDM-Front-Axle-Disconnect-Duty-Cycle",
-          "class": "percentage",
-          "expression": "B4*100/255",
-          "unit": "%",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220728",
-      "pid_init": "ATSH000703;STCAFCP703,70B;",
-      "parameters": [
-        {
-          "name": "AWDM-Front-Axle-Disconnect-Strategy-Cmd",
-          "class": "enum",
-          "expression": "B4",
-          "unit": "enum",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220725",
-      "pid_init": "ATSH000703;STCAFCP703,70B;",
-      "parameters": [
-        {
-          "name": "AWDM-Torque-Converter-Clutch-Duty-Cycle",
-          "class": "percentage",
-          "expression": "B4*100/255",
-          "unit": "%",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
     {
       "pid": "22402B",
       "pid_init": "ATSH000726;STCAFCP726,72E;",
@@ -98,9 +38,9 @@
       "parameters": [
         {
           "name": "BCM-Battery-Voltage",
-          "class": "voltage",
           "expression": "([B4:B5]/256)/10",
           "unit": "V",
+          "class": "voltage",
           "min": "",
           "max": ""
         }
@@ -113,24 +53,9 @@
       "parameters": [
         {
           "name": "BCM-Tire-Pressure-Left-Front",
-          "class": "pressure",
           "expression": "[B4:B5]/10",
-          "unit": "kPa",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222818",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Left-Rear-Inner",
+          "unit": "InHg",
           "class": "pressure",
-          "expression": "[B4:B5]/10",
-          "unit": "kPa",
           "min": "",
           "max": ""
         }
@@ -143,39 +68,9 @@
       "parameters": [
         {
           "name": "BCM-Tire-Pressure-Left-Rear-Outer",
-          "class": "pressure",
           "expression": "[B4:B5]/10",
-          "unit": "kPa",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222827",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Front-Placard",
+          "unit": "InHg",
           "class": "pressure",
-          "expression": "[B4:B5]/10",
-          "unit": "kPa",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222828",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Rear-Placard",
-          "class": "pressure",
-          "expression": "[B4:B5]/10",
-          "unit": "kPa",
           "min": "",
           "max": ""
         }
@@ -188,24 +83,9 @@
       "parameters": [
         {
           "name": "BCM-Tire-Pressure-Right-Front",
-          "class": "pressure",
           "expression": "[B4:B5]/10",
-          "unit": "kPa",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222817",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Right-Rear-Inner",
+          "unit": "InHg",
           "class": "pressure",
-          "expression": "[B4:B5]/10",
-          "unit": "kPa",
           "min": "",
           "max": ""
         }
@@ -218,9 +98,9 @@
       "parameters": [
         {
           "name": "BCM-Tire-Pressure-Right-Rear-Outer",
-          "class": "pressure",
           "expression": "[B4:B5]/10",
-          "unit": "kPa",
+          "unit": "InHg",
+          "class": "pressure",
           "min": "",
           "max": ""
         }
@@ -229,13 +109,13 @@
     },
     {
       "pid": "22099B",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-AC-Compressor",
-          "class": "binary",
           "expression": "B4",
-          "unit": "binary",
+          "unit": "",
+          "class": "",
           "min": "",
           "max": ""
         }
@@ -244,28 +124,13 @@
     },
     {
       "pid": "220598",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Alternator-Duty-Cycle",
-          "class": "percentage",
           "expression": "B4",
           "unit": "%",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22057D",
-      "pid_init": "ATSH7E0",
-      "parameters": [
-        {
-          "name": "PCM-Ambient-Air-Temp",
-          "class": "temperature",
-          "expression": "B4-40",
-          "unit": "C",
+          "class": "percentage",
           "min": "",
           "max": ""
         }
@@ -274,28 +139,13 @@
     },
     {
       "pid": "222B00",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Brake-On-Off",
-          "class": "binary",
           "expression": "B4",
-          "unit": "binary",
-          "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220334",
-      "pid_init": "ATSH7E0",
-      "parameters": [
-        {
-          "name": "PCM-Cylinder-Head-Temp",
-          "class": "temperature",
-          "expression": "B4-40",
-          "unit": "C",
+          "unit": "",
+          "class": "",
           "min": "",
           "max": ""
         }
@@ -304,13 +154,13 @@
     },
     {
       "pid": "220651",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Drive-Mode",
-          "class": "enum",
           "expression": "B4",
-          "unit": "enum",
+          "unit": "",
+          "class": "",
           "min": "",
           "max": ""
         }
@@ -319,13 +169,13 @@
     },
     {
       "pid": "22F405",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Engine-Coolant-Temp",
-          "class": "temperature",
           "expression": "B4-40",
           "unit": "C",
+          "class": "temperature",
           "min": "",
           "max": ""
         }
@@ -334,13 +184,13 @@
     },
     {
       "pid": "22F423",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Fuel-Pressure-Actual",
-          "class": "pressure",
           "expression": "[B4:B5]",
           "unit": "kPa",
+          "class": "pressure",
           "min": "",
           "max": ""
         }
@@ -349,13 +199,13 @@
     },
     {
       "pid": "2203DC",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Fuel-Pressure-Desired",
-          "class": "pressure",
           "expression": "[B4:B5]",
           "unit": "kPa",
+          "class": "pressure",
           "min": "",
           "max": ""
         }
@@ -364,13 +214,13 @@
     },
     {
       "pid": "220307",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Fuel-Pump-Duty-Cycle",
-          "class": "percentage",
-          "expression": "B4*100/255",
+          "expression": "(B4*100)/255",
           "unit": "%",
+          "class": "percentage",
           "min": "",
           "max": ""
         }
@@ -379,13 +229,13 @@
     },
     {
       "pid": "22F49D",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Fuel-Rate",
-          "class": "mass_flow_rate",
           "expression": "[B4:B5]*2/100",
           "unit": "g/s",
+          "class": "",
           "min": "",
           "max": ""
         }
@@ -394,13 +244,13 @@
     },
     {
       "pid": "22F403",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Fuel-System-Status",
-          "class": "binary",
           "expression": "B4",
-          "unit": "binary",
+          "unit": "",
+          "class": "",
           "min": "",
           "max": ""
         }
@@ -409,13 +259,13 @@
     },
     {
       "pid": "22F40F",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Intake-Air-Temp",
-          "class": "temperature",
           "expression": "B4-40",
           "unit": "C",
+          "class": "temperature",
           "min": "",
           "max": ""
         }
@@ -424,13 +274,13 @@
     },
     {
       "pid": "2203CA",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Intake-Air-Temp-2",
-          "class": "temperature",
           "expression": "B4-40",
           "unit": "C",
+          "class": "temperature",
           "min": "",
           "max": ""
         }
@@ -439,13 +289,13 @@
     },
     {
       "pid": "2203E8",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Learned-Octane-Ratio",
-          "class": "percentage",
           "expression": "[B4:B5]/16384",
           "unit": "%",
+          "class": "percentage",
           "min": "",
           "max": ""
         }
@@ -454,13 +304,13 @@
     },
     {
       "pid": "22054B",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Oil-Life",
-          "class": "percentage",
           "expression": "B4",
           "unit": "%",
+          "class": "percentage",
           "min": "",
           "max": ""
         }
@@ -469,13 +319,13 @@
     },
     {
       "pid": "221E1C",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Trans-Fluid-Temp",
-          "class": "temperature",
           "expression": "[B4:B5]/16",
           "unit": "C",
+          "class": "temperature",
           "min": "",
           "max": ""
         }
@@ -484,13 +334,13 @@
     },
     {
       "pid": "221E12",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Trans-Gear-Cmd",
-          "class": "enum",
           "expression": "B4",
-          "unit": "enum",
+          "unit": "",
+          "class": "",
           "min": "",
           "max": ""
         }
@@ -499,13 +349,13 @@
     },
     {
       "pid": "220462",
-      "pid_init": "ATSH7E0",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": [
         {
           "name": "PCM-Wastegate",
-          "class": "percentage",
           "expression": "B4*100/128",
           "unit": "%",
+          "class": "percentage",
           "min": "",
           "max": ""
         }
