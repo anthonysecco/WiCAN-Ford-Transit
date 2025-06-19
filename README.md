@@ -134,14 +134,14 @@ This guide assumes you have WiCAN connected to the OBDII, joined it to your Wi-F
 
 After applying, specific initialization and additional PIDs will show below.  Next configure MQTT.
 
-### Configure MQTT
+### Configure MQTT on WiCAN
 You will need to instruct WiCAN on the topic you wish data to be posted.  You may use the topic provided in the this YAML file or one of your own choosing.
 
-Additionaly, you'll need to set the interval.  For real-time data, I suggest an interval no less than 1000ms.  For non real-time data, I suggest as long of an interval as is reasonable.  For example, tire pressure and odometer, won't be changing as frequency, to 60000ms (60s) is plenty.  This reduces load on the WiCAN and Home Assistant.
+Additionaly, you'll need to set the interval.  For real-time data, I suggest an interval no less than 1000ms.  For non real-time data, I suggest as long of an interval as is reasonable.  For example, tire pressure and odometer, won't be changing as frequency, to 60000ms (60s) is plenty.  This reduces load on the WiCAN and Home Assistant.  I've provided my suggested refresh intervals in the entities table above.
 
 Once configured, submit and reboot your WiCAN.  If all is well, you should see the data flowing into your MQTT broker.  Use MQTT Explorer to validate data is flowing.  I suggest keeping your vehicle running when testing to validate the sensors are working as expected.
 
-### Configure MQTT Entities
+### Configure MQTT Entities on Home Assistant
 Once you validated that all expected sensors are streaming into your MQTT broker, you may now begin to add the sensors to Home Assistant.
 
 You may use the YAML file found [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) as a template to add your entities.  This YAML converts the MQTT topic into US Imperial units.
