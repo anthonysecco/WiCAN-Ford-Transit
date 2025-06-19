@@ -142,15 +142,20 @@ There are some template sensors also included in that YAML file for calcuated va
 
 Reload your Home Assistant configuration and you should now see the entities.
 
+![image](https://github.com/user-attachments/assets/9c4fe1b6-fde9-44ad-b3c4-a32cf5fc6a7c)
+![image](https://github.com/user-attachments/assets/3509e3bb-cecd-42dc-bb71-e5164133adf8)
+
 ## 🚗 Use Cases
 
 > 🥼 I'm still experimenting to see how this data can be useful and will expand this section.
 
 ### Dashboards
 
-> 🚧 More information to be added here.
+> 🚧 This section is still very much under development.
 
-Some dashboard ideas.  These can be updated or changed with other vehicle data (GPS, Cell Signal, Fresh/Gray tank etc.)
+![image](https://github.com/user-attachments/assets/f4633975-db54-4616-9946-efb9a747a770)
+
+Some other dashboard ideas...
 
 | **Panel**              | **Description**                                                                  | **Purpose**                                           |
 | ---------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------- |
