@@ -168,6 +168,7 @@ The following are entities I would like to add.  It doesn't mean I've figured ou
 | -------------------------------- | ----------------------------------------------- |
 | **Inner Tires**                  | For Dual Rear Wheel Configurations              |
 | **Parking Brake**                | In ABS module only, hard to access              |
+| **Cylinder Head Temp**           |                                                 |
 | **Regen Braking**                | Smart alternator charging; put on Fuel advisor  |
 | **Auxilary Switch States**       | Track states of rocker switches for automations |
 | **Wheel Spin**                   | Display wheel spin for all tires for off-road   |
