@@ -13,7 +13,8 @@ Both WiCAN and WiCAN Pro are supported unless otherwise indicated.
 
 This project intends to:
 1) Supplement real-time vehicle data not shown (or poorly displayed) on the instrument panel.
-2) Provide actionable data to Home Assistant for automations.
+2) Store historical data for graphic and trip management.
+3) Provide actionable data to Home Assistant for automations.
 
 It does **not** intend to:
 1) Replace commercial OBDII diagnostic tools (e.g., FORScan, OBDwiz).
@@ -40,7 +41,9 @@ It's far better to interface with the Transit using Non-CAN interfaces when poss
 For more information visit my other project: [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
 
 ## 🧑‍💻 Ford Transit Entities Available
-The following are entities that can be made available to Home Assistant.  Testing was performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).  
+The following are entities that can be made available to Home Assistant.  
+
+Testing was performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).  
 
 | Entity                          | Type            | Unit  | Source   | Sug. Refresh | Tier |
 | :------------------------------ | :-------------- | :---- | :------- | :----------- | :--- |
@@ -134,11 +137,7 @@ Additionaly, you'll need to set the interval.  For real-time data, I suggest an 
 Once configured, submit and reboot your WiCAN.  If all is well, you should see the data flowing into your MQTT broker.  Use MQTT Explorer to validate data is flowing.  I suggest keeping your vehicle running when testing to validate the sensors are working as expected.
 
 ### Configure MQTT Entities on Home Assistant
-Once you validated that all expected sensors are streaming into your MQTT broker, you may now begin to add the sensors to Home Assistant.
-
-You may use the YAML file found [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) as a template to add your entities.  This YAML converts the MQTT topic into US Imperial units.
-
-There are some template sensors also included in that YAML file for calcuated values such as Horsepower.
+Once you validated that all expected sensors are streaming into your MQTT broker, you may now begin to add the sensors to Home Assistant.  You may use the YAML file found [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) as a template to add your entities.  This YAML converts the MQTT topic into US Imperial units. There are some template sensors also included in that YAML file for calcuated values such as Horsepower.
 
 Reload your Home Assistant configuration and you should now see the entities.
 
