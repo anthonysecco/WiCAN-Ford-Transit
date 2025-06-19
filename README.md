@@ -1,12 +1,9 @@
 ![cartoon_logo_transparent_256](https://github.com/user-attachments/assets/24c77662-bc93-4e59-b70a-6bf2cb2cf5be)
 
 # WiCAN Ford Transit
-This project allows a user to use a WiCAN dongle and access detailed information from their Ford Transit and stream that data into entities in Home Assistant.
+This project allows a user to use a WiCAN dongle and access detailed information from their Ford Transit and stream that data into entities in Home Assistant.  The user may then create dashboards, automations, or review historical data about their trips and journeys related to fuel, temperatures etc.
 
-The user may then create dashboards, automations, or review historical data about their trips and journeys related to fuel, temperatures etc.
-
-What's WiCAN?
-
+### **What's WiCAN?**
 [WiCAN](https://github.com/meatpiHQ/wican-fw) is an open-source hardware and software project that allows users to stream OBDII data via [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) or other tools.  
 
 Let's get started!
@@ -40,11 +37,10 @@ It's far better to interface with the Transit using Non-CAN interfaces when poss
 - Door Ajar (Driver, Passenger, Side, Cargo)
 - Lock / Unlock Commands
 
-For more information visit [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
+For more information visit my other project: [Ford Transit Door Interface](https://github.com/anthonysecco/ford-transit-door-interface).
 
 ## 🧑‍💻 Ford Transit Entities Available
-
-> Testing was performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
+The following are entities that can be made available to Home Assistant.  Testing was performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).  
 
 | Entity                          | Type            | Unit  | Source   | Sug. Refresh | Tier |
 | :------------------------------ | :-------------- | :---- | :------- | :----------- | :--- |
@@ -89,10 +85,11 @@ For more information visit [Ford Transit Door Interface](https://github.com/anth
 | Vehicle Battery Voltage         | `sensor`        | V     | 0x22402A | 5000ms       | C    |
 | Vehicle Speed                   | `sensor`        | mph   | 0x0D     | 1000ms       | S    |
 | Wastegate                       | `sensor`        | %     | 0x220462 | 1000ms       | D    |
-
-Suggested Refresh is my suggested period setting for MQTT updates in WiCAN.
+> Suggested Refresh is my suggested period setting for MQTT updates in WiCAN.
 
 ### Tiers
+The entity list above is rather long.  I've ranked the entities based on my own personal opinion of usefulness.  On my Transit, I've only implemented Tiers **S**, **A**, and **B**.
+
 | Tier  | Description|
 |:------|:------|
 | S     | Must Have |
@@ -101,15 +98,10 @@ Suggested Refresh is my suggested period setting for MQTT updates in WiCAN.
 | C     | Not necessary |
 | D     | Diagnostic |
 
-The entity table above has been ranked based on what I find the most useful.  I use entities in tiers (S/A/B).
-
 ### More PID Information
-For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md). 
+For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).  I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/obdwiz.md) and a dump for FORScan [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/FORScan.md).
 
-I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/obdwiz.md).  I don't have a FORScan dump, but its similar.
-
-
-## 🤖 How It Works
+## 🤖 Installation
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN bus data and publishes it to your MQTT broker. From there, Home Assistant subscribes to the data stream using YAML configuration files.
 
 This guide assumes you:
@@ -118,15 +110,13 @@ This guide assumes you:
 - Enabled AutoPID mode
 - Connected it to your MQTT broker
 
-### Standard PIDs
-
-1) Naviate to **Automate** tab
+### Setup Standard PIDs
+1) Navigate to **Automate** tab
 2) Select ECU Protocol **6- ISO 15765-4 (CAN 11bit/500K)**
 3) Scan for PIDs
 4) Add the PIDs of your choice.  Not all work correctly.  Refer to [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md)) to see what's been tested.
 
-
-### Vehicle Specific (Profile)
+### Setup Vehicle Specific PIDs
 1) Download the JSON file [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/2021-Ford-Transit-North-America.json) for the Ford Transit.
 2) Navigate to **Automate** tab.
 3) Scroll to Vehicle Specific and **Enable**
@@ -186,7 +176,7 @@ I'm also experimenting with conditional dashboards that displays different data 
 ---
 
 ## 💪 Future Enhancements
-The following are entities I would like to add.  It doesn't mean I've figured out how to yet.
+The following are entities I would like to add.
 
 | **Feature**                      | **Description**                                 |
 | -------------------------------- | ----------------------------------------------- |
