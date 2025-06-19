@@ -48,53 +48,66 @@ For more information visit [Ford Transit Door Interface](https://github.com/anth
 
 > Testing performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
 
-| Entity                                      | Type             | Unit | Source    |
-|:--------------------------------------------|:-----------------|:-----|:----------|
-| A/C Compressor Status                       | `binary_sensor`  |      | 0x22099B  |
-| Alternator Duty Cycle                       | `sensor`         | %    | 0x220598  |
-| Barometric Pressure                         | `sensor`         | psi  | 0x33      |
-| Boost Gauge                                 | `sensor`         | psi  | Template  |
-| Brake On/Off                                | `binary_sensor`  |      | 0x222B00  |
-| Drive Mode                                  | `sensor`         | enum | 0x220651  |
-| Engine Coolant Temp                         | `sensor`         | °F   | 0x22F405  |
-| Engine Horsepower                           | `sensor`         | hp   | Template  |
-| Engine Load                                 | `sensor`         | %    | 0x04      |
-| Engine Running                              | `binary_sensor`  |      | Template  |
-| Engine Speed                                | `sensor`         | RPM  | 0x0C      |
-| Engine Torque                               | `sensor`         | lb-ft| Template  |
-| Engine Torque Percent                       | `sensor`         | %    | 0x62      |
-| Engine Torque Reference                     | `sensor`         | Nm   | 0x63      |
-| Fuel Level                                  | `sensor`         | %    | 0x2F      |
-| Fuel Pressure Actual                        | `sensor`         | psi  | 0x22F423  |
-| Fuel Pressure Desired                       | `sensor`         | psi  | 0x2203DC  |
-| Fuel Rate                                   | `sensor`         | g/s  | 0x22F49D  |
-| Fuel System Status                          | `sensor`         | enum | 0x22F403  |
-| Fuel Pump Duty Cycle                        | `sensor`         | %    | 0x220307  |
-| Intake Air Temp                             | `sensor`         | °F   | 0x22F40F  |
-| Intake Air Temp 2                           | `sensor`         | °F   | 0x2203CA  |
-| Learned Octane Ratio                        | `sensor`         | %    | 0x2203E8  |
-| Manifold Pressure                           | `sensor`         | psi  | 0x0B      |
-| Oil Life                                    | `sensor`         | %    | 0x22054B  |
-| Odometer                                    | `sensor`         | mi   | 0xA6      |
-| OBD Status                                  | `binary_sensor`  |      | WiCAN     |
-| Real-Time Fuel Economy                      | `sensor`         | MPG  | Template  |
-| Throttle Position                           | `sensor`         | %    | 0x11      |
-| Transmission Fluid Temp                     | `sensor`         | °F   | 0x221E1C  |
-| Transmission Gear                           | `sensor`         | enum | 0x221E12  |
-| Tire Pressure Left Front                    | `sensor`         | InHg | 0x222813  |
-| Tire Pressure Left Rear Outer               | `sensor`         | InHg | 0x222816  |
-| Tire Pressure Right Front                   | `sensor`         | InHg | 0x222814  |
-| Tire Pressure Right Rear Outer              | `sensor`         | InHg | 0x222815  |
-| Vehicle Battery Current                     | `sensor`         | A    | 0x22402B  |
-| Vehicle Battery Power                       | `sensor`         | W    | Template  |
-| Vehicle Battery State of Charge             | `sensor`         | %    | 0x224028  |
-| Vehicle Battery Voltage                     | `sensor`         | V    | 0x22402A  |
-| Vehicle Speed                               | `sensor`         | mph  | 0x0D      |
-| Wastegate                                   | `sensor`         | %    | 0x220462  |
+| Entity                                      | Type             | Unit | Source    | Tier |
+|:--------------------------------------------|:-----------------|:-----|:----------|:-----|
+| A/C Compressor Status                       | `binary_sensor`  |      | 0x22099B  | C    |
+| Alternator Duty Cycle                       | `sensor`         | %    | 0x220598  | A    |
+| Barometric Pressure                         | `sensor`         | psi  | 0x33      | B    |
+| Boost Gauge                                 | `sensor`         | psi  | Template  | B    |
+| Brake On/Off                                | `binary_sensor`  |      | 0x222B00  | C    |
+| Drive Mode                                  | `sensor`         | enum | 0x220651  | B    |
+| Engine Coolant Temp                         | `sensor`         | °F   | 0x22F405  | S    |
+| Engine Horsepower                           | `sensor`         | hp   | Template  | B    |
+| Engine Load                                 | `sensor`         | %    | 0x04      | A    |
+| Engine Running                              | `binary_sensor`  |      | Template  | S    |
+| Engine Speed                                | `sensor`         | RPM  | 0x0C      | B    |
+| Engine Torque                               | `sensor`         | lb-ft| Template  | B    |
+| Engine Torque Percent                       | `sensor`         | %    | 0x62      | B    |
+| Engine Torque Reference                     | `sensor`         | Nm   | 0x63      | B    |
+| Fuel Level                                  | `sensor`         | %    | 0x2F      | S    |
+| Fuel Pressure Actual                        | `sensor`         | psi  | 0x22F423  | D    |
+| Fuel Pressure Desired                       | `sensor`         | psi  | 0x2203DC  | D    |
+| Fuel Rate                                   | `sensor`         | g/s  | 0x22F49D  | S    |
+| Fuel System Status                          | `sensor`         | enum | 0x22F403  | A    |
+| Fuel Pump Duty Cycle                        | `sensor`         | %    | 0x220307  | D    |
+| Intake Air Temp                             | `sensor`         | °F   | 0x22F40F  | C    |
+| Intake Air Temp 2                           | `sensor`         | °F   | 0x2203CA  | C    |
+| Learned Octane Ratio                        | `sensor`         | %    | 0x2203E8  | A    |
+| Manifold Pressure                           | `sensor`         | psi  | 0x0B      | B    |
+| Oil Life                                    | `sensor`         | %    | 0x22054B  | B    |
+| Odometer                                    | `sensor`         | mi   | 0xA6      | S    |
+| OBD Status                                  | `binary_sensor`  |      | WiCAN     | S    |
+| Real-Time Fuel Economy                      | `sensor`         | MPG  | Template  | S    |
+| Throttle Position                           | `sensor`         | %    | 0x11      | D    |
+| Transmission Fluid Temp                     | `sensor`         | °F   | 0x221E1C  | A    |
+| Transmission Gear                           | `sensor`         | enum | 0x221E12  | S    |
+| Tire Pressure Left Front                    | `sensor`         | InHg | 0x222813  | S    |
+| Tire Pressure Left Rear Outer               | `sensor`         | InHg | 0x222816  | S    |
+| Tire Pressure Right Front                   | `sensor`         | InHg | 0x222814  | S    |
+| Tire Pressure Right Rear Outer              | `sensor`         | InHg | 0x222815  | S    |
+| Vehicle Battery Current                     | `sensor`         | A    | 0x22402B  | C    |
+| Vehicle Battery Power                       | `sensor`         | W    | Template  | C    |
+| Vehicle Battery State of Charge             | `sensor`         | %    | 0x224028  | A    |
+| Vehicle Battery Voltage                     | `sensor`         | V    | 0x22402A  | C    |
+| Vehicle Speed                               | `sensor`         | mph  | 0x0D      | S    |
+| Wastegate                                   | `sensor`         | %    | 0x220462  | D    |
 
+### Tiers
+| Tier  | Description|
+|:------|:------|
+| S     | Must Have |
+| A     | Good to Have |
+| B     | Nice to Have |
+| C     | Not necessary |
+| D     | Diagnostic |
+
+The entity table above has been ranked based on what I find the most useful.  I use entities in tiers (S/A/B).
+
+### More PID Information
 For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md). 
 
 I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/obdwiz.md).  I don't have a FORScan dump, but its similar.
+
 
 ## 🏗️ How It Works
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
