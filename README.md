@@ -1,44 +1,43 @@
-![image](https://github.com/user-attachments/assets/befab2a4-e66b-4935-ad08-d809927ac942) 
-
+![cartoon_logo_transparent_256](https://github.com/user-attachments/assets/24c77662-bc93-4e59-b70a-6bf2cb2cf5be)
 
 # WiCAN Ford Transit
 
-[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open source hardware / software project that allow the user to pull OBDII data and easily stream using [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) or other tools.  
+[WiCAN](https://github.com/meatpiHQ/wican-fw) is an open-source hardware and software project that allows users to stream OBDII data via [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) or other tools.  
 
 From there a user can build custom dashboards (e.g. on a tablet) and automations while driving. 
 
 | Useful Links |
 |-------|
 | [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) |
-| [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/) |
 | [Transit Profile](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/2021-Ford-Transit-North-America.json) |
 | [MQTT YAML](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) |
+| [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/) |
 
 ## Project Scope
-The project works for both WiCAN and WiCAN Pro unless indicated otherwise.
+Both WiCAN and WiCAN Pro are supported unless otherwise indicated.
 
 This project intends to:
-1) To supplement real-time information that may not be displayed (or displayed well) on the instrument panel.
-2) To provide actional data to Home Assistant to trigger actions
+1) Supplement real-time vehicle data not shown (or poorly displayed) on the instrument panel.
+2) Provide actionable data to Home Assistant for automations.
 
 It does **not** intend to:
-1) Replace OBDII diagnostic devices or software available on the market (FORScan, OBDwiz etc.)
+1) Replace commercial OBDII diagnostic tools (e.g., FORScan, OBDwiz).
 
 Limiting factors on this project
-1) The WiCAN is only **ON** when the vehicle igition is in the **ON** position.  This will limit use cases.
+1) The WiCAN is only **ON** when the vehicle Ignition is in the **ON** position.  This will limit use cases.
 2) Ford does not publish their proprietary PIDs, this list is based on forum research, serial sniffing of OBDII tools, and some help from ChatGPT.
 
 ### Non-CAN Signals
-It's far better to interface with the Transit using Non-CAN interfaces.  The are reliable and function even when the igition is **off**.  Here are examples of what's available:
+It's far better to interface with the Transit using Non-CAN interfaces when possible.  They are reliable and function even when the Ignition is **off**.  Here are examples of what's available:
 
 **Auxilary Harness** - Standard equipment. Connector under the driver seat.
 - Engine On/Off
-- Igition On/Off
+- Ignition On/Off
 - Vehicle Speed Sensor
 
 **High Spec Connector** - Optional equipment. Connector located behind the glovebox.
 - Engine On/Off
-- Igition On/Off
+- Ignition On/Off
 - Vehicle Speed Sensor
 - Door Ajar (Driver, Passenger, Side, Cargo)
 - Lock / Unlock Commands
@@ -47,7 +46,7 @@ For more information visit [Ford Transit Door Interface](https://github.com/anth
 
 ## Ford Transit Entities Available
 
-> Testing performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
+> Testing was performed on a 2021 Ford Transit AWD 3.5L EcoBoost (North America).
 
 | Entity                          | Type            | Unit  | Source   | Sug. Refresh | Tier |
 | :------------------------------ | :-------------- | :---- | :------- | :----------- | :--- |
@@ -113,9 +112,13 @@ I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiC
 
 
 ## 🏗️ How It Works
-The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN data and publishes it to MQTT. From there, Home Assistant can subscribe to topics via YAML configuration to create sensors and automations.
+The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN bus data and publishes it to your MQTT broker. From there, Home Assistant subscribes to the data stream using YAML configuration files.
 
-This guide assumes you have WiCAN connected to the OBDII, joined it to your Wi-Fi network, have it communicating with your MQTT broker, and enabled AutoPID mode.  You may likely already have some standard PIDs working.
+This guide assumes you:
+- Have WiCAN connected to your OBDII port
+- Joined it to your Wi-Fi
+- Enabled AutoPID mode
+- Connected it to your MQTT broker
 
 ## Standard PIDs
 
