@@ -198,10 +198,7 @@ The following are entities I would like to add.
 If you have requests, please create an _issue_.  It's been said that I can be bribed with coffee. 😊
 
 ### 🚫 Unavailable
-These simply don't exist with factory equipment:
-
 * **Oil Temperature ** - No sensor in vehicle.
-* **Cylinder Head Temperature ** - No sensor in vehicle.
 
 ### ⏰ Wake Commands
 Many aftermarket alarm systems will send commands on the CANbus to awaken modules and then issue commands (lock, start etc.).  Additionally the vehicles TCU (telematics control unit) for things like Ford Pass can also awaken module.
