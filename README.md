@@ -1,11 +1,12 @@
 ![cartoon_logo_transparent_256](https://github.com/user-attachments/assets/24c77662-bc93-4e59-b70a-6bf2cb2cf5be)
 
 # WiCAN Ford Transit
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow.svg)](https://www.buymeacoffee.com/anthonysecco)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-compatible-blue)
 ![WiCAN](https://img.shields.io/badge/WiCAN-compatible-blue)
 ![MQTT](https://img.shields.io/badge/MQTT-supported-blue)
 ![Vehicle](https://img.shields.io/badge/Ford--Transit-2020%2B-blue)
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow.svg)](https://www.buymeacoffee.com/anthonysecco)
 
 This project allows a user to use a WiCAN dongle and access detailed information from their Ford Transit and stream that data into entities in Home Assistant.  The user may then create dashboards, automations, or review historical data about their trips and journeys related to fuel, temperatures etc.  At a high-level, data flows as follows:
 
