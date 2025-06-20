@@ -3,10 +3,21 @@
 # WiCAN Ford Transit
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow.svg)](https://www.buymeacoffee.com/anthonysecco)
 
-This project allows a user to use a WiCAN dongle and access detailed information from their Ford Transit and stream that data into entities in Home Assistant.  The user may then create dashboards, automations, or review historical data about their trips and journeys related to fuel, temperatures etc.
+This project allows a user to use a WiCAN dongle and access detailed information from their Ford Transit and stream that data into entities in Home Assistant.  The user may then create dashboards, automations, or review historical data about their trips and journeys related to fuel, temperatures etc.  At a high-level, data flows as follows:
+
+  OBD → WiCAN → MQTT → Home Assistant
 
 ### **What's WiCAN?**
 [WiCAN](https://github.com/meatpiHQ/wican-fw) is an open-source hardware and software project that allows users to stream OBDII data via [MQTT](https://en.wikipedia.org/wiki/MQTT) into [Home Assistant](https://www.home-assistant.io/) or other tools.  
+
+### 🔗 Useful Links
+
+| Tool | Description |
+|------|-------------|
+| [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) | Verified and tested OBDII PIDs for Ford Transit |
+| [Transit Profile](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/2021-Ford-Transit-North-America.json) | Vehicle-specific profile for WiCAN |
+| [MQTT YAML](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) | Sample Home Assistant MQTT config |
+| [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/) | Web UI to create or edit vehicle profiles |
 
 Let's get started!
 
@@ -205,15 +216,6 @@ If you have requests, please create an _issue_.  It's been said that I can be br
 Many aftermarket alarm systems will send commands on the CANbus to awaken modules and then issue commands (lock, start etc.).  Additionally the vehicles TCU (telematics control unit) for things like Ford Pass can also awaken module.
 
 I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
-
-### 🔗 Useful Links
-
-| Tool | Description |
-|------|-------------|
-| [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md) | Verified and tested OBDII PIDs for Ford Transit |
-| [Transit Profile](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/2021-Ford-Transit-North-America.json) | Vehicle-specific profile for WiCAN |
-| [MQTT YAML](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/mqtt-wican.yaml) | Sample Home Assistant MQTT config |
-| [WiCAN Profile Editor](https://meatpihq.github.io/vehicle_profile_editor/) | Web UI to create or edit vehicle profiles |
 
 ## 💖 Support
 The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
