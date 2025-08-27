@@ -128,6 +128,66 @@ mqtt:
         model: "WiCAN OBD"
         name: "WiCAN"
 
+    #Detect Driver Door Status
+    - name: "Driver Door Status"
+      unique_id: wican_driver_door_status
+      state_topic: "wican/bcm-driver-ajar"
+      icon: mdi:car-door
+      device_class: door
+      value_template: '{{ (value_json["BCM-Driver-Ajar"]) | round(0) }}'
+      payload_on: '1'
+      payload_off: '0'
+      device:
+        identifiers: ["WiCAN"]
+        manufacturer: "MeatPi"
+        model: "WiCAN OBD"
+        name: "WiCAN"
+
+    #Detect Passenger Door Status
+    - name: "Passenger Door Status"
+      unique_id: wican_passenger_door_status
+      state_topic: "wican/bcm-passenger-ajar"
+      icon: mdi:car-door
+      device_class: door
+      value_template: '{{ (value_json["BCM-Passenger-Ajar"]) | round(0) }}'
+      payload_on: '1'
+      payload_off: '0'
+      device:
+        identifiers: ["WiCAN"]
+        manufacturer: "MeatPi"
+        model: "WiCAN OBD"
+        name: "WiCAN"
+
+    #Detect Slider Door Status
+    - name: "Slider Door Status"
+      unique_id: wican_slider_door_status
+      state_topic: "wican/bcm-slider-ajar"
+      icon: mdi:car-door
+      device_class: door
+      value_template: '{{ (value_json["BCM-Slider-Ajar"]) | round(0)}}'
+      payload_on: '1'
+      payload_off: '0'
+      device:
+        identifiers: ["WiCAN"]
+        manufacturer: "MeatPi"
+        model: "WiCAN OBD"
+        name: "WiCAN"
+
+    #Detect Rear Door Status
+    - name: "Rear Door Status"
+      unique_id: wican_rear_door_status
+      state_topic: "wican/bcm-rear-ajar"
+      icon: mdi:car-door
+      device_class: door
+      value_template: '{{ (value_json["BCM-Rear-Ajar"]) | round(0) }}'
+      payload_on: '1'
+      payload_off: '0'
+      device:
+        identifiers: ["WiCAN"]
+        manufacturer: "MeatPi"
+        model: "WiCAN OBD"
+        name: "WiCAN"
+
   sensor:
 
 #### OBD Standard Interface ####
@@ -270,6 +330,21 @@ mqtt:
       icon: mdi:speedometer
       # percent open
       value_template: '{{ value_json["11-ThrottlePosition"] | default(0) | round(0) }}'
+      device:
+        identifiers: ["WiCAN"]
+        manufacturer: "MeatPi"
+        model: "WiCAN OBD"
+        name: "WiCAN"
+
+    - name: "Ambient Air Temp"
+      unique_id: wican_odb_ambient_air_temp
+      state_topic: "wican/odb-ambient-air-temp"
+      unit_of_measurement: "°F"
+      device_class: temperature
+      state_class: measurement
+      icon: mdi:thermometer
+      # convert from °C to °F
+      value_template: '{{ ((value_json["46-AmbientAirTemp"] | default(0) * 9/5) + 32) | round(0) }}'
       device:
         identifiers: ["WiCAN"]
         manufacturer: "MeatPi"
@@ -570,6 +645,34 @@ mqtt:
         model: "WiCAN OBD"
         name: "WiCAN"
 
+    - name: "Tire Pressure Right Front"
+      unique_id: wican_bcm_tp_right_front
+      state_topic: "wican/bcm-tp-rf"
+      unit_of_measurement: "psi"
+      state_class: measurement
+      icon: mdi:car-tire-alert
+      # convert from kPa to psi
+      value_template: '{{ (value_json["BCM-Tire-Pressure-Right-Front"] | default(0) * 0.49115420) | round(0) }}'
+      device:
+        identifiers: ["WiCAN"]
+        manufacturer: "MeatPi"
+        model: "WiCAN OBD"
+        name: "WiCAN"
+
+    - name: "Tire Pressure Left Rear Inner"
+      unique_id: wican_bcm_tp_left_rear_inner
+      state_topic: "wican/bcm-tp-lri"
+      unit_of_measurement: "psi"
+      state_class: measurement
+      icon: mdi:car-tire-alert
+      # convert from kPa to psi
+      value_template: '{{ (value_json["BCM-Tire-Pressure-Left-Rear-Inner"] | default(0) * 0.49115420) | round(0) }}'
+      device:
+        identifiers: ["WiCAN"]
+        manufacturer: "MeatPi"
+        model: "WiCAN OBD"
+        name: "WiCAN"
+
     - name: "Tire Pressure Left Rear Outer"
       unique_id: wican_bcm_tp_left_rear_outer
       state_topic: "wican/bcm-tp-lro"
@@ -584,14 +687,14 @@ mqtt:
         model: "WiCAN OBD"
         name: "WiCAN"
 
-    - name: "Tire Pressure Right Front"
-      unique_id: wican_bcm_tp_right_front
-      state_topic: "wican/bcm-tp-rf"
+    - name: "Tire Pressure Right Rear Inner"
+      unique_id: wican_bcm_tp_right_rear_inner
+      state_topic: "wican/bcm-tp-rri"
       unit_of_measurement: "psi"
       state_class: measurement
       icon: mdi:car-tire-alert
       # convert from kPa to psi
-      value_template: '{{ (value_json["BCM-Tire-Pressure-Right-Front"] | default(0) * 0.49115420) | round(0) }}'
+      value_template: '{{ (value_json["BCM-Tire-Pressure-Right-Rear-Inner"] | default(0) * 0.49115420) | round(0) }}'
       device:
         identifiers: ["WiCAN"]
         manufacturer: "MeatPi"
