@@ -12,7 +12,9 @@
           "expression": "([B4:B5]-32768)/256",
           "unit": "A",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-bat-cur"
         }
       ],
       "isExpanded": true
@@ -27,7 +29,9 @@
           "expression": "B4",
           "unit": "%",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-bat-soc"
         }
       ],
       "isExpanded": true
@@ -42,7 +46,9 @@
           "unit": "V",
           "class": "voltage",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-bat-volt"
         }
       ],
       "isExpanded": true
@@ -57,22 +63,9 @@
           "unit": "InHg",
           "class": "pressure",
           "min": "",
-          "max": ""
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222816",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Left-Rear-Outer",
-          "expression": "[B4:B5]/10",
-          "unit": "InHg",
-          "class": "pressure",
-          "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-tp-lf"
         }
       ],
       "isExpanded": true
@@ -87,7 +80,43 @@
           "unit": "InHg",
           "class": "pressure",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-tp-rf"
+        }
+      ],
+      "isExpanded": true
+    },
+    {
+      "pid": "222816",
+      "pid_init": "ATSH000726;STCAFCP726,72E;",
+      "parameters": [
+        {
+          "name": "BCM-Tire-Pressure-Left-Rear-Outer",
+          "expression": "[B4:B5]/10",
+          "unit": "InHg",
+          "class": "pressure",
+          "min": "",
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-tp-lro"
+        }
+      ],
+      "isExpanded": true
+    },
+    {
+      "pid": "222816",
+      "pid_init": "ATSH000726;STCAFCP726,72E;",
+      "parameters": [
+        {
+          "name": "BCM-Tire-Pressure-Left-Rear-Inner",
+          "expression": "[B4:B5]/10",
+          "unit": "InHg",
+          "class": "pressure",
+          "min": "",
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-tp-lri"
         }
       ],
       "isExpanded": true
@@ -102,7 +131,94 @@
           "unit": "InHg",
           "class": "pressure",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-tp-rro"
+        }
+      ],
+      "isExpanded": true
+    },
+    {
+      "pid": "222815",
+      "pid_init": "ATSH000726;STCAFCP726,72E;",
+      "parameters": [
+        {
+          "name": "BCM-Tire-Pressure-Right-Rear-Inner",
+          "expression": "[B4:B5]/10",
+          "unit": "InHg",
+          "class": "pressure",
+          "min": "",
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-tp-rri"
+        }
+      ],
+      "isExpanded": true
+    },
+{
+      "pid": "225B1D",
+      "pid_init": "ATSH000726;STCAFCP726,72E",
+      "parameters": [
+        {
+          "name": "BCM-Driver-Ajar",
+          "expression": "((B4 >> 0) & 1)",
+          "unit": "binary",
+          "class": "",
+          "min": "",
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-driver-ajar"
+        }
+      ],
+      "isExpanded": true
+    },
+    {
+      "pid": "225B1D",
+      "pid_init": "ATSH000726;STCAFCP726,72E",
+      "parameters": [
+        {
+          "name": "BCM-Passenger-Ajar",
+          "expression": "((B4 >> 1) & 1)",
+          "unit": "binary",
+          "class": "",
+          "min": "",
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-passenger-ajar"
+        }
+      ],
+      "isExpanded": true
+    },
+    {
+      "pid": "225B1D",
+      "pid_init": "ATSH000726;STCAFCP726,72E",
+      "parameters": [
+        {
+          "name": "BCM-Slider-Ajar",
+          "expression": "((B4 >> 3) & 1)",
+          "unit": "binary",
+          "class": "",
+          "min": "",
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-slider-ajar"
+        }
+      ],
+      "isExpanded": true
+    },
+    {
+      "pid": "225B1D",
+      "pid_init": "ATSH000726;STCAFCP726,72E",
+      "parameters": [
+        {
+          "name": "BCM-Rear-Ajar",
+          "expression": "((B4 >> 4) & 1)",
+          "unit": "binary",
+          "class": "",
+          "min": "",
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/bcm-rear-ajar"
         }
       ],
       "isExpanded": true
@@ -117,7 +233,9 @@
           "unit": "",
           "class": "",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-ac-comp"
         }
       ],
       "isExpanded": true
@@ -132,7 +250,9 @@
           "unit": "%",
           "class": "percentage",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/alt-duty"
         }
       ],
       "isExpanded": true
@@ -147,7 +267,9 @@
           "unit": "",
           "class": "",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-brake"
         }
       ],
       "isExpanded": true
@@ -162,7 +284,9 @@
           "unit": "",
           "class": "",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-drv-mode"
         }
       ],
       "isExpanded": true
@@ -177,7 +301,9 @@
           "unit": "C",
           "class": "temperature",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-ect"
         }
       ],
       "isExpanded": true
@@ -192,7 +318,9 @@
           "unit": "kPa",
           "class": "pressure",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-fuel-pres-act"
         }
       ],
       "isExpanded": true
@@ -207,7 +335,9 @@
           "unit": "kPa",
           "class": "pressure",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-fuel-pres-des"
         }
       ],
       "isExpanded": true
@@ -222,7 +352,9 @@
           "unit": "%",
           "class": "percentage",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-fuel-pump-cycle"
         }
       ],
       "isExpanded": true
@@ -237,7 +369,9 @@
           "unit": "g/s",
           "class": "",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-fuel-rate"
         }
       ],
       "isExpanded": true
@@ -252,7 +386,9 @@
           "unit": "",
           "class": "",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-fuel-status"
         }
       ],
       "isExpanded": true
@@ -267,7 +403,9 @@
           "unit": "C",
           "class": "temperature",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-iat"
         }
       ],
       "isExpanded": true
@@ -282,7 +420,9 @@
           "unit": "C",
           "class": "temperature",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-iat-2"
         }
       ],
       "isExpanded": true
@@ -297,7 +437,9 @@
           "unit": "%",
           "class": "percentage",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-lor"
         }
       ],
       "isExpanded": true
@@ -312,7 +454,9 @@
           "unit": "%",
           "class": "percentage",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-oil-life"
         }
       ],
       "isExpanded": true
@@ -327,7 +471,9 @@
           "unit": "C",
           "class": "temperature",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-tft"
         }
       ],
       "isExpanded": true
@@ -342,7 +488,9 @@
           "unit": "",
           "class": "",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-trans-gear"
         }
       ],
       "isExpanded": true
@@ -357,7 +505,9 @@
           "unit": "%",
           "class": "percentage",
           "min": "",
-          "max": ""
+          "max": "",
+          "type": "MQTT_Topic",
+          "send_to": "wican/pcm-wg"
         }
       ],
       "isExpanded": true
