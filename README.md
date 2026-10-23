@@ -5,6 +5,7 @@
 ![WiCAN](https://img.shields.io/badge/WiCAN-compatible-blue)
 ![MQTT](https://img.shields.io/badge/MQTT-supported-blue)
 ![Vehicle](https://img.shields.io/badge/Ford--Transit-2020%2B-blue)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow.svg)](https://www.buymeacoffee.com/anthonysecco)
 
 This project allows a user to use a WiCAN dongle and access detailed information from their Ford Transit and stream that data into entities in Home Assistant.  The user may then create dashboards, automations, or review historical data about their trips and journeys related to fuel, temperatures etc.  At a high-level, data flows as follows:
 
@@ -221,7 +222,7 @@ Many aftermarket alarm systems will send commands on the CANbus to awaken module
 I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
 
 ## 💖 Support
-The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
+The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider [buying me a coffee](https://www.buymeacoffee.com/anthonysecco). ☕
 
 ## Contributions
 
