@@ -222,7 +222,9 @@ Many aftermarket alarm systems will send commands on the CANbus to awaken module
 I would like to know how to issue these types of commands from WiCAN.  Additionally WiCAN itself also has complexity with sleeping and being awake.  It would be interesting to understand if there's a path to wake the WiCAN and the vehicle without too much delay and issue commands (turn on puddle lights etc.).  This is an stretch goal for the project.
 
 ## 💖 Support
-The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider [buying me a coffee](https://www.buymeacoffee.com/anthonysecco). ☕
+The development of this repo took many hours and dollars in hardware, software, and testing.  If you found this useful, consider buying me a coffee. ☕
+
+<a href="https://www.buymeacoffee.com/anthonysecco"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60" width="217"></a>
 
 ## Contributions
 
