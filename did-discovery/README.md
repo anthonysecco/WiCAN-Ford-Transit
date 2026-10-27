@@ -9,7 +9,7 @@ A read-only sweep of every diagnostic module reachable from the OBD port of a 20
 | Path | What it is |
 |---|---|
 | `output/ford_transit_2021_discovery.json` | Every module and every answering DID: a name (with where it came from), raw bytes, decoded signals (native units), formula and source for each, DTCs, standard OBD PIDs. |
-| `output/ford_transit_2021_wican_profile.json` | WiCAN AutoPID profile (profile-editor format) for the live values that decode cleanly. |
+| `output/ford_transit_2021_wican_profile.json` | WiCAN AutoPID profile (profile-editor format) built from the owner's review: 72 PIDs, 77 parameters. On this branch it also replaces the repo's root `2021-Ford-Transit-North-America.json`. |
 | `refs/ford_did_library.json` | Merged known-DID library: OBDb Ford signal sets plus this repo's `PIDs.md`. CC BY-SA 4.0 (see below). |
 | `refs/crossmatch.json` | The answering-but-unnamed DIDs matched against every named Ford DID from any module or model. |
 | `*.ps1`, `SlcanUds.cs`, `preview.html` | The tools that produced all of this (see "Running it"). |
@@ -45,10 +45,21 @@ Live data was logged with the engine running and on a short drive, in batches of
 ### DID names
 Every answering DID has a `name`, plus `name_source` and `name_detail` saying where the name came from. The first source with a name wins:
 
-1. **`community`:** OBDb, this repo's `PIDs.md`, forum/GitHub research, ISO 14229 / SAE J1979 standard identifiers, or the same DID on other Fords.
-2. **`live-match`:** PID names from the live logs, for DIDs matched as above.
+1. **`owner`:** renamed by the van's owner during review (the name it replaced is kept as `suggested_name`).
+2. **`community`:** OBDb, this repo's `PIDs.md`, forum/GitHub research, ISO 14229 / SAE J1979 standard identifiers, or the same DID on other Fords.
 3. **`jakka351`:** the jakka351 GenericDiagnosticTool DID dictionary (see licensing below). These are Ford-wide names, not checked against this van.
-4. **`guess`:** derived from the DID's ISO 14229 number range and what the reply looks like (part number, text, empty, data block…). Unverified.
+4. **`live-match`:** PID names from the live logs, for DIDs matched as above.
+5. **`guess`:** derived from the DID's ISO 14229 number range and what the reply looks like (part number, text, empty, data block…). Unverified.
+
+Each reviewed DID also has a `review` block: `reviewed`, and `wican_profile` (`include`, `exclude` or `auto`). Excluded DIDs stay in the discovery JSON; the flag only decides the WiCAN profile.
+
+### Inferred formulas
+31 DIDs with no published formula have one inferred from the live data. It comes either from moving in step with a known signal, or from Ford's usual scaling for that kind of value landing every reading in a realistic range. They appear as signals with `"id": "INFERRED"`, a confidence (`likely`, `weaker`, `assumed`), the reasoning, and the owner's `decision`. Examples: parking brake `B4:6`, horn `B4`, gear selector `B4` (100 = P, 101 = R, 102 = N, 103 = D, 105 = position after D). The profile uses an inferred formula only for DIDs the owner included, and only if it was accepted, or is undecided and rated `likely` or `assumed`.
+
+### WiCAN profile notes
+- On/off values (doors, hood, horn, parking brake) use WiCAN's bit syntax (`B4:6`) with `sensor_type: binary`.
+- WiCAN expressions only produce numbers, so the VIN is in the discovery JSON but not in the profile. Enum values (gear, ignition position) are sent as raw numbers to map in Home Assistant.
+- Units are the module's own (kPa, °C, km/h); let Home Assistant convert.
 
 ### Behaviour worth knowing
 - **Modules stop answering physical requests after a while.** A functional broadcast (`7DF 02 01 00`) wakes them.
