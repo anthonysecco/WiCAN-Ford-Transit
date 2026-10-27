@@ -1,516 +1,1220 @@
 {
-  "car_model": "2021-Ford-Transit-North-America",
-  "init": "ATE0;ATL0;ATH0;ATR1;ATST32;ATSP6;ATCAF1;",
-  "pids": [
-    {
-      "pid": "22402B",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Battery-Current",
-          "class": "current",
-          "expression": "([B4:B5]-32768)/256",
-          "unit": "A",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-bat-cur"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "224028",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Battery-State-of-Charge",
-          "class": "percentage",
-          "expression": "B4",
-          "unit": "%",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-bat-soc"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22402A",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Battery-Voltage",
-          "expression": "([B4:B5]/256)/10",
-          "unit": "V",
-          "class": "voltage",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-bat-volt"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222813",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Left-Front",
-          "expression": "[B4:B5]/10",
-          "unit": "InHg",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-tp-lf"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222814",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Right-Front",
-          "expression": "[B4:B5]/10",
-          "unit": "InHg",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-tp-rf"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222816",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Left-Rear-Outer",
-          "expression": "[B4:B5]/10",
-          "unit": "InHg",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-tp-lro"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222816",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Left-Rear-Inner",
-          "expression": "[B4:B5]/10",
-          "unit": "InHg",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-tp-lri"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222815",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Right-Rear-Outer",
-          "expression": "[B4:B5]/10",
-          "unit": "InHg",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-tp-rro"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222815",
-      "pid_init": "ATSH000726;STCAFCP726,72E;",
-      "parameters": [
-        {
-          "name": "BCM-Tire-Pressure-Right-Rear-Inner",
-          "expression": "[B4:B5]/10",
-          "unit": "InHg",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-tp-rri"
-        }
-      ],
-      "isExpanded": true
-    },
-{
-      "pid": "225B1D",
-      "pid_init": "ATSH000726;STCAFCP726,72E",
-      "parameters": [
-        {
-          "name": "BCM-Driver-Ajar",
-          "expression": "((B4 >> 0) & 1)",
-          "unit": "binary",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-driver-ajar"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "225B1D",
-      "pid_init": "ATSH000726;STCAFCP726,72E",
-      "parameters": [
-        {
-          "name": "BCM-Passenger-Ajar",
-          "expression": "((B4 >> 1) & 1)",
-          "unit": "binary",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-passenger-ajar"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "225B1D",
-      "pid_init": "ATSH000726;STCAFCP726,72E",
-      "parameters": [
-        {
-          "name": "BCM-Slider-Ajar",
-          "expression": "((B4 >> 3) & 1)",
-          "unit": "binary",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-slider-ajar"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "225B1D",
-      "pid_init": "ATSH000726;STCAFCP726,72E",
-      "parameters": [
-        {
-          "name": "BCM-Rear-Ajar",
-          "expression": "((B4 >> 4) & 1)",
-          "unit": "binary",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/bcm-rear-ajar"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22099B",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-AC-Compressor",
-          "expression": "B4",
-          "unit": "",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-ac-comp"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220598",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Alternator-Duty-Cycle",
-          "expression": "B4",
-          "unit": "%",
-          "class": "percentage",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/alt-duty"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "222B00",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Brake-On-Off",
-          "expression": "B4",
-          "unit": "",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-brake"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220651",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Drive-Mode",
-          "expression": "B4",
-          "unit": "",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-drv-mode"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22F405",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Engine-Coolant-Temp",
-          "expression": "B4-40",
-          "unit": "C",
-          "class": "temperature",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-ect"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22F423",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Fuel-Pressure-Actual",
-          "expression": "[B4:B5]",
-          "unit": "kPa",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-fuel-pres-act"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "2203DC",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Fuel-Pressure-Desired",
-          "expression": "[B4:B5]",
-          "unit": "kPa",
-          "class": "pressure",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-fuel-pres-des"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220307",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Fuel-Pump-Duty-Cycle",
-          "expression": "(B4*100)/255",
-          "unit": "%",
-          "class": "percentage",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-fuel-pump-cycle"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22F49D",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Fuel-Rate",
-          "expression": "[B4:B5]*2/100",
-          "unit": "g/s",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-fuel-rate"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22F403",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Fuel-System-Status",
-          "expression": "B4",
-          "unit": "",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-fuel-status"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22F40F",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Intake-Air-Temp",
-          "expression": "B4-40",
-          "unit": "C",
-          "class": "temperature",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-iat"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "2203CA",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Intake-Air-Temp-2",
-          "expression": "B4-40",
-          "unit": "C",
-          "class": "temperature",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-iat-2"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "2203E8",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Learned-Octane-Ratio",
-          "expression": "[B4:B5]/16384",
-          "unit": "%",
-          "class": "percentage",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-lor"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "22054B",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Oil-Life",
-          "expression": "B4",
-          "unit": "%",
-          "class": "percentage",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-oil-life"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "221E1C",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Trans-Fluid-Temp",
-          "expression": "[B4:B5]/16",
-          "unit": "C",
-          "class": "temperature",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-tft"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "221E12",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Trans-Gear-Cmd",
-          "expression": "B4",
-          "unit": "",
-          "class": "",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-trans-gear"
-        }
-      ],
-      "isExpanded": true
-    },
-    {
-      "pid": "220462",
-      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
-      "parameters": [
-        {
-          "name": "PCM-Wastegate",
-          "expression": "B4*100/128",
-          "unit": "%",
-          "class": "percentage",
-          "min": "",
-          "max": "",
-          "type": "MQTT_Topic",
-          "send_to": "wican/pcm-wg"
-        }
-      ],
-      "isExpanded": true
-    }
-  ]
+    "car_model":  "Ford: Transit 2021 (generated from WiCAN discovery)",
+    "init":  "ATE0;ATL0;ATH0;ATR1;ATST32;ATSP6;ATCAF1;",
+    "comment":  "Generated 2026-10-27T15:13:04 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
+    "pids":  [
+                 {
+                     "pid":  "220725",
+                     "pid_init":  "ATSH703;STCAFCP703,70B;",
+                     "parameters":  [
+                                        {
+                                            "name":  "awdm-awd-transfer-case-motor-output-duty-cycle-c",
+                                            "class":  "none",
+                                            "expression":  "S4",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/awdm-awd-transfer-case-motor-output-duty-cycle-c"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "224025",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-bat-quiescent",
+                                            "class":  "none",
+                                            "expression":  "([B4:B5]/2)-1000",
+                                            "unit":  "mA",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-bat-quiescent"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "224027",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-12v-age",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]*24",
+                                            "unit":  "h",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-12v-age"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "224028",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-bat-soc",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-bat-soc"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "224029",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-12v-t",
+                                            "class":  "none",
+                                            "expression":  "(B4)-40",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-12v-t"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22402A",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-12v-v",
+                                            "class":  "none",
+                                            "expression":  "(B4/20)+(6)",
+                                            "unit":  "V",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-12v-v"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22402B",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-veh-bat-current",
+                                            "class":  "none",
+                                            "expression":  "(B4)-127",
+                                            "unit":  "A",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-veh-bat-current"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2240B5",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-ign-sw-state",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-ign-sw-state"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2240C8",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-rvrs-lmps",
+                                            "class":  "none",
+                                            "expression":  "B4:0",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-rvrs-lmps",
+                                            "sensor_type":  "binary"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2241B9",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-engine-start-run-state-bit-field",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "bitfield",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-engine-start-run-state-bit-field"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2241D2",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-horn-switch",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-horn-switch",
+                                            "sensor_type":  "binary"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22D137",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-dtc-count-module",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "count",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-dtc-count-module"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22280B",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-tyre-t",
+                                            "class":  "none",
+                                            "expression":  "(B10)-40",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-tyre-t"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222813",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-front-left-tire-pressure",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]/3+22/3",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-front-left-tire-pressure"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222814",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-front-right-tire-pressure",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]/3+22/3",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-front-right-tire-pressure"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222815",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-rear-right-outer-tire-pressure",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]/3+22/3",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-rear-right-outer-tire-pressure"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222816",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-rear-left-outer-tire-pressure",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]/3+22/3",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-rear-left-outer-tire-pressure"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222817",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-tire-pressure-rear-right-inner",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]/3+22/3",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-tire-pressure-rear-right-inner"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222818",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-tire-pressure-rear-left-inner",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]/3+22/3",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-tire-pressure-rear-left-inner"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222827",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-front-tire-placard-pressure",
+                                            "class":  "pressure",
+                                            "expression":  "B4",
+                                            "unit":  "psi",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-front-tire-placard-pressure"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222828",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-rear-tire-placard-pressure",
+                                            "class":  "pressure",
+                                            "expression":  "B4",
+                                            "unit":  "psi",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-rear-tire-placard-pressure"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "222B00",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-parking-brake",
+                                            "class":  "none",
+                                            "expression":  "B4:6",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-parking-brake",
+                                            "sensor_type":  "binary"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "225B1D",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-door-sw-drvr-bcm",
+                                            "class":  "none",
+                                            "expression":  "B4:0",
+                                            "unit":  "—",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-door-sw-drvr-bcm",
+                                            "sensor_type":  "binary"
+                                        },
+                                        {
+                                            "name":  "bcm-door-sw-psgr-bcm",
+                                            "class":  "none",
+                                            "expression":  "B4:1",
+                                            "unit":  "—",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-door-sw-psgr-bcm",
+                                            "sensor_type":  "binary"
+                                        },
+                                        {
+                                            "name":  "bcm-door-sw-lr-bcm",
+                                            "class":  "none",
+                                            "expression":  "B4:3",
+                                            "unit":  "—",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-door-sw-lr-bcm",
+                                            "sensor_type":  "binary"
+                                        },
+                                        {
+                                            "name":  "bcm-door-sw-rr-bcm",
+                                            "class":  "none",
+                                            "expression":  "B4:4",
+                                            "unit":  "—",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-door-sw-rr-bcm",
+                                            "sensor_type":  "binary"
+                                        },
+                                        {
+                                            "name":  "bcm-door-sw-lugg-bcm",
+                                            "class":  "none",
+                                            "expression":  "B4:5",
+                                            "unit":  "—",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-door-sw-lugg-bcm",
+                                            "sensor_type":  "binary"
+                                        },
+                                        {
+                                            "name":  "bcm-hood-sw-bcm",
+                                            "class":  "none",
+                                            "expression":  "B4:2",
+                                            "unit":  "—",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-hood-sw-bcm",
+                                            "sensor_type":  "binary"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F403",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-fuel-sys",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "binary",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-fuel-sys"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F404",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-eng-load-pct",
+                                            "class":  "none",
+                                            "expression":  "B4*100/255",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-eng-load-pct"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F406",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-stft",
+                                            "class":  "none",
+                                            "expression":  "(B4*100/128)-100",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-stft"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F407",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-ltft",
+                                            "class":  "none",
+                                            "expression":  "(B4*100/128)-100",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-ltft"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F408",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-short-term-fuel-trim-bank-2-mirror-of-01-08",
+                                            "class":  "none",
+                                            "expression":  "B4*100/128-100",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-short-term-fuel-trim-bank-2-mirror-of-01-08"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F409",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-long-term-fuel-trim-bank-2-mirror-of-01-09",
+                                            "class":  "none",
+                                            "expression":  "B4*100/128-100",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-long-term-fuel-trim-bank-2-mirror-of-01-09"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F40C",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-rpm",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]/4",
+                                            "unit":  "rpm",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-rpm"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F40E",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-timing-advance-mirror-of-01-0e",
+                                            "class":  "none",
+                                            "expression":  "B4/2-64",
+                                            "unit":  "°",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-timing-advance-mirror-of-01-0e"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F40F",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-iat",
+                                            "class":  "none",
+                                            "expression":  "B4-40",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-iat"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F411",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-throttle-position-mirror-of-01-11",
+                                            "class":  "none",
+                                            "expression":  "B4*100/255",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-throttle-position-mirror-of-01-11"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F41F",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-run-time",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]",
+                                            "unit":  "s",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-run-time"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F423",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-frp",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]*10",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-frp"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F42F",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-fli-7e0-7e0",
+                                            "class":  "none",
+                                            "expression":  "B4*100/255",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-fli-7e0-7e0"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F43C",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-cat-temp",
+                                            "class":  "none",
+                                            "expression":  "([B4:B5]/10)-40",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-cat-temp"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F443",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-eng-load-act",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]*100/255",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-eng-load-act"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F444",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-commanded-equivalence-ratio-afr-desired-bank",
+                                            "class":  "none",
+                                            "expression":  "B4*0.1144",
+                                            "unit":  "AFR",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-commanded-equivalence-ratio-afr-desired-bank"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F446",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-aat-7e0",
+                                            "class":  "none",
+                                            "expression":  "(B4)-40",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-aat-7e0"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F462",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-pcm-act-eng-pct-trq",
+                                            "class":  "none",
+                                            "expression":  "(B4)-125",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-pcm-act-eng-pct-trq"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F463",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-pcm-eng-reference-trq",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]",
+                                            "unit":  "Nm",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-pcm-eng-reference-trq"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F49D",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-eng-fuel-rate",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]*0.02",
+                                            "unit":  "g/s",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-eng-fuel-rate"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22F4A6",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-veh-odo",
+                                            "class":  "distance",
+                                            "expression":  "[B4:B7]*0.1",
+                                            "unit":  "km",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-veh-odo"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220307",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-fp",
+                                            "class":  "none",
+                                            "expression":  "B4*100/255",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-fp"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22030F",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-cl",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]/32768",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-cl"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22032B",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-acc-pos",
+                                            "class":  "none",
+                                            "expression":  "B4/2",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-acc-pos"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220334",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-cylinder-head-temperature",
+                                            "class":  "temperature",
+                                            "expression":  "[S4:S5]/64",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-cylinder-head-temperature"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22033E",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-tip-abs",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]*0.00762854",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-tip-abs"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220345",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-num-misfire",
+                                            "class":  "none",
+                                            "expression":  "[B4:B7]",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-num-misfire"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220353",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-baro",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]/4",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-baro"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220370",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-map",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]*0.25",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-map"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22038F",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-coolant-temperature",
+                                            "class":  "temperature",
+                                            "expression":  "[S4:S5]/64",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-coolant-temperature"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2203CA",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-iat2",
+                                            "class":  "none",
+                                            "expression":  "B4-40",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-iat2"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2203DC",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-frp-dsd",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]*10",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-frp-dsd"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2203E8",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-lrnd-oct-rat",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]/16384",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-lrnd-oct-rat"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220427",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-bpv-open",
+                                            "class":  "none",
+                                            "expression":  "B4/255",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-bpv-open"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220462",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-wgc-mz",
+                                            "class":  "none",
+                                            "expression":  "B4*100/128",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-wgc-mz"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220466",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-tip-des-abs",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]*0.00762854",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-tip-des-abs"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22054B",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-oil-life",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-oil-life"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220598",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-gencmd",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "%",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-gencmd"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220604",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-a-c-refrigerant-pressure",
+                                            "class":  "pressure",
+                                            "expression":  "[S4:S5]",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-a-c-refrigerant-pressure"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220651",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-pwntrn-drvmode",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "enum",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-pwntrn-drvmode"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22099B",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-ac-sw-mz",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "binary",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-ac-sw-mz"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221505",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-vss-hr",
+                                            "class":  "speed",
+                                            "expression":  "[B4:B5]*0.0078125",
+                                            "unit":  "km/h",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-vss-hr"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221E12",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-gear-ggds-mz",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "enum",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-gear-ggds-mz"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221E1A",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-linedsd",
+                                            "class":  "pressure",
+                                            "expression":  "[B4:B5]*2",
+                                            "unit":  "kPa",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-linedsd"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221E1C",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-tft",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]/16",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-tft"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221E1F",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-gear-eng",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-gear-eng"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221E23",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-gear-shift",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-gear-shift"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221E8F",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-tr-park-stat",
+                                            "class":  "none",
+                                            "expression":  "B4:2",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-tr-park-stat",
+                                            "sensor_type":  "binary"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "223B40",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-ftbrake",
+                                            "class":  "none",
+                                            "expression":  "B4:1",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-ftbrake",
+                                            "sensor_type":  "binary"
+                                        }
+                                    ]
+                 }
+             ]
 }
