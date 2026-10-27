@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transit Module Scan</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1b1f24;--mute:#5f6b7a;--line:#e3e7ec;--acc:#2457c5;--ok:#1d7f4e;--warn:#b26a00;--bad:#b42318;--chip:#eef2f8;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#191d23;--ink:#e6e9ee;--mute:#95a0ae;--line:#2a3038;--acc:#7aa2ff;--ok:#4cc38a;--warn:#f0a43a;--bad:#ff6b5e;--chip:#222833}}
+:root[data-theme="dark"]{--bg:#111418;--card:#191d23;--ink:#e6e9ee;--mute:#95a0ae;--line:#2a3038;--acc:#7aa2ff;--ok:#4cc38a;--warn:#f0a43a;--bad:#ff6b5e;--chip:#222833}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;margin-bottom:16px}
+h1{font-size:20px;margin:0}h2{font-size:16px;margin:0}h3{font-size:13px;margin:16px 0 6px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.meta{color:var(--mute);display:flex;gap:16px;flex-wrap:wrap}.meta b{color:var(--ink);font-weight:600}
+.mono{font-family:var(--mono)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chip{background:var(--chip);border-radius:999px;padding:2px 10px;font-size:12px;color:var(--mute)}
+.chip.ok{color:var(--ok)}.chip.warn{color:var(--warn)}.chip.bad{color:var(--bad)}
+.bar{height:6px;background:var(--chip);border-radius:3px;overflow:hidden;margin:10px 0 4px}.bar>i{display:block;height:100%;background:var(--acc);transition:width .4s}
+.small{font-size:12px;color:var(--mute)}
+.tbl{width:100%;overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--mute);font-weight:600;font-size:12px}
+td.hex{font-family:var(--mono);font-size:12px;word-break:break-all;max-width:420px}
+td.did{font-family:var(--mono);white-space:nowrap}
+.empty{color:var(--mute);font-style:italic}
+.ids{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px 16px}
+.ids div span{display:block;font-size:11px;color:var(--mute)}
+.now{border-color:color-mix(in srgb,var(--acc) 45%,var(--line))}
+.nowgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px 18px;margin-top:10px}
+.nowgrid div span{display:block;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.nowgrid div b{font-size:15px}
+.big{font-size:22px;font-weight:650}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:6px;vertical-align:middle;animation:blink 1.4s infinite}
+.dot.off{background:var(--bad);animation:none}@keyframes blink{50%{opacity:.25}}
+.feed{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.feed .chip{font-family:var(--mono)}
+.new{animation:flash 2s}@keyframes flash{from{background:color-mix(in srgb,var(--acc) 22%,transparent)}to{background:transparent}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>Ford Transit module scan</h1>
+  <div class="meta" id="meta"></div>
+</header>
+<div class="card now" id="now"><div class="empty small">Waiting for live status…</div></div>
+<div id="research"></div>
+<div id="mods"><div class="card empty">Waiting for scan data…</div></div>
+<p class="small">Live view. Refreshes every 2 seconds from the files the scanner writes. Read-only requests only.</p>
+</main>
+<script>
+const seen = new Set();
+function load(src){return new Promise(r=>{const s=document.createElement('script');s.src=src+'?t='+Date.now();s.onload=s.onerror=()=>{s.remove();r();};document.head.appendChild(s);});}
+const esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function stateChip(st){const c=st==='done'?'ok':/stopped|refused/.test(st)?'bad':'warn';return `<span class="chip ${c}">${esc(st)}</span>`;}
+function dtcNote(raw){const v=raw?(raw['19 02 FF']||''):'';if(!v)return 'Not read yet';if(v.startsWith('ERR'))return 'Read failed ('+v.slice(4)+'), will retry';if(v.startsWith('7F'))return 'Module refused the read ('+v+')';return 'None stored';}
+function parseDtcs(raw){if(!raw||!raw.startsWith('59'))return[];const b=raw.split(' ');const out=[];for(let i=3;i+3<b.length;i+=4){const c=parseInt(b[i],16);out.push({dtc:'PCBU'[c>>6]+((c>>4)&3)+(c&15).toString(16).toUpperCase()+b[i+1]+'-'+b[i+2],status:b[i+3]});}return out;}
+function sigHtml(m){
+  let h='';
+  const sig=m.signals||[];
+  if(sig.length){
+    const groups={};sig.forEach(s=>{(groups[s.path||'Other']=groups[s.path||'Other']||[]).push(s);});
+    h+=`<h3>Decoded values (${sig.length})</h3><div class="tbl"><table><tr><th>Group</th><th>Value</th><th>Reading</th><th>DID</th><th>Source</th></tr>`+
+      Object.keys(groups).sort().map(g=>groups[g].map((s,i)=>`<tr><td class="small">${i?'':esc(g)}</td><td>${esc(s.name)}</td><td><b>${esc(s.display)}</b></td><td class="did">${esc(s.did)}</td><td class="small">${esc((s.source||'').replace('Ford-',''))}</td></tr>`).join('')).join('')+`</table></div>`;
+  }
+  const obd=m.obd||[];
+  if(obd.length){
+    h+=`<h3>Standard OBD (${obd.length})</h3><div class="tbl"><table><tr><th>PID</th><th>Value</th><th>Reading</th></tr>`+
+      obd.map(o=>`<tr><td class="did">${esc(o.pid)}</td><td>${esc(o.name||'(not decoded)')}</td><td>${o.display?`<b>${esc(o.display)}</b>`:`<span class="mono small">${esc(o.hex)}</span>`}</td></tr>`).join('')+`</table></div>`;
+  }
+  if(m.session==='phase1'&&m.library_dids!=null){h=`<div class="small">${m.library_dids} known Ford DIDs for this module in the library · ${sig.length} values decoded</div>`+h;}
+  return h;
+}
+function renderNow(){
+  const L=window.LIVE, el=document.getElementById('now'); if(!L){return;}
+  const stale=(()=>{const [h,m,s]=(L.updated||'0:0:0').split(':').map(Number);const d=new Date();const t=new Date(d.getFullYear(),d.getMonth(),d.getDate(),h,m,s);return (d-t)/1000>8;})();
+  const l=L.last||{}; const busy=l.age_ms!=null&&l.age_ms<3000;
+  const who=l.tx?(l.tx==='7DF'?'0x7DF · wake-up broadcast to all modules':`0x${l.tx}${l.name?' · '+l.name:''}`):'—';
+  let step='Idle';
+  const S=window.SCAN, M=window.MODS||{};
+  const running=S?S.modules.map(k=>M[k]).filter(m=>m&&!/done|stopped|refused/.test(m.state)):[];
+  if(L.discovery&&L.discovery.state==='running') step=`Discovery: checking address 0x${L.discovery.current||'?'} (${L.discovery.checked}/${L.discovery.total})`;
+  else if(running.length) step='Reading modules: '+running.map(m=>`0x${m.tx} ${(m.name||'').split(' ')[0]} (${m.progress.checked}/${m.progress.total})`).join(', ');
+  else if(busy) step=l.tx==='7DF'||(L.recent||[]).some(r=>r.result==='no answer')?'Discovery: probing addresses 0x700–0x7F7':'Talking to modules';
+  const sleep=L.sleep_pending&&L.sleep_pending!=='none'?`${L.sleep_pending} in ${L.sleep_in_s}s`:'none pending';
+  const feed=(L.recent||[]).map(r=>`<span class="chip ${r.result==='answered'?'ok':r.result==='no answer'?'':'warn'}" title="${esc(r.t)}">0x${esc(r.tx)} ${r.result==='answered'?'✓':r.result==='no answer'?'·':'!'}</span>`).join('');
+  const found=(L.answered_this_session||[]).map(t=>`<span class="chip ok">0x${esc(t)}</span>`).join(' ');
+  const disc=L.discovery?(L.discovery.found||[]).map(t=>`<span class="chip ok">0x${esc(t)}</span>`).join(' '):'';
+  el.innerHTML=`<div class="row"><h2><span class="dot ${stale||!L.wican_online?'off':''}"></span>Now</h2><span class="small">${stale?'monitor not updating':'live · '+esc(L.updated)}</span></div>
+    <div class="big" style="margin-top:6px">${esc(step)}</div>
+    <div class="nowgrid">
+      <div><span>Talking to</span><b class="mono">${esc(who)}</b><div class="small">${l.age_ms!=null?`${l.age_ms} ms ago · ${l.ok?(l.positive?'answered':'refused '+(l.nrc||'')):'no answer'}`:''}</div></div>
+      <div><span>Battery</span><b>${L.battery!=null?L.battery+' V':'—'}</b></div>
+      <div><span>WiCAN shutdown timer</span><b>${esc(sleep)}</b><div class="small">${L.holds_left!=null?L.holds_left+' extensions left':''}</div></div>
+      <div><span>Requests this boot</span><b>${L.requests_sent!=null?Number(L.requests_sent).toLocaleString():'—'}</b></div>
+    </div>
+    <div class="small" style="margin-top:12px">Last requests (✓ answered · no answer · ! refused)</div><div class="feed">${feed}</div>
+    <div class="small" style="margin-top:10px">Modules that answered since the monitor started: ${found||'none yet'}${disc?` · Discovery found: ${disc}`:''}</div>`;
+}
+function renderResearch(){
+  const R=window.RESEARCH, el=document.getElementById('research'); if(!R){el.innerHTML='';return;}
+  const items=R.items||[]; const ok=items.filter(i=>i.status==='ok');
+  const counts={}; items.forEach(i=>{const k=i.status||'?';counts[k]=(counts[k]||0)+1;});
+  const rows=ok.slice().sort((a,b)=>(a.in_library?1:0)-(b.in_library?1:0)||a.tx.localeCompare(b.tx)||a.did.localeCompare(b.did)).map(i=>{
+    const cands=(i.candidates||[]).map(c=>`<div><b>${esc(c.display??(c.error?'error':'—'))}</b> <span class="small">${esc(c.name||'')} · <span class="mono">${esc(c.formula||'no formula')}</span> · ${esc(c.confidence||'')} · ${c.source?`<a href="${esc(c.source)}" target="_blank" rel="noopener">${esc(c.from||'source')}</a>`:esc(c.from||'')}</span></div>`).join('');
+    const lib=(i.library_decode||[]).map(d=>`${esc(d.name)}: <b>${esc(d.display)}</b>`).join('<br>');
+    return `<tr><td class="did">0x${esc(i.tx)}</td><td class="did">${esc(i.did)}</td><td>${i.in_library?'<span class="chip">known</span>':'<span class="chip ok">new</span>'}</td><td>${cands}</td><td class="small">${lib}</td><td class="hex">${esc(i.hex)}</td></tr>`;}).join('');
+  el.innerHTML=`<div class="card"><div class="row"><h2>Research candidates</h2>${stateChip(R.state)}<span class="small">${R.checked}/${R.total} tested · updated ${esc((R.updated||'').replace('T',' '))}</span></div>
+    <div class="small" style="margin-top:6px">${Object.entries(counts).map(([k,v])=>`${esc(k)}: ${v}`).join(' · ')}</div>
+    ${rows?`<div class="tbl" style="margin-top:10px"><table><tr><th>Module</th><th>DID</th><th></th><th>Decoded by source formula</th><th>Library decode</th><th>Raw</th></tr>${rows}</table></div>`:'<div class="empty small">No answered candidates yet</div>'}</div>`;
+}
+function dtcStatus(s){const f=[];if(s&1)f.push('failing now');if(s&8)f.push('confirmed');else if(s&4)f.push('pending');if(s&0x20&&!(s&9))f.push('failed since clear');if(s&0x80)f.push('warning lamp');if(!f.length)f.push(s&0x40?'not tested this cycle':'stored, inactive');return f.join(', ');}
+function render(){
+  const S=window.SCAN; if(!S) return;
+  document.getElementById('meta').innerHTML=`${S.phase?`<span><b>${esc(S.phase)}</b></span>`:''}<span>VIN <b class="mono">${esc(S.vin)}</b></span><span>${esc(S.vehicle)}</span><span>Ignition <b>${esc(S.ignition)}</b></span><span>${esc(S.device)}</span>`;
+  const M=window.MODS||{};
+  const html=S.modules.map(k=>{
+    const m=M[k]; if(!m) return `<div class="card"><h2>${esc(k)}</h2><p class="empty">Starting…</p></div>`;
+    const p=m.progress, pct=Math.min(100,100*p.checked/Math.max(1,p.total)).toFixed(1);
+    const dids=Object.entries(m.dids||{});
+    const idRows=dids.filter(([d,v])=>v.ascii&&d.startsWith('F1')).map(([d,v])=>`<div><span>${esc(v.name||d)} · ${d}</span><b class="mono">${esc(v.ascii)}</b></div>`).join('');
+    const dyn=(window.EXTRA&&window.EXTRA[m.tx]&&window.EXTRA[m.tx].dynamic)||{};
+    const rows=dids.map(([d,v])=>{const id=k+d;const cls=seen.has(id)?'':'new';seen.add(id);const live=dyn[d]&&[].concat(dyn[d]).length;
+      return `<tr class="${cls}"><td class="did">${d}</td><td>${esc(v.name)}</td><td>${v.status==='ok'?(live?'<span class="chip ok">live</span>':''):`<span class="chip warn">${esc(v.status)}</span>`}</td><td>${v.len||''}</td><td class="hex">${esc(v.hex)}</td><td>${esc(v.ascii)}</td></tr>`;}).join('');
+    const X=(window.EXTRA||{})[m.tx]||null;
+    let dtcList=m.dtcs||[], dtcExtra='';
+    if(X&&m.session==='default'){const all=parseDtcs(X.dtc_reports&&X.dtc_reports['19 0A']);if(all.length){const act=all.filter(d=>parseInt(d.status,16)&0xAF);dtcList=act;dtcExtra=`<div class="small">${all.length} supported DTCs in this module · ${act.length} active or stored · ${all.length-act.length} only "not tested this cycle" (hidden)</div>`;}}
+    const dtcs=dtcList.slice().sort((a,b)=>(parseInt(b.status,16)&0x0D?1:0)-(parseInt(a.status,16)&0x0D?1:0)).map(x=>{const s=parseInt(x.status,16);const live=s&0x0D;
+      return `<tr><td class="did">${esc(x.dtc)}</td><td>${live?`<span class="chip bad">${esc(dtcStatus(s))}</span>`:`<span class="small">${esc(dtcStatus(s))}</span>`}</td><td class="mono">0x${esc(x.status)}</td></tr>`;}).join('');
+    return `<div class="card">
+      <div class="row"><h2>0x${esc(m.tx)} · ${esc(m.name||'Unknown module')}</h2><span class="chip">${esc(m.session)} session</span>${stateChip(m.state)}${m.volts?`<span class="chip">${m.volts} V</span>`:''}</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="small">${pct}% of ${m.session==='phase1'?'known DIDs':'DID space'} ·${p.checked.toLocaleString()} / ${p.total.toLocaleString()} checked · at 0x${esc(p.current)} · ${p.requests.toLocaleString()} requests · ${dids.length} DIDs found · updated ${esc((m.updated||'').replace('T',' '))}</div>
+      ${idRows?`<h3>Identification</h3><div class="ids">${idRows}</div>`:''}
+      ${sigHtml(m)}
+      <h3>Trouble codes</h3>${dtcExtra}${dtcs?`<div class="tbl"><table><tr><th>DTC</th><th>Meaning</th><th>Status byte</th></tr>${dtcs}</table></div>`:`<div class="empty small">${dtcNote(m.dtc_raw)}</div>`}
+      <h3>DIDs that answered (${dids.length})</h3>${rows?`<div class="tbl"><table><tr><th>DID</th><th>Name</th><th>Status</th><th>Bytes</th><th>Hex</th><th>Text</th></tr>${rows}</table></div>`:'<div class="empty small">None yet</div>'}
+    </div>`;}).join('');
+  document.getElementById('mods').innerHTML=html;
+}
+async function tick(){await load('data/live.js');try{renderNow();}catch(e){}await load('data/research_results.js');try{renderResearch();}catch(e){}await load('data/index.js');const S=window.SCAN;if(S){if(S.focus)S.modules.sort((a,b)=>(b.startsWith(S.focus)?1:0)-(a.startsWith(S.focus)?1:0));const txs=[...new Set(S.modules.map(k=>k.split('_')[0]))];await Promise.all([...S.modules.map(k=>load('data/mod_'+k+'.js')),...txs.map(t=>load('data/extra_'+t+'.js'))]);}render();}
+tick();setInterval(tick,2000);
+</script>
+</body>
+</html>
