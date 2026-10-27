@@ -9,7 +9,7 @@ A read-only sweep of every diagnostic module reachable from the OBD port of a 20
 | Path | What it is |
 |---|---|
 | `output/ford_transit_2021_discovery.json` | Every module and every answering DID: a name (with where it came from), raw bytes, decoded signals (native units), formula and source for each, DTCs, standard OBD PIDs. |
-| `output/ford_transit_2021_wican_profile.json` | WiCAN AutoPID profile (profile-editor format) built from the owner's review: 72 PIDs, 77 parameters. On this branch it also replaces the repo's root `2021-Ford-Transit-North-America.json`. |
+| `output/ford_transit_2021_wican_profile.json` | WiCAN AutoPID profile (profile-editor format) built from the owner's review: 77 PIDs, 82 parameters. On this branch it also replaces the repo's root `2021-Ford-Transit-North-America.json`. |
 | `refs/ford_did_library.json` | Merged known-DID library: OBDb Ford signal sets plus this repo's `PIDs.md`. CC BY-SA 4.0 (see below). |
 | `refs/crossmatch.json` | The answering-but-unnamed DIDs matched against every named Ford DID from any module or model. |
 | `*.ps1`, `SlcanUds.cs`, `preview.html` | The tools that produced all of this (see "Running it"). |
@@ -54,12 +54,22 @@ Every answering DID has a `name`, plus `name_source` and `name_detail` saying wh
 Each reviewed DID also has a `review` block: `reviewed`, and `wican_profile` (`include`, `exclude` or `auto`). Excluded DIDs stay in the discovery JSON; the flag only decides the WiCAN profile.
 
 ### Inferred formulas
-31 DIDs with no published formula have one inferred from the live data. It comes either from moving in step with a known signal, or from Ford's usual scaling for that kind of value landing every reading in a realistic range. They appear as signals with `"id": "INFERRED"`, a confidence (`likely`, `weaker`, `assumed`), the reasoning, and the owner's `decision`. Examples: parking brake `B4:6`, horn `B4`, gear selector `B4` (100 = P, 101 = R, 102 = N, 103 = D, 105 = position after D). The profile uses an inferred formula only for DIDs the owner included, and only if it was accepted, or is undecided and rated `likely` or `assumed`.
+37 DIDs with no published formula have one inferred from the live data. It comes either from moving in step with a known signal, or from Ford's usual scaling for that kind of value landing every reading in a realistic range. They appear as signals with `"id": "INFERRED"`, a confidence (`likely`, `weaker`, `assumed`), the reasoning, and the owner's `decision`. Examples: parking brake `B4:6`, horn `B4`, gear selector `B4` (100 = P, 101 = R, 102 = N, 103 = D, 105 = position after D). The profile uses an inferred formula only for DIDs the owner included, and only if it was accepted, or is undecided and rated `likely` or `assumed`.
 
 ### WiCAN profile notes
 - On/off values (doors, hood, horn, parking brake) use WiCAN's bit syntax (`B4:6`) with `sensor_type: binary`.
 - WiCAN expressions only produce numbers, so the VIN is in the discovery JSON but not in the profile. Enum values (gear, ignition position) are sent as raw numbers to map in Home Assistant.
 - Units are the module's own (kPa, °C, km/h); let Home Assistant convert.
+- **AWD front/rear torque split:** no DID reports a percentage. The profile carries the inputs to estimate it:
+  - AWDM 0724, AWD clutch torque capacity to the front axle (`[B4:B5]` Nm);
+  - AWDM 072C, torque requested (`[B4:B5]` Nm);
+  - AWDM 0722, front axle disconnect status (2 = connected);
+  - PCM F462 / F463, engine torque % and reference torque;
+  - PCM 1E1F, gear engaged;
+  - PCM 1E15, torque converter ratio.
+
+  Front % ≈ min(capacity, transmission output torque) / transmission output torque, where output torque = engine torque × gear ratio × converter multiplication. It is an upper bound, since capacity is what the clutch can pass. On one 11-minute drive in Normal mode the estimate was roughly 70–75 % front on launch, about 45 % while accelerating and about 40 % at steady speed.
+- **Drive mode (PCM 0651):** 0 = Normal, 4 = Reverse. Values 5, 6 and 8 were seen but not yet labelled.
 
 ### Behaviour worth knowing
 - **Modules stop answering physical requests after a while.** A functional broadcast (`7DF 02 01 00`) wakes them.

@@ -6,7 +6,7 @@
                     "vin":  "1FTBW2CG5M*******",
                     "vin_notes":  "10th char M = 2021; 11th char K = Kansas City Assembly"
                 },
-    "generated":  "2026-10-27T15:13:03",
+    "generated":  "2026-10-27T16:12:47",
     "scanned_with":  "WiCAN Pro",
     "bus":  {
                 "pins":  "6/14 (HS-CAN)",
@@ -915,14 +915,27 @@
                                                       ],
                                          "library_name":  "",
                                          "signals":  [
-
+                                                         {
+                                                             "id":  "INFERRED",
+                                                             "name":  "AWD clutch motor position, actual",
+                                                             "group":  "inferred",
+                                                             "native":  false,
+                                                             "value":  46.25,
+                                                             "display":  "46.25 °",
+                                                             "unit":  "°",
+                                                             "wican_expression":  "[B4:B5]/4",
+                                                             "source":  "inferred from live data (matched)",
+                                                             "decision":  "accepted",
+                                                             "seen":  "46 to 55.75 on the drive",
+                                                             "notes":  "Raw 184-223 / 4 gives the 46-55.75 degrees reported during the drive"
+                                                         }
                                                      ],
                                          "name":  "4WDAWD Transfer Case Motor Position Corrected",
                                          "name_source":  "jakka351",
                                          "name_detail":  "jakka351 GenericDiagnosticTool DID dictionary, Copyright (c) 2025 Tester Present Specialist Automotive Solutions, TPSAS-OSL 1.0",
                                          "review":  {
                                                         "reviewed":  false,
-                                                        "wican_profile":  "exclude"
+                                                        "wican_profile":  "include"
                                                     }
                                      },
                                      {
@@ -935,14 +948,30 @@
                                                       ],
                                          "library_name":  "",
                                          "signals":  [
-
+                                                         {
+                                                             "id":  "INFERRED",
+                                                             "name":  "Front axle disconnect status",
+                                                             "group":  "inferred",
+                                                             "native":  false,
+                                                             "value":  2,
+                                                             "display":  "Connected (4WD)",
+                                                             "unit":  "",
+                                                             "wican_expression":  "B4",
+                                                             "source":  "inferred from live data (matched)",
+                                                             "decision":  "accepted",
+                                                             "seen":  "2 throughout the drive",
+                                                             "notes":  "Raw 2 while the module reported the front axle connected; other values not seen yet",
+                                                             "values":  {
+                                                                            "2":  "Connected (4WD)"
+                                                                        }
+                                                         }
                                                      ],
                                          "name":  "4WDAWD Front Axle Disconnect FAD Actuator Device Status",
                                          "name_source":  "jakka351",
                                          "name_detail":  "jakka351 GenericDiagnosticTool DID dictionary, Copyright (c) 2025 Tester Present Specialist Automotive Solutions, TPSAS-OSL 1.0",
                                          "review":  {
                                                         "reviewed":  false,
-                                                        "wican_profile":  "exclude"
+                                                        "wican_profile":  "include"
                                                     }
                                      },
                                      {
@@ -955,7 +984,20 @@
                                                       ],
                                          "library_name":  "",
                                          "signals":  [
-
+                                                         {
+                                                             "id":  "INFERRED",
+                                                             "name":  "AWD clutch kiss point",
+                                                             "group":  "inferred",
+                                                             "native":  false,
+                                                             "value":  46.25,
+                                                             "display":  "46.25 °",
+                                                             "unit":  "°",
+                                                             "wican_expression":  "[B4:B5]/4",
+                                                             "source":  "inferred from live data (matched)",
+                                                             "decision":  "undecided",
+                                                             "seen":  "46.25",
+                                                             "notes":  "Raw 185 / 4 = 46.25 degrees, the kiss point reported; above it the clutch starts passing torque"
+                                                         }
                                                      ],
                                          "name":  "4WDAWD Transfer Case Motor Position At Which The Variable Torque Clutch Begins To Transfer Torque Kiss Position",
                                          "name_source":  "jakka351",
@@ -975,7 +1017,20 @@
                                                       ],
                                          "library_name":  "",
                                          "signals":  [
-
+                                                         {
+                                                             "id":  "INFERRED",
+                                                             "name":  "AWD clutch torque capacity (to front axle)",
+                                                             "group":  "inferred",
+                                                             "native":  false,
+                                                             "value":  0,
+                                                             "display":  "0 Nm",
+                                                             "unit":  "Nm",
+                                                             "wican_expression":  "[B4:B5]",
+                                                             "source":  "inferred from live data (matched)",
+                                                             "decision":  "accepted",
+                                                             "seen":  "0 to 582 on the drive",
+                                                             "notes":  "Raw 0-582 lines up one-to-one with the 0-582 Nm the AWD module reported during the drive"
+                                                         }
                                                      ],
                                          "name":  "AWD Transfer Case Actuator A Torque Capacity Inferred",
                                          "name_source":  "owner",
@@ -983,7 +1038,7 @@
                                          "suggested_name":  "4WDAWD Transfer Case Actuator A Torque Capacity Inferred",
                                          "review":  {
                                                         "reviewed":  false,
-                                                        "wican_profile":  "exclude"
+                                                        "wican_profile":  "include"
                                                     }
                                      },
                                      {
@@ -1054,7 +1109,20 @@
                                                       ],
                                          "library_name":  "",
                                          "signals":  [
-
+                                                         {
+                                                             "id":  "INFERRED",
+                                                             "name":  "AWD clutch motor position, requested",
+                                                             "group":  "inferred",
+                                                             "native":  false,
+                                                             "value":  46.25,
+                                                             "display":  "46.25 °",
+                                                             "unit":  "°",
+                                                             "wican_expression":  "[B4:B5]/4",
+                                                             "source":  "inferred from live data (matched)",
+                                                             "decision":  "undecided",
+                                                             "seen":  "46.25 parked",
+                                                             "notes":  "Same encoding as the actual position (raw 185 = 46.25 degrees)"
+                                                         }
                                                      ],
                                          "name":  "AWD Transfer Case Motor Position Request",
                                          "name_source":  "owner",
@@ -1156,14 +1224,27 @@
                                                       ],
                                          "library_name":  "",
                                          "signals":  [
-
+                                                         {
+                                                             "id":  "INFERRED",
+                                                             "name":  "AWD clutch torque requested",
+                                                             "group":  "inferred",
+                                                             "native":  false,
+                                                             "value":  0,
+                                                             "display":  "0 Nm",
+                                                             "unit":  "Nm",
+                                                             "wican_expression":  "[B4:B5]",
+                                                             "source":  "inferred from live data (matched)",
+                                                             "decision":  "accepted",
+                                                             "seen":  "0 to 534 on the drive",
+                                                             "notes":  "Raw 0-534 lines up one-to-one with the 0-534 Nm requested during the drive"
+                                                         }
                                                      ],
                                          "name":  "4WDAWD Transfer Case Actuator A Requested Torque",
                                          "name_source":  "jakka351",
                                          "name_detail":  "jakka351 GenericDiagnosticTool DID dictionary, Copyright (c) 2025 Tester Present Specialist Automotive Solutions, TPSAS-OSL 1.0",
                                          "review":  {
                                                         "reviewed":  false,
-                                                        "wican_profile":  "exclude"
+                                                        "wican_profile":  "include"
                                                     }
                                      },
                                      {
@@ -33017,7 +33098,7 @@
                                          "name_detail":  "https://ecoboostperformanceforum.com/threads/torque-pids-take-2.3141/post-47237",
                                          "review":  {
                                                         "reviewed":  false,
-                                                        "wican_profile":  "exclude"
+                                                        "wican_profile":  "include"
                                                     }
                                      },
                                      {

@@ -1,8 +1,56 @@
 {
     "car_model":  "Ford: Transit 2021 (generated from WiCAN discovery)",
     "init":  "ATE0;ATL0;ATH0;ATR1;ATST32;ATSP6;ATCAF1;",
-    "comment":  "Generated 2026-10-27T15:13:04 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
+    "comment":  "Generated 2026-10-27T16:12:47 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
     "pids":  [
+                 {
+                     "pid":  "220721",
+                     "pid_init":  "ATSH703;STCAFCP703,70B;",
+                     "parameters":  [
+                                        {
+                                            "name":  "awdm-awd-clutch-motor-position-actual",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]/4",
+                                            "unit":  "°",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/awdm-awd-clutch-motor-position-actual"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220722",
+                     "pid_init":  "ATSH703;STCAFCP703,70B;",
+                     "parameters":  [
+                                        {
+                                            "name":  "awdm-front-axle-disconnect-status",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/awdm-front-axle-disconnect-status"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "220724",
+                     "pid_init":  "ATSH703;STCAFCP703,70B;",
+                     "parameters":  [
+                                        {
+                                            "name":  "awdm-awd-transfer-case-actuator-a-torque-capacit",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]",
+                                            "unit":  "Nm",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/awdm-awd-transfer-case-actuator-a-torque-capacit"
+                                        }
+                                    ]
+                 },
                  {
                      "pid":  "220725",
                      "pid_init":  "ATSH703;STCAFCP703,70B;",
@@ -16,6 +64,22 @@
                                             "max":  "",
                                             "type":  "MQTT_Topic",
                                             "send_to":  "wican/awdm-awd-transfer-case-motor-output-duty-cycle-c"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22072C",
+                     "pid_init":  "ATSH703;STCAFCP703,70B;",
+                     "parameters":  [
+                                        {
+                                            "name":  "awdm-awd-clutch-torque-requested",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]",
+                                            "unit":  "Nm",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/awdm-awd-clutch-torque-requested"
                                         }
                                     ]
                  },
@@ -1115,6 +1179,22 @@
                                             "max":  "",
                                             "type":  "MQTT_Topic",
                                             "send_to":  "wican/pcm-gear-ggds-mz"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "221E15",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-tcc-rat",
+                                            "class":  "none",
+                                            "expression":  "[B4:B5]*0.000244140625",
+                                            "unit":  ":1",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-tcc-rat"
                                         }
                                     ]
                  },
