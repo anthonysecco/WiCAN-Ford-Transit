@@ -34,7 +34,7 @@ This project intends to:
 3) Provide actionable data to Home Assistant for automations.
 
 It does **not** intend to:
-1) Replace commercial OBDII diagnostic tools (e.g., FORScan, OBDwiz).
+1) Replace commercial OBDII diagnostic tools (e.g., OBDwiz).
 
 Limiting factors on this project
 1) The WiCAN is only **ON** when the vehicle Ignition is in the **ON** position.  This will limit use cases.
@@ -119,7 +119,7 @@ The entity list above is rather long.  I've ranked the entities based on my own 
 | D     | Diagnostic |
 
 ### More PID Information
-For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).  I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/obdwiz.md) and a dump for FORScan [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/FORScan.md).
+For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).  I've also provided a dump from OBDwiz [here](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/obdwiz.md).
 
 ## 🤖 Installation
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN bus data and publishes it to your MQTT broker. From there, Home Assistant subscribes to the data stream using YAML configuration files.
