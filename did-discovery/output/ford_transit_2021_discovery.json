@@ -32757,7 +32757,7 @@
                                                              "source":  "https://raw.githubusercontent.com/dominic0285/obd-pro-diagnostico-automotriz/main/src/profiles/ford_explorer_2010.ts",
                                                              "confidence":  "verified",
                                                              "vehicles":  "Explorer 2010 4.6 V8",
-                                                             "notes":  "Spanish \u0027Pedal Â· sensor 2\u0027. Verified by source author on their vehicle (not Transit). 0916 = APP3, 0927 = APP fault."
+                                                             "notes":  "Spanish \u0027Pedal · sensor 2\u0027. Verified by source author on their vehicle (not Transit). 0916 = APP3, 0927 = APP fault."
                                                          }
                                                      ],
                                          "name":  "Accelerator pedal position sensor 2 (APP2) voltage",
@@ -33505,7 +33505,7 @@
                                                              "source":  "https://raw.githubusercontent.com/dominic0285/obd-pro-diagnostico-automotriz/main/src/profiles/ford_ecosport_2006.ts",
                                                              "confidence":  "verified",
                                                              "vehicles":  "EcoSport 2006 2.0",
-                                                             "notes":  "formula does not fit this van\u0027s reply (Exception calling \"Replace\" with \"3\" argument(s): \"formula needs byte B, response has 1\"); Spanish source name \"Fallo congelado Â· tiempo de motor\". Related: 16D5 MFF_VSS (A km/h), 16D6 MFF_IAT (A-40), 16DA MFF_TP, 16DC misfire-free trips, 16DD crank profile learned."
+                                                             "notes":  "formula does not fit this van\u0027s reply (Exception calling \"Replace\" with \"3\" argument(s): \"formula needs byte B, response has 1\"); Spanish source name \"Fallo congelado · tiempo de motor\". Related: 16D5 MFF_VSS (A km/h), 16D6 MFF_IAT (A-40), 16DA MFF_TP, 16DC misfire-free trips, 16DD crank profile learned."
                                                          }
                                                      ],
                                          "name":  "Misfire freeze frame: engine run time (MFF_RUN)",
