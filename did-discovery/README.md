@@ -9,7 +9,7 @@ A read-only sweep of every diagnostic module reachable from the OBD port of a 20
 | Path | What it is |
 |---|---|
 | `output/ford_transit_2021_discovery.json` | Every module and every answering DID: a name (with where it came from), raw bytes, decoded signals (native units), formula and source for each, DTCs, standard OBD PIDs. |
-| `output/ford_transit_2021_wican_profile.json` | WiCAN AutoPID profile (profile-editor format) built from the owner's review: 77 PIDs, 82 parameters. On this branch it also replaces the repo's root `2021-Ford-Transit-North-America.json`. |
+| `output/ford_transit_2021_wican_profile.json` | WiCAN AutoPID profile (profile-editor format) built from the owner's review: 80 PIDs, 85 parameters. On this branch it also replaces the repo's root `2021-Ford-Transit-North-America.json`. |
 | `refs/ford_did_library.json` | Merged known-DID library: OBDb Ford signal sets plus this repo's `PIDs.md`. CC BY-SA 4.0 (see below). |
 | `refs/crossmatch.json` | The answering-but-unnamed DIDs matched against every named Ford DID from any module or model. |
 | `*.ps1`, `SlcanUds.cs`, `preview.html` | The tools that produced all of this (see "Running it"). |
@@ -54,9 +54,10 @@ Every answering DID has a `name`, plus `name_source` and `name_detail` saying wh
 Each reviewed DID also has a `review` block: `reviewed`, and `wican_profile` (`include`, `exclude` or `auto`). Excluded DIDs stay in the discovery JSON; the flag only decides the WiCAN profile.
 
 ### Inferred formulas
-37 DIDs with no published formula have one inferred from the live data. It comes either from moving in step with a known signal, or from Ford's usual scaling for that kind of value landing every reading in a realistic range. They appear as signals with `"id": "INFERRED"`, a confidence (`likely`, `weaker`, `assumed`), the reasoning, and the owner's `decision`. Examples: parking brake `B4:6`, horn `B4`, gear selector `B4` (100 = P, 101 = R, 102 = N, 103 = D, 105 = position after D). The profile uses an inferred formula only for DIDs the owner included, and only if it was accepted, or is undecided and rated `likely` or `assumed`.
+58 DIDs with no published formula have one inferred from the live data (21 of them from a later live poll of the undecoded DIDs on a short drive). It comes either from moving in step with a known signal, or from Ford's usual scaling for that kind of value landing every reading in a realistic range. They appear as signals with `"id": "INFERRED"`, a confidence (`likely`, `weaker`, `assumed`), the reasoning, and the owner's `decision`. Examples: parking brake `B4:6`, horn `B4`, gear selector `B4` (100 = P, 101 = R, 102 = N, 103 = D, 105 = position after D). The profile uses an inferred formula only for DIDs the owner included, and only if it was accepted, or is undecided and rated `likely` or `assumed`.
 
 ### WiCAN profile notes
+- Rear lamp outputs (BCM 40E0 right, 40E2 left) send 2 = off, 1 = on (braking; the rear lamps double as brake lamps), 3 = flashing. BCM 203E is the TPMS "vehicle has moved" flag.
 - On/off values (doors, hood, horn, parking brake) use WiCAN's bit syntax (`B4:6`) with `sensor_type: binary`.
 - WiCAN expressions only produce numbers, so the VIN is in the discovery JSON but not in the profile. Enum values (gear, ignition position) are sent as raw numbers to map in Home Assistant.
 - Units are the module's own (kPa, °C, km/h); let Home Assistant convert.
@@ -84,7 +85,9 @@ Each reviewed DID also has a `review` block: `reviewed`, and `wican_profile` (`i
 - **091A/093C throttle:** degrees vs percent.
 - **1E16 overall ratio:** reads 10.0 in Park.
 - **0415 oil pressure:** absolute kPa; subtract barometric pressure.
-- **Still to do:** the extended diagnostic session (`10 03`) sweep, which is likely to reveal more DIDs.
+
+### Extended diagnostic session (`10 03`)
+A second full sweep in the extended session (engine running) found almost nothing new: PCM, BCM, APIM and PAM answer exactly the same DIDs, plus one BCM DID (41A8, 1 byte) that only answers in this session. The AWDM sweep was stopped at 0x66B5 (59 %); no new DIDs up to there. Ford keeps the extra capability of this session in control services (actuator tests, routines), which this project never sends.
 
 ## Running it
 
@@ -104,7 +107,7 @@ Scripts (set the WiCAN address in `wican.ps1`):
 
 **Safety:** every request passes a read-only allowlist: `0x22`, `0x19` report sub-functions, `0x3E`, `0x24`, `0x10 01/03`, and OBD modes 01/06/09. Writes, resets, routines, DTC clearing and programming sessions are blocked in code. Run with the vehicle parked.
 
-**WiCAN 6.0.0-beta.4 note:** bursty SLCAN transmit crashes the firmware with `assert failed: _node_queue_tx esp_twai_onchip.c:607` (task `br_slcan`). The engine spaces frames at least 4 ms apart (`SlcanUds.MinFrameGapMs`) to avoid it.
+**WiCAN 6.0.0-beta.4 note:** bursty SLCAN transmit crashes the firmware with `assert failed: _node_queue_tx esp_twai_onchip.c:607` (task `br_slcan`). The engine spaces frames at least 4 ms apart (`SlcanUds.MinFrameGapMs`) to avoid it. On 6.0.0-beta.5 a 2 ms gap ran a full five-module sweep without a crash.
 
 ## Sources and licensing
 - OBDb Ford signal sets (https://github.com/OBDb) are licensed **CC BY-SA 4.0**. `refs/ford_did_library.json` and the OBDb-derived decodes in the output files are shared under the same license.
