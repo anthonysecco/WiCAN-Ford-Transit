@@ -1,7 +1,7 @@
 {
     "car_model":  "Ford: Transit 2021 (generated from WiCAN discovery)",
     "init":  "ATE0;ATL0;ATH0;ATR1;ATST32;ATSP6;ATCAF1;",
-    "comment":  "Generated 2026-10-27T21:05:13 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
+    "comment":  "Generated 2026-10-27T21:11:50 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
     "pids":  [
                  {
                      "pid":  "220721",
@@ -137,7 +137,7 @@
                      "parameters":  [
                                         {
                                             "name":  "bcm-12v-t",
-                                            "class":  "none",
+                                            "class":  "temperature",
                                             "expression":  "(B4)-40",
                                             "unit":  "°C",
                                             "min":  "",
@@ -153,7 +153,7 @@
                      "parameters":  [
                                         {
                                             "name":  "bcm-12v-v",
-                                            "class":  "none",
+                                            "class":  "voltage",
                                             "expression":  "(B4/20)+(6)",
                                             "unit":  "V",
                                             "min":  "",
@@ -169,7 +169,7 @@
                      "parameters":  [
                                         {
                                             "name":  "bcm-veh-bat-current",
-                                            "class":  "none",
+                                            "class":  "current",
                                             "expression":  "(B4)-127",
                                             "unit":  "A",
                                             "min":  "",
@@ -316,7 +316,7 @@
                      "parameters":  [
                                         {
                                             "name":  "bcm-tyre-t",
-                                            "class":  "none",
+                                            "class":  "temperature",
                                             "expression":  "(B10)-40",
                                             "unit":  "°C",
                                             "min":  "",
@@ -576,6 +576,22 @@
                                     ]
                  },
                  {
+                     "pid":  "22F405",
+                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
+                     "parameters":  [
+                                        {
+                                            "name":  "pcm-engine-coolant-temperature",
+                                            "class":  "temperature",
+                                            "expression":  "B4-40",
+                                            "unit":  "°C",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/pcm-engine-coolant-temperature"
+                                        }
+                                    ]
+                 },
+                 {
                      "pid":  "22F406",
                      "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
                      "parameters":  [
@@ -677,7 +693,7 @@
                      "parameters":  [
                                         {
                                             "name":  "pcm-iat",
-                                            "class":  "none",
+                                            "class":  "temperature",
                                             "expression":  "B4-40",
                                             "unit":  "°C",
                                             "min":  "",
@@ -757,7 +773,7 @@
                      "parameters":  [
                                         {
                                             "name":  "pcm-cat-temp",
-                                            "class":  "none",
+                                            "class":  "temperature",
                                             "expression":  "([B4:B5]/10)-40",
                                             "unit":  "°C",
                                             "min":  "",
@@ -805,7 +821,7 @@
                      "parameters":  [
                                         {
                                             "name":  "pcm-aat-7e0",
-                                            "class":  "none",
+                                            "class":  "temperature",
                                             "expression":  "(B4)-40",
                                             "unit":  "°C",
                                             "min":  "",
@@ -1008,28 +1024,12 @@
                                     ]
                  },
                  {
-                     "pid":  "22038F",
-                     "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
-                     "parameters":  [
-                                        {
-                                            "name":  "pcm-coolant-temperature",
-                                            "class":  "temperature",
-                                            "expression":  "[S4:S5]/64",
-                                            "unit":  "°C",
-                                            "min":  "",
-                                            "max":  "",
-                                            "type":  "MQTT_Topic",
-                                            "send_to":  "wican/pcm-coolant-temperature"
-                                        }
-                                    ]
-                 },
-                 {
                      "pid":  "2203CA",
                      "pid_init":  "ATSH7E0;STCAFCP7E0,7E8;",
                      "parameters":  [
                                         {
                                             "name":  "pcm-iat2",
-                                            "class":  "none",
+                                            "class":  "temperature",
                                             "expression":  "B4-40",
                                             "unit":  "°C",
                                             "min":  "",
@@ -1269,7 +1269,7 @@
                      "parameters":  [
                                         {
                                             "name":  "pcm-tft",
-                                            "class":  "none",
+                                            "class":  "temperature",
                                             "expression":  "[B4:B5]/16",
                                             "unit":  "°C",
                                             "min":  "",
