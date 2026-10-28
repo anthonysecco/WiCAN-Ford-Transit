@@ -1,7 +1,7 @@
 {
     "car_model":  "Ford: Transit 2021 (generated from WiCAN discovery)",
     "init":  "ATE0;ATL0;ATH0;ATR1;ATST32;ATSP6;ATCAF1;",
-    "comment":  "Generated 2026-10-27T16:12:47 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
+    "comment":  "Generated 2026-10-27T20:04:29 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
     "pids":  [
                  {
                      "pid":  "220721",
@@ -213,6 +213,38 @@
                                     ]
                  },
                  {
+                     "pid":  "2240E0",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-right-rear-lamp-output",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-right-rear-lamp-output"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "2240E2",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-left-rear-lamp-output",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-left-rear-lamp-output"
+                                        }
+                                    ]
+                 },
+                 {
                      "pid":  "2241B9",
                      "pid_init":  "ATSH726;STCAFCP726,72E;",
                      "parameters":  [
@@ -258,6 +290,23 @@
                                             "max":  "",
                                             "type":  "MQTT_Topic",
                                             "send_to":  "wican/bcm-dtc-count-module"
+                                        }
+                                    ]
+                 },
+                 {
+                     "pid":  "22203E",
+                     "pid_init":  "ATSH726;STCAFCP726,72E;",
+                     "parameters":  [
+                                        {
+                                            "name":  "bcm-tpms-vehicle-has-moved",
+                                            "class":  "none",
+                                            "expression":  "B4",
+                                            "unit":  "",
+                                            "min":  "",
+                                            "max":  "",
+                                            "type":  "MQTT_Topic",
+                                            "send_to":  "wican/bcm-tpms-vehicle-has-moved",
+                                            "sensor_type":  "binary"
                                         }
                                     ]
                  },
