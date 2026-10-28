@@ -151,7 +151,7 @@ foreach ($m in $modules) {
         $repo = @($d.signals | Where-Object { $_.expression -and $_.native })
         foreach ($s in $nat) {
             $nm = "$abbr-$((($s.name -replace '[^A-Za-z0-9]+','-').Trim('-')).ToLower())"; if ($nm.Length -gt 48) { $nm = $nm.Substring(0,48) }
-            $ui = UnitInfo $s.unit; $cls = $(if ($s.unit -match '(?i)kpa|psi') { 'pressure' } else { $ui[1] })
+            $ui = UnitInfo $s.unit; $cls = $(if ($s.unit -match '(?i)kpa|psi|inhg') { 'pressure' } else { $ui[1] })
             $params += [ordered]@{ name = $nm; class = $cls; expression = $s.wican_expression; unit = $s.unit; min = ''; max = ''; type = 'MQTT_Topic'; send_to = "wican/$nm" }
         }
         if (-not $nat) { foreach ($s in $repo) { $params += [ordered]@{ name = "$abbr-$($s.id.ToLower() -replace '_','-')"; class = 'none'; expression = $s.expression; unit = $s.unit; min = ''; max = ''; type = 'MQTT_Topic'; send_to = "wican/$abbr-$($s.id.ToLower() -replace '_','-')" } } }

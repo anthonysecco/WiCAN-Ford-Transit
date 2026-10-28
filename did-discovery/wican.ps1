@@ -176,12 +176,12 @@ function Convert-TorqueExpr([byte[]]$data, [string]$formula, [bool]$Signed = $fa
 # ---- Native units (user rule: report what the module's own scaling yields; HA converts) ----------
 # Per-DID native formulas that override every source. Torque-style (A = first data byte).
 $script:NativeOverrides = @{
-    '726:2813' = @{ formula = '((A*256)+B)/3+22/3'; unit = 'kPa'; wican = '[B4:B5]/3+22/3'; nullraw = 3000; note = "Ford native kPa (openRS definition); OBDb's /20 psi and the /10 inHg variant are conversions of this" }
-    '726:2814' = @{ formula = '((A*256)+B)/3+22/3'; unit = 'kPa'; wican = '[B4:B5]/3+22/3'; nullraw = 3000; note = 'Ford native kPa' }
-    '726:2815' = @{ formula = '((A*256)+B)/3+22/3'; unit = 'kPa'; wican = '[B4:B5]/3+22/3'; nullraw = 3000; note = 'Ford native kPa' }
-    '726:2816' = @{ formula = '((A*256)+B)/3+22/3'; unit = 'kPa'; wican = '[B4:B5]/3+22/3'; nullraw = 3000; note = 'Ford native kPa' }
-    '726:2817' = @{ formula = '((A*256)+B)/3+22/3'; unit = 'kPa'; wican = '[B4:B5]/3+22/3'; nullraw = 3000; note = 'Ford native kPa' }
-    '726:2818' = @{ formula = '((A*256)+B)/3+22/3'; unit = 'kPa'; wican = '[B4:B5]/3+22/3'; nullraw = 3000; note = 'Ford native kPa' }
+    '726:2813' = @{ formula = '((A*256)+B)/10'; unit = 'inHg'; wican = '[B4:B5]/10'; nullraw = 3000; note = "Ford native kPa (openRS definition); OBDb's /20 psi and the /10 inHg variant are conversions of this" }
+    '726:2814' = @{ formula = '((A*256)+B)/10'; unit = 'inHg'; wican = '[B4:B5]/10'; nullraw = 3000; note = 'Ford native 0.1 inHg per step' }
+    '726:2815' = @{ formula = '((A*256)+B)/10'; unit = 'inHg'; wican = '[B4:B5]/10'; nullraw = 3000; note = 'Ford native 0.1 inHg per step' }
+    '726:2816' = @{ formula = '((A*256)+B)/10'; unit = 'inHg'; wican = '[B4:B5]/10'; nullraw = 3000; note = 'Ford native 0.1 inHg per step' }
+    '726:2817' = @{ formula = '((A*256)+B)/10'; unit = 'inHg'; wican = '[B4:B5]/10'; nullraw = 3000; note = 'Ford native 0.1 inHg per step' }
+    '726:2818' = @{ formula = '((A*256)+B)/10'; unit = 'inHg'; wican = '[B4:B5]/10'; nullraw = 3000; note = 'Ford native 0.1 inHg per step' }
     '726:2827' = @{ formula = 'A'; unit = 'psi'; wican = 'B4'; note = 'one byte of whole psi (57 front on this van): the module stores psi' }
     '726:2828' = @{ formula = 'A'; unit = 'psi'; wican = 'B4'; note = 'one byte of whole psi (75 rear on this van): the module stores psi' }
 }

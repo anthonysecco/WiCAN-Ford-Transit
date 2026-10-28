@@ -1,7 +1,7 @@
 {
     "car_model":  "Ford: Transit 2021 (generated from WiCAN discovery)",
     "init":  "ATE0;ATL0;ATH0;ATR1;ATST32;ATSP6;ATCAF1;",
-    "comment":  "Generated 2026-10-27T20:04:29 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
+    "comment":  "Generated 2026-10-27T21:05:13 from live reads of VIN 1FTBW2CG5M******* and the owner\u0027s review of which DIDs to include. Expressions: B4 = first data byte.",
     "pids":  [
                  {
                      "pid":  "220721",
@@ -333,8 +333,8 @@
                                         {
                                             "name":  "bcm-front-left-tire-pressure",
                                             "class":  "pressure",
-                                            "expression":  "[B4:B5]/3+22/3",
-                                            "unit":  "kPa",
+                                            "expression":  "[B4:B5]/10",
+                                            "unit":  "inHg",
                                             "min":  "",
                                             "max":  "",
                                             "type":  "MQTT_Topic",
@@ -349,8 +349,8 @@
                                         {
                                             "name":  "bcm-front-right-tire-pressure",
                                             "class":  "pressure",
-                                            "expression":  "[B4:B5]/3+22/3",
-                                            "unit":  "kPa",
+                                            "expression":  "[B4:B5]/10",
+                                            "unit":  "inHg",
                                             "min":  "",
                                             "max":  "",
                                             "type":  "MQTT_Topic",
@@ -365,8 +365,8 @@
                                         {
                                             "name":  "bcm-rear-right-outer-tire-pressure",
                                             "class":  "pressure",
-                                            "expression":  "[B4:B5]/3+22/3",
-                                            "unit":  "kPa",
+                                            "expression":  "[B4:B5]/10",
+                                            "unit":  "inHg",
                                             "min":  "",
                                             "max":  "",
                                             "type":  "MQTT_Topic",
@@ -381,8 +381,8 @@
                                         {
                                             "name":  "bcm-rear-left-outer-tire-pressure",
                                             "class":  "pressure",
-                                            "expression":  "[B4:B5]/3+22/3",
-                                            "unit":  "kPa",
+                                            "expression":  "[B4:B5]/10",
+                                            "unit":  "inHg",
                                             "min":  "",
                                             "max":  "",
                                             "type":  "MQTT_Topic",
@@ -397,8 +397,8 @@
                                         {
                                             "name":  "bcm-tire-pressure-rear-right-inner",
                                             "class":  "pressure",
-                                            "expression":  "[B4:B5]/3+22/3",
-                                            "unit":  "kPa",
+                                            "expression":  "[B4:B5]/10",
+                                            "unit":  "inHg",
                                             "min":  "",
                                             "max":  "",
                                             "type":  "MQTT_Topic",
@@ -413,8 +413,8 @@
                                         {
                                             "name":  "bcm-tire-pressure-rear-left-inner",
                                             "class":  "pressure",
-                                            "expression":  "[B4:B5]/3+22/3",
-                                            "unit":  "kPa",
+                                            "expression":  "[B4:B5]/10",
+                                            "unit":  "inHg",
                                             "min":  "",
                                             "max":  "",
                                             "type":  "MQTT_Topic",
