@@ -6,7 +6,7 @@
                     "vin":  "1FTBW2CG5M*******",
                     "vin_notes":  "10th char M = 2021; 11th char K = Kansas City Assembly"
                 },
-    "generated":  "2026-10-27T21:05:13",
+    "generated":  "2026-10-27T21:11:49",
     "scanned_with":  "WiCAN Pro fw 6.0.0-beta.5, native CAN ISO-TP via /api/uds/request",
     "bus":  {
                 "pins":  "6/14 (HS-CAN)",
@@ -23159,12 +23159,13 @@
                                                              "notes":  "Reference anchor for the F4xx mirror rule."
                                                          }
                                                      ],
-                                         "name":  "Cylinder head temperature",
-                                         "name_source":  "community",
-                                         "name_detail":  "OBDb Ford-E-Series",
+                                         "name":  "Engine coolant temperature",
+                                         "name_source":  "owner",
+                                         "name_detail":  "named by the owner during review",
+                                         "suggested_name":  "Cylinder head temperature",
                                          "review":  {
                                                         "reviewed":  false,
-                                                        "wican_profile":  "exclude"
+                                                        "wican_profile":  "include"
                                                     }
                                      },
                                      {
@@ -28034,7 +28035,7 @@
                                          "name_detail":  "OBDb Ford-Transit",
                                          "review":  {
                                                         "reviewed":  false,
-                                                        "wican_profile":  "include"
+                                                        "wican_profile":  "exclude"
                                                     }
                                      },
                                      {

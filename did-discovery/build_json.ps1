@@ -135,7 +135,9 @@ $discovery = [ordered]@{
 
 # ---- WiCAN profile: live, decodable values only (unsigned, byte-aligned), plus your verified repo expressions ----
 function UnitInfo([string]$u) {
-    switch -Exact ($u) { 'kPa' { return @('kPa','pressure') } 'psi' { return @('psi','pressure') } }
+    switch -Exact ($u) { 'kPa' { return @('kPa','pressure') } 'psi' { return @('psi','pressure') } 'inHg' { return @('inHg','pressure') }
+        'V' { return @('V','voltage') } 'A' { return @('A','current') } 'km/h' { return @('km/h','speed') } 'km' { return @('km','distance') } }
+    if ($u -match '^.?.C$') { return @($u,'temperature') }     # display units ("°C") arrive here as well as OBDb's "celsius"
     switch ($u) { 'celsius' { @("$([char]0xB0)C",'temperature') } 'percent' { @('%','none') } 'volts' { @('V','voltage') } 'amps' { @('A','current') }
         'kilopascal' { @('kPa','pressure') } 'psi' { @('psi','pressure') } 'kilometersPerHour' { @('km/h','speed') } 'kilometers' { @('km','distance') }
         'rpm' { @('rpm','none') } 'offon' { @('','none') } 'noyes' { @('','none') } 'scalar' { @('','none') } 'unknown' { @('','none') } default { @($u,'none') } }
@@ -154,7 +156,7 @@ foreach ($m in $modules) {
             $ui = UnitInfo $s.unit; $cls = $(if ($s.unit -match '(?i)kpa|psi|inhg') { 'pressure' } else { $ui[1] })
             $params += [ordered]@{ name = $nm; class = $cls; expression = $s.wican_expression; unit = $s.unit; min = ''; max = ''; type = 'MQTT_Topic'; send_to = "wican/$nm" }
         }
-        if (-not $nat) { foreach ($s in $repo) { $params += [ordered]@{ name = "$abbr-$($s.id.ToLower() -replace '_','-')"; class = 'none'; expression = $s.expression; unit = $s.unit; min = ''; max = ''; type = 'MQTT_Topic'; send_to = "wican/$abbr-$($s.id.ToLower() -replace '_','-')" } } }
+        if (-not $nat) { foreach ($s in $repo) { $params += [ordered]@{ name = "$abbr-$($s.id.ToLower() -replace '_','-')"; class = (UnitInfo "$($s.unit)")[1]; expression = $s.expression; unit = $s.unit; min = ''; max = ''; type = 'MQTT_Topic'; send_to = "wican/$abbr-$($s.id.ToLower() -replace '_','-')" } } }
         if (-not $nat -and -not $repo) {
             foreach ($s in @($d.signals | Where-Object { $_.source -like 'OBDb*' })) {
                 $f = $s.formula; if (-not $f -or $null -eq $s.value -or $f.map -or $f.sign) { continue }

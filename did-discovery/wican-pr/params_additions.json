@@ -1,0 +1,410 @@
+{
+  "AWD_CLUTCH_MOTOR_POS": {
+    "description": "AWD coupling clutch motor position",
+    "settings": {
+      "unit": "°",
+      "class": "none"
+    }
+  },
+  "AWD_FRONT_AXLE_DISC": {
+    "description": "Front axle disconnect status (2 = connected)",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "AWD_CLUTCH_TQ_CAP": {
+    "description": "AWD clutch torque capacity to the front axle",
+    "settings": {
+      "unit": "Nm",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "AWD_CLUTCH_MOTOR_DUTY": {
+    "description": "AWD clutch motor duty cycle",
+    "settings": {
+      "unit": "%",
+      "class": "none",
+      "min": "-100",
+      "max": "100"
+    }
+  },
+  "AWD_CLUTCH_TQ_REQ": {
+    "description": "AWD clutch torque requested",
+    "settings": {
+      "unit": "Nm",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "LV_QUIESCENT_A": {
+    "description": "12v Battery quiescent current",
+    "settings": {
+      "unit": "mA",
+      "class": "current"
+    }
+  },
+  "LV_AGE": {
+    "description": "12v Battery age in service",
+    "settings": {
+      "unit": "h",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "LV_TEMP": {
+    "description": "12v Battery Temperature",
+    "settings": {
+      "unit": "°C",
+      "class": "temperature",
+      "min": "-40",
+      "max": "100"
+    }
+  },
+  "IGNITION_POS": {
+    "description": "Ignition switch position (raw state)",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "REVERSE_LAMPS": {
+    "description": "Reverse lamps on",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "LAMP_RR_OUTPUT": {
+    "description": "Right rear stop/turn lamp output (1 on, 2 off, 3 flashing)",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "LAMP_RL_OUTPUT": {
+    "description": "Left rear stop/turn lamp output (1 on, 2 off, 3 flashing)",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "START_STOP_STATE": {
+    "description": "Engine start/run state bit field (auto start-stop)",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "HORN": {
+    "description": "Horn switch",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "BCM_DTC_COUNT": {
+    "description": "Trouble codes stored in the body control module",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "TPMS_MOVED": {
+    "description": "TPMS: vehicle has moved since start",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "TPMS_TYRE_T": {
+    "description": "Tire temperature reported by the TPMS",
+    "settings": {
+      "unit": "°C",
+      "class": "temperature"
+    }
+  },
+  "TYRE_P_RRI": {
+    "description": "Tyre Pressure Rear Right Inner (dual rear wheels)",
+    "settings": {
+      "unit": "psi",
+      "class": "pressure",
+      "min": "0"
+    }
+  },
+  "TYRE_P_RLI": {
+    "description": "Tyre Pressure Rear Left Inner (dual rear wheels)",
+    "settings": {
+      "unit": "psi",
+      "class": "pressure",
+      "min": "0"
+    }
+  },
+  "TYRE_P_PLACARD_F": {
+    "description": "Front tyre placard (recommended) pressure",
+    "settings": {
+      "unit": "psi",
+      "class": "pressure",
+      "min": "0"
+    }
+  },
+  "TYRE_P_PLACARD_R": {
+    "description": "Rear tyre placard (recommended) pressure",
+    "settings": {
+      "unit": "psi",
+      "class": "pressure",
+      "min": "0"
+    }
+  },
+  "DOOR_FL": {
+    "description": "Driver door open",
+    "settings": {
+      "unit": "",
+      "class": "door",
+      "type": "binary_sensor"
+    }
+  },
+  "DOOR_FR": {
+    "description": "Passenger door open",
+    "settings": {
+      "unit": "",
+      "class": "door",
+      "type": "binary_sensor"
+    }
+  },
+  "DOOR_RL": {
+    "description": "Left rear / sliding door open",
+    "settings": {
+      "unit": "",
+      "class": "door",
+      "type": "binary_sensor"
+    }
+  },
+  "DOOR_RR": {
+    "description": "Right rear / sliding door open",
+    "settings": {
+      "unit": "",
+      "class": "door",
+      "type": "binary_sensor"
+    }
+  },
+  "DOOR_CARGO": {
+    "description": "Rear cargo door open",
+    "settings": {
+      "unit": "",
+      "class": "door",
+      "type": "binary_sensor"
+    }
+  },
+  "HOOD": {
+    "description": "Hood open",
+    "settings": {
+      "unit": "",
+      "class": "opening",
+      "type": "binary_sensor"
+    }
+  },
+  "ENGINE_LOAD": {
+    "description": "Calculated engine load",
+    "settings": {
+      "unit": "%",
+      "class": "none",
+      "min": "0",
+      "max": "100"
+    }
+  },
+  "LTFT": {
+    "description": "Long Term Fuel Trim",
+    "settings": {
+      "unit": "%",
+      "class": "none"
+    }
+  },
+  "STFT_B2": {
+    "description": "Short Term Fuel Trim, bank 2",
+    "settings": {
+      "unit": "%",
+      "class": "none"
+    }
+  },
+  "LTFT_B2": {
+    "description": "Long Term Fuel Trim, bank 2",
+    "settings": {
+      "unit": "%",
+      "class": "none"
+    }
+  },
+  "TIMING_ADVANCE": {
+    "description": "Ignition timing advance",
+    "settings": {
+      "unit": "°",
+      "class": "none"
+    }
+  },
+  "RUN_TIME": {
+    "description": "Time since engine start",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "CAT_TEMP": {
+    "description": "Catalyst temperature, bank 1 sensor 1",
+    "settings": {
+      "unit": "°C",
+      "class": "temperature"
+    }
+  },
+  "ENGINE_LOAD_ABS": {
+    "description": "Absolute engine load",
+    "settings": {
+      "unit": "%",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "AFR_CMD": {
+    "description": "Commanded air-fuel ratio",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "ENGINE_TORQUE_PCT": {
+    "description": "Actual engine torque, percent of reference",
+    "settings": {
+      "unit": "%",
+      "class": "none"
+    }
+  },
+  "ENGINE_TORQUE_REF": {
+    "description": "Engine reference torque",
+    "settings": {
+      "unit": "Nm",
+      "class": "none"
+    }
+  },
+  "LAMBDA_CMD": {
+    "description": "Lambda, commanded",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "ACCEL_PEDAL": {
+    "description": "Accelerator pedal position",
+    "settings": {
+      "unit": "%",
+      "class": "none",
+      "min": "0",
+      "max": "100"
+    }
+  },
+  "CYL_HEAD_TEMP": {
+    "description": "Cylinder head temperature",
+    "settings": {
+      "unit": "°C",
+      "class": "temperature"
+    }
+  },
+  "THROTTLE_INLET_P": {
+    "description": "Throttle inlet pressure (absolute)",
+    "settings": {
+      "unit": "kPa",
+      "class": "pressure"
+    }
+  },
+  "MISFIRE_COUNT": {
+    "description": "Misfire count",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "BARO": {
+    "description": "Barometric pressure",
+    "settings": {
+      "unit": "kPa",
+      "class": "atmospheric_pressure"
+    }
+  },
+  "MAP": {
+    "description": "Intake manifold absolute pressure",
+    "settings": {
+      "unit": "kPa",
+      "class": "pressure"
+    }
+  },
+  "BYPASS_VALVE": {
+    "description": "Bypass valve",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "THROTTLE_INLET_P_D": {
+    "description": "Throttle inlet pressure desired (absolute)",
+    "settings": {
+      "unit": "kPa",
+      "class": "pressure"
+    }
+  },
+  "AC_REFRIGERANT_P": {
+    "description": "A/C refrigerant pressure",
+    "settings": {
+      "unit": "kPa",
+      "class": "pressure"
+    }
+  },
+  "TCC_RATIO": {
+    "description": "Torque converter speed ratio",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "TRANS_LINE_P_D": {
+    "description": "Transmission line pressure desired",
+    "settings": {
+      "unit": "kPa",
+      "class": "pressure"
+    }
+  },
+  "GEAR_ENGAGED": {
+    "description": "Transmission gear engaged",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "GEAR_SELECTOR": {
+    "description": "Gear selector position (100 P, 101 R, 102 N, 103 D, 105 after D)",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "TRANS_PARK": {
+    "description": "Transmission in park",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "BRAKE_PEDAL": {
+    "description": "Brake pedal applied",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  }
+}
