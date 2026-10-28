@@ -6,7 +6,7 @@
                     "vin":  "1FTBW2CG5M*******",
                     "vin_notes":  "10th char M = 2021; 11th char K = Kansas City Assembly"
                 },
-    "generated":  "2026-10-27T20:04:28",
+    "generated":  "2026-10-27T21:05:13",
     "scanned_with":  "WiCAN Pro fw 6.0.0-beta.5, native CAN ISO-TP via /api/uds/request",
     "bus":  {
                 "pins":  "6/14 (HS-CAN)",
@@ -11791,13 +11791,13 @@
                                                              "name":  "Front left tire pressure",
                                                              "group":  "native",
                                                              "native":  true,
-                                                             "value":  374.3333,
-                                                             "display":  "374.3333 kPa",
-                                                             "unit":  "kPa",
-                                                             "formula":  "((A*256)+B)/3+22/3",
-                                                             "wican_expression":  "[B4:B5]/3+22/3",
+                                                             "value":  110.1,
+                                                             "display":  "110.1 inHg",
+                                                             "unit":  "inHg",
+                                                             "formula":  "((A*256)+B)/10",
+                                                             "wican_expression":  "[B4:B5]/10",
                                                              "source":  "native module definition",
-                                                             "notes":  "Ford native kPa (openRS definition); OBDb\u0027s /20 psi and the /10 inHg variant are conversions of this"
+                                                             "notes":  "Ford native 0.1 inHg per step (3000 = 300.0 inHg = no sensor); the /3+22/3 kPa and /20 psi decodings published elsewhere agree within ~1.5 % at normal pressures"
                                                          },
                                                          {
                                                              "id":  "TRANSIT_TP_FL",
@@ -11928,13 +11928,13 @@
                                                              "name":  "Front right tire pressure",
                                                              "group":  "native",
                                                              "native":  true,
-                                                             "value":  367.6667,
-                                                             "display":  "367.6667 kPa",
-                                                             "unit":  "kPa",
-                                                             "formula":  "((A*256)+B)/3+22/3",
-                                                             "wican_expression":  "[B4:B5]/3+22/3",
+                                                             "value":  108.1,
+                                                             "display":  "108.1 inHg",
+                                                             "unit":  "inHg",
+                                                             "formula":  "((A*256)+B)/10",
+                                                             "wican_expression":  "[B4:B5]/10",
                                                              "source":  "native module definition",
-                                                             "notes":  "Ford native kPa"
+                                                             "notes":  "Ford native 0.1 inHg per step"
                                                          },
                                                          {
                                                              "id":  "TRANSIT_TP_FR",
@@ -12035,13 +12035,13 @@
                                                              "name":  "Rear right outer tire pressure",
                                                              "group":  "native",
                                                              "native":  true,
-                                                             "value":  477.6667,
-                                                             "display":  "477.6667 kPa",
-                                                             "unit":  "kPa",
-                                                             "formula":  "((A*256)+B)/3+22/3",
-                                                             "wican_expression":  "[B4:B5]/3+22/3",
+                                                             "value":  141.1,
+                                                             "display":  "141.1 inHg",
+                                                             "unit":  "inHg",
+                                                             "formula":  "((A*256)+B)/10",
+                                                             "wican_expression":  "[B4:B5]/10",
                                                              "source":  "native module definition",
-                                                             "notes":  "Ford native kPa"
+                                                             "notes":  "Ford native 0.1 inHg per step"
                                                          },
                                                          {
                                                              "id":  "TRANSIT_TP_RRO",
@@ -12142,13 +12142,13 @@
                                                              "name":  "Rear left outer tire pressure",
                                                              "group":  "native",
                                                              "native":  true,
-                                                             "value":  492.6667,
-                                                             "display":  "492.6667 kPa",
-                                                             "unit":  "kPa",
-                                                             "formula":  "((A*256)+B)/3+22/3",
-                                                             "wican_expression":  "[B4:B5]/3+22/3",
+                                                             "value":  145.6,
+                                                             "display":  "145.6 inHg",
+                                                             "unit":  "inHg",
+                                                             "formula":  "((A*256)+B)/10",
+                                                             "wican_expression":  "[B4:B5]/10",
                                                              "source":  "native module definition",
-                                                             "notes":  "Ford native kPa"
+                                                             "notes":  "Ford native 0.1 inHg per step"
                                                          },
                                                          {
                                                              "id":  "TRANSIT_TP_RLO",
@@ -12251,11 +12251,11 @@
                                                              "native":  true,
                                                              "value":  null,
                                                              "display":  "not available",
-                                                             "unit":  "kPa",
-                                                             "formula":  "((A*256)+B)/3+22/3",
-                                                             "wican_expression":  "[B4:B5]/3+22/3",
+                                                             "unit":  "inHg",
+                                                             "formula":  "((A*256)+B)/10",
+                                                             "wican_expression":  "[B4:B5]/10",
                                                              "source":  "native module definition",
-                                                             "notes":  "Ford native kPa"
+                                                             "notes":  "Ford native 0.1 inHg per step"
                                                          },
                                                          {
                                                              "id":  "TRANSIT_TP_RRI",
@@ -12313,11 +12313,11 @@
                                                              "native":  true,
                                                              "value":  null,
                                                              "display":  "not available",
-                                                             "unit":  "kPa",
-                                                             "formula":  "((A*256)+B)/3+22/3",
-                                                             "wican_expression":  "[B4:B5]/3+22/3",
+                                                             "unit":  "inHg",
+                                                             "formula":  "((A*256)+B)/10",
+                                                             "wican_expression":  "[B4:B5]/10",
                                                              "source":  "native module definition",
-                                                             "notes":  "Ford native kPa"
+                                                             "notes":  "Ford native 0.1 inHg per step"
                                                          },
                                                          {
                                                              "id":  "TRANSIT_TP_RLI",

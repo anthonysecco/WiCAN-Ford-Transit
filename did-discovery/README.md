@@ -32,7 +32,7 @@ The IPC, ABS, RCM, HVAC, SCCM, IPMA, TCU and PSCM are on the second bus (pins 3/
 
 ### Most useful decoded values (all native units)
 - **12 V battery (BCM 40xx/41xx/42xx):** state of charge, voltage, current, temperature, age, quiescent current, start/stop readiness flags, cumulative charge/discharge counters, and the second battery's voltage and current.
-- **Tires (BCM 2813–2818, 280B–2812, 2827/2828):** per-wheel pressure in kPa (`raw/3 + 22/3`), placard pressure in psi (stored that way), tire temperature, sensor IDs.
+- **Tires (BCM 2813–2818, 280B–2812, 2827/2828):** per-wheel pressure in inHg (`raw/10`, 0.1 inHg per step; 3000 = no sensor), placard pressure in psi (stored that way), tire temperature, sensor IDs.
 - **Powertrain (PCM):** odometer, fuel level, oil life, coolant/cylinder-head temperature, transmission fluid temperature, gear (enum: 70 = P, 60 = R, 50 = N, 1–10 forward), speed, RPM, fuel rate, A/C pressure, fuel trims, knock and misfire counters.
 - **Position (APIM 8012):** SYNC GPS latitude/longitude (resolution about 1 arcminute), altitude, heading, speed.
 
@@ -60,7 +60,7 @@ Each reviewed DID also has a `review` block: `reviewed`, and `wican_profile` (`i
 - Rear lamp outputs (BCM 40E0 right, 40E2 left) send 2 = off, 1 = on (braking; the rear lamps double as brake lamps), 3 = flashing. BCM 203E is the TPMS "vehicle has moved" flag.
 - On/off values (doors, hood, horn, parking brake) use WiCAN's bit syntax (`B4:6`) with `sensor_type: binary`.
 - WiCAN expressions only produce numbers, so the VIN is in the discovery JSON but not in the profile. Enum values (gear, ignition position) are sent as raw numbers to map in Home Assistant.
-- Units are the module's own (kPa, °C, km/h); let Home Assistant convert.
+- Units are the module's own (kPa, °C, km/h; tire pressure in inHg); let Home Assistant convert.
 - **AWD front/rear torque split:** no DID reports a percentage. The profile carries the inputs to estimate it:
   - AWDM 0724, AWD clutch torque capacity to the front axle (`[B4:B5]` Nm);
   - AWDM 072C, torque requested (`[B4:B5]` Nm);
