@@ -87,6 +87,46 @@ any speeds that do unusually well or badly.
 - The per-mph plot is good at revealing small features: shift points, converter unlock, or a speed where the
   transmission hunts between gears.
 
+## PKE: a driving-smoothness score
+
+**PKE (positive kinetic energy)** measures how much speeding up a drive involves per km. Regulators use it to describe
+how aggressive or stop-and-go a driving pattern is. The PCM keeps it in mode 09 (info type 0x18) as
+`pcm-pke-recent` and `pcm-pke-lifetime`.
+
+**How it is calculated:**
+- Every time the van speeds up, it adds (end speed² − start speed²). Slowing down is ignored.
+- The total is divided by distance.
+- The result is an acceleration-like figure. The PCM reports it in (km/h)² per km, which is km/h². Divide by 12,960
+  to get m/s².
+
+**Why it matters:** every speed-up puts kinetic energy into the van's mass. Braking turns it into heat and it is lost.
+High PKE means more speeding up and braking, so more fuel per km. Low PKE means smooth, steady driving. Driving style
+and route (city stops, traffic) both raise it. Hills do not, because it only looks at speed.
+
+**Baseline (2026-11-01):**
+
+| | Value | m/s² |
+|---|---|---|
+| Lifetime | 5,456 km/h² | ≈ 0.42 |
+| Recent | 5,650 km/h² | ≈ 0.44 |
+
+The standard EPA test cycles score about 0.2 m/s² (highway), 0.35–0.4 (city) and 0.6–0.7 (aggressive). That makes
+this van's lifetime driving typical city/mixed.
+
+**Trip PKE:**
+- **From the counters:** (lifetime PKE × lifetime distance after − the same before) ÷ trip distance. The lifetime value
+  has coarse steps, so this is accurate to a few percent only on trips of 100 km or more.
+- **Live:** sum the positive changes in speed² from `pcm-vehicle-speed-high-resolution` in Home Assistant, divided by
+  distance. Slow polling misses brief speed-ups and reads low. Poll speed at 1 s or faster, and compare live PKE only
+  with live PKE.
+
+**How to use it:**
+- Show trip PKE beside L/100 km. Two trips with the same fuel use but different PKE show whether the route or the
+  driving made the difference.
+- Track a smoothness trend: trip PKE ÷ lifetime PKE (below 1 = smoother than usual).
+- Pair it with the share of time coasting with fuel cut. Low PKE plus a high coasting share is the efficient pattern.
+- Use it to normalise comparisons: a curve-fit MPG drop on a high-PKE trip is probably traffic, not the van.
+
 ## 3. Driver feedback loop
 
 1. **Live "vs baseline" gauge:** current MPG compared with the curve's value at the current speed (e.g. "8 % worse than
@@ -95,6 +135,7 @@ any speeds that do unusually well or badly.
 3. **Live acceleration indicator:** green/amber/red against the efficiency map while accelerating.
 4. **Trip report:**
    - acceleration score;
+   - PKE vs baseline (smoothness);
    - share of time coasting with fuel cut;
    - idle share;
    - engine efficiency (energy ÷ fuel);
@@ -102,11 +143,45 @@ any speeds that do unusually well or badly.
 5. **Seasonal re-fit:** the map and curve get better as data builds up. Winter fuel blends, tire changes and roof
    loads show up as shifts.
 
+## Recommended refresh rates
+
+The WiCAN polls the whole profile in turn, so with everything enabled each value refreshes only every few seconds. Poll
+each signal only as fast as it changes, and leave the time for the signals that need it.
+
+| Use | Signals | Refresh |
+|---|---|---|
+| Acceleration coaching (only while coaching) | `pcm-vehicle-speed-high-resolution`, `pcm-engine-speed`, `pcm-actual-engine-percent-torque`, `pcm-fuel-rate`, accelerator pedal (to add), `pcm-throttle-position`, `pcm-current-gear`, `pcm-torque-converter-slip-ratio`, `pcm-lambda-commanded` | 200–500 ms (2–5 Hz) |
+| Live MPG, steady-cruise detection, live PKE | `pcm-vehicle-speed-high-resolution`, `pcm-fuel-rate`, `pcm-throttle-position`, `pcm-current-gear`, `pcm-torque-converter-slip-ratio` | 1 s |
+| Load and state flags | `pcm-engine-load`, `pcm-a-c-compressor-state`, `pcm-gear-shift`, `pcm-commanded-equivalence-ratio-afr-desired-bank` | 2–5 s |
+| Temperatures | `pcm-engine-coolant-temperature`, `pcm-transmission-oil-temperature`, `pcm-intake-temperature-alternate` | 10–30 s |
+| Air density | `pcm-barometric-pressure`, `pcm-ambient-air-temperature` | 30–60 s |
+| Tires and fuel level | TPMS pressures and temperature, `pcm-fuel-level` | 60 s |
+| Distance, fuel and energy counters | `pcm-distance-*`, `pcm-fuel-used-*`, `pcm-engine-energy-*` (0x17, 0x18) | 30 s while measuring segments, else 60 s |
+| Time, PKE and other counters | `pcm-pke-*` and info types 0x16, 0x19, 0x22, 0x24 | 60 s, or at trip start and end |
+| Static | `pcm-engine-reference-torque` | once per drive |
+
+**Mode 09 counter resolution** (measured 2026-11-01). The counters update live while the engine runs, and the time
+counters match the clock to the second. Their steps are coarse, so they suit windows of a few minutes, not instant
+gauges:
+
+| Counter | Step | Highway, ~100 km/h | Window for ~1 % accuracy |
+|---|---|---|---|
+| Distance | 0.1 km | one step every 3.6 s | ~10 km |
+| Fuel | 0.01 L | one step every ~2.6 s (~14 L/h) | ~4–5 min |
+| Engine energy | 0.1 kWh | one step every ~10 s (~35 kW) | ~15–20 min cruising |
+| Times | 1 s | every second | — |
+
+- Use the live signals for instant values, and the counters as the reference: integrate `pcm-fuel-rate` over a trip
+  and compare it with the fuel counter's change. The ratio is a correction factor for the live gauges; re-check it each
+  tank.
+- For short windows (the MPG-vs-MPH curve), take distance from integrated live speed rather than the 0.1 km counter.
+- Each counter read is a multi-frame reply (info type 0x16 is six frames), so polling them faster than every 30 s
+  wastes bus time without adding information.
+
 ## Practical constraints
 
-- **Sample rate:** the WiCAN polls the whole profile in turn, so each value refreshes only every few seconds. That is
-  enough for steady cruise but too slow for acceleration. Acceleration work needs a lean poll list at a few Hz: speed,
-  RPM, torque, fuel rate, pedal, gear, converter slip and lambda.
+- **Per-signal rates:** check whether the WiCAN firmware supports a poll period per parameter. If it doesn't, switch
+  between two profiles: a lean coaching list and the full list.
 - **Where it runs:**
   - Home Assistant can handle the live gauges and trip statistics with template sensors and utility meters.
   - The efficiency map and the curve fit are better done offline: export the recorded history (Home Assistant recorder
