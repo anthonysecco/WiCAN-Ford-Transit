@@ -94,10 +94,14 @@ how aggressive or stop-and-go a driving pattern is. The PCM keeps it in mode 09 
 `pcm-pke-recent` and `pcm-pke-lifetime`.
 
 **How it is calculated:**
+- PKE = Σ max(0, v₂² − v₁²) ÷ distance, summed over every sampling step.
 - Every time the van speeds up, it adds (end speed² − start speed²). Slowing down is ignored.
-- The total is divided by distance.
-- The result is an acceleration-like figure. The PCM reports it in (km/h)² per km, which is km/h². Divide by 12,960
-  to get m/s².
+- The result is an acceleration-like figure. The PCM appears to report it in (km/h)² per km, which is km/h². Divide by
+  12,960 to get m/s². This scaling is assumed, not yet verified against logged speed.
+- Example: one stop and launch to 50 km/h (13.9 m/s) every km adds 13.9² = 193 m²/s² per 1,000 m, so PKE = 0.19 m/s².
+  Two per km gives 0.39 m/s².
+- Physical meaning: ½ × mass × PKE is the average force spent on speeding up. For a ~4,000 kg RV at 0.42 m/s² that is
+  ~840 N, about the same as aero drag at 100 km/h. It is only lost if the speed is later braked away.
 
 **Why it matters:** every speed-up puts kinetic energy into the van's mass. Braking turns it into heat and it is lost.
 High PKE means more speeding up and braking, so more fuel per km. Low PKE means smooth, steady driving. Driving style
@@ -110,8 +114,23 @@ and route (city stops, traffic) both raise it. Hills do not, because it only loo
 | Lifetime | 5,456 km/h² | ≈ 0.42 |
 | Recent | 5,650 km/h² | ≈ 0.44 |
 
-The standard EPA test cycles score about 0.2 m/s² (highway), 0.35–0.4 (city) and 0.6–0.7 (aggressive). That makes
-this van's lifetime driving typical city/mixed.
+PKE of the EPA test cycles, calculated from EPA's published 1-second speed traces:
+
+| Cycle | Purpose | Avg speed | Stops | Max accel | PKE |
+|---|---|---|---|---|---|
+| HWFET | Highway fuel economy | 78 km/h | 1 | 1.43 m/s² | 0.14 m/s² (1,829 km/h²) |
+| UDDS / FTP-75 | City fuel economy and emissions | 32–34 km/h | 17–22 | 1.48 m/s² | 0.35 m/s² (4,508–4,536 km/h²) |
+| SC03 | A/C on, hot day | 35 km/h | 6 | 2.28 m/s² | 0.41 m/s² (5,343 km/h²) |
+| US06 | Aggressive, high speed | 77 km/h | 5 | 3.76 m/s² | 0.42 m/s² (5,454 km/h²) |
+
+- PKE is per distance, so high-speed driving dilutes it. US06 has the hardest launches but scores close to SC03
+  because it covers more km between them.
+- The van's lifetime 0.42 m/s² matches US06, but it is not directly comparable:
+  - The PCM probably samples speed far faster than once a second. That catches small speed wobbles (cruise-control
+    hunting, rough roads) that the smooth EPA traces leave out.
+  - The scaling above is not yet verified.
+- Use PKE as a score against the van's own history, not against the EPA numbers, until the scaling is checked against
+  logged speed.
 
 **Trip PKE:**
 - **From the counters:** (lifetime PKE × lifetime distance after − the same before) ÷ trip distance. The lifetime value
