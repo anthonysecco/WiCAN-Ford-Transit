@@ -1,6 +1,6 @@
 # Ford Transit profile update (draft, not submitted)
 
-Built 2026-10-27 from the branch profile by make_pr_profile.ps1. 80 PIDs, 85 parameters (31 existing catalogue names, 54 new).
+Built 2026-11-01 from the branch profile by make_pr_profile.ps1. 100 PIDs, 125 parameters (31 existing catalogue names, 94 new).
 
 | DID | Parameter | New? | Expression | Unit | On this van | Current transit.json |
 |---|---|---|---|---|---|---|
@@ -17,12 +17,23 @@ Built 2026-10-27 from the branch profile by make_pr_profile.ps1. 80 PIDs, 85 par
 | 726:402B | `LV_A` |  | `(B4)-127` | A | -5 |  |
 | 726:40B5 | `IGNITION_POS` | new | `B4` |  | 3 |  |
 | 726:40C8 | `REVERSE_LAMPS` | new | `B4:0` |  | 0 |  |
+| 726:40D6 | `IGNITION_KEY_SWITCH` | new | `B4:0` |  | 1 |  |
 | 726:40E0 | `LAMP_RR_OUTPUT` | new | `B4` |  | 2 |  |
 | 726:40E2 | `LAMP_RL_OUTPUT` | new | `B4` |  | 2 |  |
-| 726:41B9 | `START_STOP_STATE` | new | `B4` |  | 146 |  |
+| 726:40E7 | `LEFT_LOW_BEAM` | new | `B4:0` |  | 0 |  |
+| 726:40E9 | `AMBIENT_LIGHT_LEVEL` | new | `B4` |  | 4 |  |
+| 726:41B9 | `ENGINE_RUNNING` | new | `B4:7` |  | 1 |  |
 | 726:41D2 | `HORN` | new | `B4` |  | 0 |  |
+| 726:41EF | `REAR_PARK_LAMPS` | new | `B4:0` |  | 0 |  |
+| 726:41F7 | `CRASH_EVENT_DETECTION` | new | `B4` |  | 3 |  |
+| 726:420B | `LOW_VOLTAGE_SYSTEM_FAULT` | new | `B4:0` |  | 0 |  |
+| 726:4251 | `LAST_REMOTE_KEY_REQUEST` | new | `B4` |  | 2 |  |
+| 726:429F | `HEADLAMP_SWITCH_POSITION` | new | `B4` |  | 0 |  |
+| 726:42AC | `CABIN_LAMP` | new | `B4:0` |  | 0 |  |
+| 726:42AD | `CARGO_LAMP` | new | `B4:0` |  | 1 |  |
 | 726:D137 | `BCM_DTC_COUNT` | new | `B4` |  | 1 |  |
 | 726:203E | `TPMS_MOVED` | new | `B4` |  | 0 |  |
+| 726:2806 | `TPMS_WARNING_LAMP` | new | `B4` |  | 0 |  |
 | 726:280B | `TPMS_TYRE_T` | new | `(B10)-40` | °C | 19 |  |
 | 726:2813 | `TYRE_P_FL` |  | `[B4:B5]*0.04911541` | psi | 54.076 | `222813 [B4:B5]/10` |
 | 726:2814 | `TYRE_P_FR` |  | `[B4:B5]*0.04911541` | psi | 53.094 | `222814 [B4:B5]/10` |
@@ -32,12 +43,11 @@ Built 2026-10-27 from the branch profile by make_pr_profile.ps1. 80 PIDs, 85 par
 | 726:2818 | `TYRE_P_RLI` | new | `[B4:B5]*0.04911541` | psi | 147.346 |  |
 | 726:2827 | `TYRE_P_PLACARD_F` | new | `B4` | psi | 57 |  |
 | 726:2828 | `TYRE_P_PLACARD_R` | new | `B4` | psi | 75 |  |
-| 726:2B00 | `PARK_BRAKE` |  | `B4:6` | none | 0 | `222B00 B4` |
 | 726:5B1D | `DOOR_FL` | new | `B4:0` |  | 0 |  |
 | 726:5B1D | `DOOR_FR` | new | `B4:1` |  | 0 |  |
-| 726:5B1D | `DOOR_RL` | new | `B4:3` |  | 0 |  |
-| 726:5B1D | `DOOR_RR` | new | `B4:4` |  | 0 |  |
-| 726:5B1D | `DOOR_CARGO` | new | `B4:5` |  | 0 |  |
+| 726:5B1D | `DOOR_SLIDING` | new | `B4:3` |  | 0 |  |
+| 726:5B1D | `DOOR_CARGO` | new | `B4:4` |  | 0 |  |
+| 726:5B1D | `DOOR_BIT5` | new | `B4:5` |  | 0 |  |
 | 726:5B1D | `HOOD` | new | `B4:2` |  | 0 |  |
 | 7E0:F403 | `FUEL_SYS_STAT` |  | `B4` |  | 0 | `22F403 B4` |
 | 7E0:F404 | `ENGINE_LOAD` | new | `B4*100/255` | % | 0 |  |
@@ -72,6 +82,7 @@ Built 2026-10-27 from the branch profile by make_pr_profile.ps1. 80 PIDs, 85 par
 | 7E0:03CA | `INTAKE_AIR_TEMP_2` |  | `B4-40` | °C | 23 | `2203CA B4-40` |
 | 7E0:03DC | `FUEL_PRESSURE_D` |  | `[B4:B5]*10` | kPa | 130 | `2203DC [B4:B5]` |
 | 7E0:03E8 | `OCTANE_RATIO_L` |  | `[B4:B5]/16384` | % | 0.133 | `2203E8 [B4:B5]/16384` |
+| 7E0:0416 | `LOW_OIL_PRESSURE_SWITCH` | new | `B6:1` |  | 1 |  |
 | 7E0:0427 | `BYPASS_VALVE` | new | `B4/255` |  | 0 |  |
 | 7E0:0462 | `WASTEGATE` |  | `B4*100/128` | % | 0 | `220462 B4*100/128` |
 | 7E0:0466 | `THROTTLE_INLET_P_D` | new | `[B4:B5]*0.00762854` | kPa | 99.125 |  |
@@ -79,8 +90,11 @@ Built 2026-10-27 from the branch profile by make_pr_profile.ps1. 80 PIDs, 85 par
 | 7E0:0598 | `ALT_DUTY` |  | `B4` | % | 0 | `220598 B4` |
 | 7E0:0604 | `AC_REFRIGERANT_P` | new | `[S4:S5]` | kPa | 548 |  |
 | 7E0:0651 | `DRIVE_MODE` |  | `B4` |  | 0 | `220651 B4` |
-| 7E0:099B | `AC_COMP` |  | `B4` |  | 0 | `22099B B4` |
+| 7E0:071A | `PARK_BRAKE` |  | `1-B4:1` | none | 1 | `222B00 B4` |
+| 7E0:099B | `AC_COMP` |  | `B4:0` |  | 0 | `22099B B4` |
 | 7E0:1505 | `SPEED` |  | `[B4:B5]*0.0078125` | km/h | 0 |  |
+| 7E0:1816 | `OUTPUT_SHAFT_SPEED` | new | `[S4:S5]` | 1/min | 0 |  |
+| 7E0:1817 | `TURBINE_SHAFT_SPEED` | new | `[B4:B5]` | 1/min | 617 |  |
 | 7E0:1E12 | `GEAR` |  | `B4` | none | 70 | `221E12 B4` |
 | 7E0:1E15 | `TCC_RATIO` | new | `[B4:B5]*0.000244140625` |  | 0.997 |  |
 | 7E0:1E1A | `TRANS_LINE_P_D` | new | `[B4:B5]*2` | kPa | 410 |  |
@@ -89,5 +103,31 @@ Built 2026-10-27 from the branch profile by make_pr_profile.ps1. 80 PIDs, 85 par
 | 7E0:1E23 | `GEAR_SELECTOR` | new | `B4` |  | 100 |  |
 | 7E0:1E8F | `TRANS_PARK` | new | `B4:2` |  | 0 |  |
 | 7E0:3B40 | `BRAKE_PEDAL` | new | `B4:1` |  | 0 |  |
+| 7E0:16 | `IGN_CYCLES_RECENT` | new | `([B5:B7]*256+B9)` |  |  |  |
+| 7E0:16 | `IGN_CYCLES_LIFETIME` | new | `[B10:B13]` |  |  |  |
+| 7E0:16 | `FUELED_CYCLES_RECENT` | new | `([B14:B15]*65536+[B17:B18])` |  |  |  |
+| 7E0:16 | `FUELED_CYCLES_LIFETIME` | new | `[B19:B22]` |  |  |  |
+| 7E0:16 | `ENG_RUN_TIME_RECENT` | new | `(B23*16777216+[B25:B27])` | s |  |  |
+| 7E0:16 | `ENG_RUN_TIME_LIFETIME` | new | `[B28:B31]` | s |  |  |
+| 7E0:16 | `IDLE_TIME_RECENT` | new | `[B33:B36]` | s |  |  |
+| 7E0:16 | `IDLE_TIME_LIFETIME` | new | `([B37:B39]*256+B41)` | s |  |  |
+| 7E0:17 | `DIST_RECENT` | new | `([B5:B7]*256+B9)*0.1` | km |  |  |
+| 7E0:17 | `DIST_LIFETIME` | new | `[B10:B13]*0.1` | km |  |  |
+| 7E0:17 | `FUEL_USED_RECENT` | new | `([B14:B15]*65536+[B17:B18])*0.01` | L |  |  |
+| 7E0:17 | `FUEL_USED_LIFETIME` | new | `[B19:B22]*0.01` | L |  |  |
+| 7E0:18 | `PKE_RECENT` | new | `([B5:B7]*256+B9)` | km/h² |  |  |
+| 7E0:18 | `PKE_LIFETIME` | new | `[B10:B13]` | km/h² |  |  |
+| 7E0:18 | `ENG_ENERGY_RECENT` | new | `([B14:B15]*65536+[B17:B18])*0.1` | kWh |  |  |
+| 7E0:18 | `ENG_ENERGY_LIFETIME` | new | `[B19:B22]*0.1` | kWh |  |  |
+| 7E0:19 | `PROP_TIME_RECENT` | new | `([B5:B7]*256+B9)` | s |  |  |
+| 7E0:19 | `PROP_TIME_LIFETIME` | new | `[B10:B13]` | s |  |  |
+| 7E0:19 | `PROP_IDLE_RECENT` | new | `([B14:B15]*65536+[B17:B18])` | s |  |  |
+| 7E0:19 | `PROP_IDLE_LIFETIME` | new | `[B19:B22]` | s |  |  |
+| 7E0:19 | `PROP_CITY_RECENT` | new | `(B23*16777216+[B25:B27])` | s |  |  |
+| 7E0:19 | `PROP_CITY_LIFETIME` | new | `[B28:B31]` | s |  |  |
+| 7E0:22 | `STOP_START_RECENT` | new | `([B5:B7]*256+B9)` | s |  |  |
+| 7E0:22 | `STOP_START_LIFETIME` | new | `[B10:B13]` | s |  |  |
+| 7E0:24 | `TRANS_WARMUP_RECENT` | new | `([B14:B15]*65536+[B17:B18])` | s |  |  |
+| 7E0:24 | `TRANS_WARMUP_LIFETIME` | new | `[B19:B22]` | s |  |  |
 
 Removed from the current transit.json: `SOC` (224028 B4), `HV_V` (22402A ([B4:B5]/256)/10), `HV_A` (22402B ([B4:B5]-32768)/256)

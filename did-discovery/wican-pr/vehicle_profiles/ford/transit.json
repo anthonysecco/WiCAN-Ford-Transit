@@ -95,6 +95,13 @@
       }
     },
     {
+      "pid": "2240D6",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "IGNITION_KEY_SWITCH": "B4:0"
+      }
+    },
+    {
       "pid": "2240E0",
       "pid_init": "ATSH726;STCAFCP726,72E;",
       "parameters": {
@@ -109,10 +116,24 @@
       }
     },
     {
+      "pid": "2240E7",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "LEFT_LOW_BEAM": "B4:0"
+      }
+    },
+    {
+      "pid": "2240E9",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "AMBIENT_LIGHT_LEVEL": "B4"
+      }
+    },
+    {
       "pid": "2241B9",
       "pid_init": "ATSH726;STCAFCP726,72E;",
       "parameters": {
-        "START_STOP_STATE": "B4"
+        "ENGINE_RUNNING": "B4:7"
       }
     },
     {
@@ -120,6 +141,55 @@
       "pid_init": "ATSH726;STCAFCP726,72E;",
       "parameters": {
         "HORN": "B4"
+      }
+    },
+    {
+      "pid": "2241EF",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "REAR_PARK_LAMPS": "B4:0"
+      }
+    },
+    {
+      "pid": "2241F7",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "CRASH_EVENT_DETECTION": "B4"
+      }
+    },
+    {
+      "pid": "22420B",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "LOW_VOLTAGE_SYSTEM_FAULT": "B4:0"
+      }
+    },
+    {
+      "pid": "224251",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "LAST_REMOTE_KEY_REQUEST": "B4"
+      }
+    },
+    {
+      "pid": "22429F",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "HEADLAMP_SWITCH_POSITION": "B4"
+      }
+    },
+    {
+      "pid": "2242AC",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "CABIN_LAMP": "B4:0"
+      }
+    },
+    {
+      "pid": "2242AD",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "CARGO_LAMP": "B4:0"
       }
     },
     {
@@ -134,6 +204,13 @@
       "pid_init": "ATSH726;STCAFCP726,72E;",
       "parameters": {
         "TPMS_MOVED": "B4"
+      }
+    },
+    {
+      "pid": "222806",
+      "pid_init": "ATSH726;STCAFCP726,72E;",
+      "parameters": {
+        "TPMS_WARNING_LAMP": "B4"
       }
     },
     {
@@ -200,21 +277,14 @@
       }
     },
     {
-      "pid": "222B00",
-      "pid_init": "ATSH726;STCAFCP726,72E;",
-      "parameters": {
-        "PARK_BRAKE": "B4:6"
-      }
-    },
-    {
       "pid": "225B1D",
       "pid_init": "ATSH726;STCAFCP726,72E;",
       "parameters": {
         "DOOR_FL": "B4:0",
         "DOOR_FR": "B4:1",
-        "DOOR_RL": "B4:3",
-        "DOOR_RR": "B4:4",
-        "DOOR_CARGO": "B4:5",
+        "DOOR_SLIDING": "B4:3",
+        "DOOR_CARGO": "B4:4",
+        "DOOR_BIT5": "B4:5",
         "HOOD": "B4:2"
       }
     },
@@ -450,6 +520,13 @@
       }
     },
     {
+      "pid": "220416",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "LOW_OIL_PRESSURE_SWITCH": "B6:1"
+      }
+    },
+    {
       "pid": "220427",
       "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": {
@@ -499,10 +576,17 @@
       }
     },
     {
+      "pid": "22071A",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "PARK_BRAKE": "1-B4:1"
+      }
+    },
+    {
       "pid": "22099B",
       "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": {
-        "AC_COMP": "B4"
+        "AC_COMP": "B4:0"
       }
     },
     {
@@ -510,6 +594,20 @@
       "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": {
         "SPEED": "[B4:B5]*0.0078125"
+      }
+    },
+    {
+      "pid": "221816",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "OUTPUT_SHAFT_SPEED": "[S4:S5]"
+      }
+    },
+    {
+      "pid": "221817",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "TURBINE_SHAFT_SPEED": "[B4:B5]"
       }
     },
     {
@@ -566,6 +664,68 @@
       "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
       "parameters": {
         "BRAKE_PEDAL": "B4:1"
+      }
+    },
+    {
+      "pid": "0916",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "IGN_CYCLES_RECENT": "([B5:B7]*256+B9)",
+        "IGN_CYCLES_LIFETIME": "[B10:B13]",
+        "FUELED_CYCLES_RECENT": "([B14:B15]*65536+[B17:B18])",
+        "FUELED_CYCLES_LIFETIME": "[B19:B22]",
+        "ENG_RUN_TIME_RECENT": "(B23*16777216+[B25:B27])",
+        "ENG_RUN_TIME_LIFETIME": "[B28:B31]",
+        "IDLE_TIME_RECENT": "[B33:B36]",
+        "IDLE_TIME_LIFETIME": "([B37:B39]*256+B41)"
+      }
+    },
+    {
+      "pid": "0917",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "DIST_RECENT": "([B5:B7]*256+B9)*0.1",
+        "DIST_LIFETIME": "[B10:B13]*0.1",
+        "FUEL_USED_RECENT": "([B14:B15]*65536+[B17:B18])*0.01",
+        "FUEL_USED_LIFETIME": "[B19:B22]*0.01"
+      }
+    },
+    {
+      "pid": "0918",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "PKE_RECENT": "([B5:B7]*256+B9)",
+        "PKE_LIFETIME": "[B10:B13]",
+        "ENG_ENERGY_RECENT": "([B14:B15]*65536+[B17:B18])*0.1",
+        "ENG_ENERGY_LIFETIME": "[B19:B22]*0.1"
+      }
+    },
+    {
+      "pid": "0919",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "PROP_TIME_RECENT": "([B5:B7]*256+B9)",
+        "PROP_TIME_LIFETIME": "[B10:B13]",
+        "PROP_IDLE_RECENT": "([B14:B15]*65536+[B17:B18])",
+        "PROP_IDLE_LIFETIME": "[B19:B22]",
+        "PROP_CITY_RECENT": "(B23*16777216+[B25:B27])",
+        "PROP_CITY_LIFETIME": "[B28:B31]"
+      }
+    },
+    {
+      "pid": "0922",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "STOP_START_RECENT": "([B5:B7]*256+B9)",
+        "STOP_START_LIFETIME": "[B10:B13]"
+      }
+    },
+    {
+      "pid": "0924",
+      "pid_init": "ATSH7E0;STCAFCP7E0,7E8;",
+      "parameters": {
+        "TRANS_WARMUP_RECENT": "([B14:B15]*65536+[B17:B18])",
+        "TRANS_WARMUP_LIFETIME": "[B19:B22]"
       }
     }
   ]

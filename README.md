@@ -119,7 +119,7 @@ The entity list above is rather long.  I've ranked the entities based on my own 
 | D     | Diagnostic |
 
 ### More PID Information
-For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md). 
+For more details on the source, visit [PID List](https://github.com/anthonysecco/WiCAN-Ford-Transit/blob/main/PIDs.md).
 
 ## 🤖 Installation
 The [WiCAN](https://github.com/meatpiHQ/wican-fw) device reads CAN bus data and publishes it to your MQTT broker. From there, Home Assistant subscribes to the data stream using YAML configuration files.

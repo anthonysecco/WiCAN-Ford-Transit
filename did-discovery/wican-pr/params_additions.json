@@ -77,6 +77,14 @@
       "type": "binary_sensor"
     }
   },
+  "IGNITION_KEY_SWITCH": {
+    "description": "Ignition key switch",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
   "LAMP_RR_OUTPUT": {
     "description": "Right rear stop/turn lamp output (1 on, 2 off, 3 flashing)",
     "settings": {
@@ -91,8 +99,23 @@
       "class": "none"
     }
   },
-  "START_STOP_STATE": {
-    "description": "Engine start/run state bit field (auto start-stop)",
+  "LEFT_LOW_BEAM": {
+    "description": "Left low beam",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "AMBIENT_LIGHT_LEVEL": {
+    "description": "Ambient light level",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "ENGINE_RUNNING": {
+    "description": "Engine running",
     "settings": {
       "unit": "",
       "class": "none"
@@ -100,6 +123,59 @@
   },
   "HORN": {
     "description": "Horn switch",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "REAR_PARK_LAMPS": {
+    "description": "Rear park lamps",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "CRASH_EVENT_DETECTION": {
+    "description": "Crash event detection",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "LOW_VOLTAGE_SYSTEM_FAULT": {
+    "description": "Low-voltage system fault and load shed",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "LAST_REMOTE_KEY_REQUEST": {
+    "description": "Last remote key request",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "HEADLAMP_SWITCH_POSITION": {
+    "description": "Headlamp switch position",
+    "settings": {
+      "unit": "",
+      "class": "none"
+    }
+  },
+  "CABIN_LAMP": {
+    "description": "Cabin lamp",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
+  "CARGO_LAMP": {
+    "description": "Cargo lamp",
     "settings": {
       "unit": "",
       "class": "none",
@@ -120,6 +196,13 @@
       "unit": "",
       "class": "none",
       "type": "binary_sensor"
+    }
+  },
+  "TPMS_WARNING_LAMP": {
+    "description": "TPMS warning lamp",
+    "settings": {
+      "unit": "",
+      "class": "none"
     }
   },
   "TPMS_TYRE_T": {
@@ -177,16 +260,8 @@
       "type": "binary_sensor"
     }
   },
-  "DOOR_RL": {
-    "description": "Left rear / sliding door open",
-    "settings": {
-      "unit": "",
-      "class": "door",
-      "type": "binary_sensor"
-    }
-  },
-  "DOOR_RR": {
-    "description": "Right rear / sliding door open",
+  "DOOR_SLIDING": {
+    "description": "Sliding side door open",
     "settings": {
       "unit": "",
       "class": "door",
@@ -194,7 +269,15 @@
     }
   },
   "DOOR_CARGO": {
-    "description": "Rear cargo door open",
+    "description": "Rear cargo doors open",
+    "settings": {
+      "unit": "",
+      "class": "door",
+      "type": "binary_sensor"
+    }
+  },
+  "DOOR_BIT5": {
+    "description": "Door switch bit 5 (not yet identified)",
     "settings": {
       "unit": "",
       "class": "door",
@@ -342,6 +425,14 @@
       "class": "pressure"
     }
   },
+  "LOW_OIL_PRESSURE_SWITCH": {
+    "description": "Low oil pressure switch",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "type": "binary_sensor"
+    }
+  },
   "BYPASS_VALVE": {
     "description": "Bypass valve",
     "settings": {
@@ -361,6 +452,20 @@
     "settings": {
       "unit": "kPa",
       "class": "pressure"
+    }
+  },
+  "OUTPUT_SHAFT_SPEED": {
+    "description": "Output shaft speed",
+    "settings": {
+      "unit": "1/min",
+      "class": "none"
+    }
+  },
+  "TURBINE_SHAFT_SPEED": {
+    "description": "Turbine shaft speed",
+    "settings": {
+      "unit": "1/min",
+      "class": "none"
     }
   },
   "TCC_RATIO": {
@@ -405,6 +510,214 @@
       "unit": "",
       "class": "none",
       "type": "binary_sensor"
+    }
+  },
+  "IGN_CYCLES_RECENT": {
+    "description": "Ignition Cycles Recent",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "IGN_CYCLES_LIFETIME": {
+    "description": "Ignition Cycles Lifetime",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "FUELED_CYCLES_RECENT": {
+    "description": "Fueled Cycles Recent",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "FUELED_CYCLES_LIFETIME": {
+    "description": "Fueled Cycles Lifetime",
+    "settings": {
+      "unit": "",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "ENG_RUN_TIME_RECENT": {
+    "description": "Engine Run Time Recent",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "ENG_RUN_TIME_LIFETIME": {
+    "description": "Engine Run Time Lifetime",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "IDLE_TIME_RECENT": {
+    "description": "Idle Run Time Recent",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "IDLE_TIME_LIFETIME": {
+    "description": "Idle Run Time Lifetime",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "DIST_RECENT": {
+    "description": "Distance Recent",
+    "settings": {
+      "unit": "km",
+      "class": "distance",
+      "min": "0"
+    }
+  },
+  "DIST_LIFETIME": {
+    "description": "Distance Lifetime",
+    "settings": {
+      "unit": "km",
+      "class": "distance",
+      "min": "0"
+    }
+  },
+  "FUEL_USED_RECENT": {
+    "description": "Fuel Used Recent",
+    "settings": {
+      "unit": "L",
+      "class": "volume",
+      "min": "0"
+    }
+  },
+  "FUEL_USED_LIFETIME": {
+    "description": "Fuel Used Lifetime",
+    "settings": {
+      "unit": "L",
+      "class": "volume",
+      "min": "0"
+    }
+  },
+  "PKE_RECENT": {
+    "description": "Pke Recent",
+    "settings": {
+      "unit": "km/h²",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "PKE_LIFETIME": {
+    "description": "Pke Lifetime",
+    "settings": {
+      "unit": "km/h²",
+      "class": "none",
+      "min": "0"
+    }
+  },
+  "ENG_ENERGY_RECENT": {
+    "description": "Engine Energy Recent",
+    "settings": {
+      "unit": "kWh",
+      "class": "energy",
+      "min": "0"
+    }
+  },
+  "ENG_ENERGY_LIFETIME": {
+    "description": "Engine Energy Lifetime",
+    "settings": {
+      "unit": "kWh",
+      "class": "energy",
+      "min": "0"
+    }
+  },
+  "PROP_TIME_RECENT": {
+    "description": "Propulsion Time Recent",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "PROP_TIME_LIFETIME": {
+    "description": "Propulsion Time Lifetime",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "PROP_IDLE_RECENT": {
+    "description": "Propulsion Idle Recent",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "PROP_IDLE_LIFETIME": {
+    "description": "Propulsion Idle Lifetime",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "PROP_CITY_RECENT": {
+    "description": "Propulsion City Recent",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "PROP_CITY_LIFETIME": {
+    "description": "Propulsion City Lifetime",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "STOP_START_RECENT": {
+    "description": "Stop Start Time Recent",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "STOP_START_LIFETIME": {
+    "description": "Stop Start Time Lifetime",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "TRANS_WARMUP_RECENT": {
+    "description": "Trans Warmup Recent",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
+    }
+  },
+  "TRANS_WARMUP_LIFETIME": {
+    "description": "Trans Warmup Lifetime",
+    "settings": {
+      "unit": "s",
+      "class": "duration",
+      "min": "0"
     }
   }
 }
