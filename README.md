@@ -210,6 +210,7 @@ The following are entities I would like to add.
 | **Traction Contrl Intervention** | % how much TSC is engaged                       |
 | **All-Wheel Drive Engagement  ** | % torque split between front and rear           |
 | **All-Wheel Drive Clutch Temp  ** | C monitor to prevent overheating               |
+| **Fuel Economy Coaching**        | Acceleration coaching and an MPG-vs-MPH curve; see [fuel-economy.md](fuel-economy.md) |
 
 If you have requests, please create an _issue_.  It's been said that I can be bribed with coffee. 😊
 
